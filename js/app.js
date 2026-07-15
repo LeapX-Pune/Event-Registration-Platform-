@@ -1,3 +1,44 @@
+const Theme = {
+  storageKey: "eventhub-theme",
+
+  getStoredTheme() {
+    return localStorage.getItem(this.storageKey);
+  },
+
+  apply(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const toggle = document.querySelector("[data-theme-toggle]");
+
+    if (toggle) {
+      const isDark = theme === "dark";
+      toggle.classList.toggle("is-active", isDark);
+      toggle.setAttribute("aria-pressed", String(isDark));
+      toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    }
+  },
+
+  bind() {
+    const toggle = document.querySelector("[data-theme-toggle]");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      localStorage.setItem(this.storageKey, nextTheme);
+      this.apply(nextTheme);
+    });
+  },
+
+  init() {
+    const savedTheme = this.getStoredTheme();
+    const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const activeTheme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : preferredTheme;
+
+    this.apply(activeTheme);
+    this.bind();
+  }
+};
+
 const App = {
   init() {
     Storage.init();
@@ -14,6 +55,8 @@ const App = {
     } else {
       Homepage.render();
     }
+
+    Theme.init();
   },
 
   viewDetails(id) {
