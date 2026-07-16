@@ -1,0 +1,324 @@
+/* =====================================================
+   EventPulse - Categories Page Stylesheets
+   Ye CSS file categories grid, search bars, overlays, and animations manage karti hai
+   ===================================================== */
+
+/* ----- Categories Hero Layout with Floating Blobs ----- */
+.cat-hero {
+  min-height: 440px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 24px;
+  background: linear-gradient(135deg, rgba(157, 78, 221, 0.15) 0%, #10131a 50%, rgba(69, 240, 244, 0.08) 100%);
+  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+}
+
+/* Floating background glow blobs */
+.cat-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  z-index: 1;
+}
+
+.blob1 {
+  width: 300px;
+  height: 300px;
+  background: var(--primary);
+  top: -100px;
+  left: 10%;
+  animation: floatAnim 10s ease-in-out infinite alternate;
+}
+
+.blob2 {
+  width: 250px;
+  height: 250px;
+  background: var(--secondary);
+  bottom: -50px;
+  right: 15%;
+  animation: floatAnim 8s ease-in-out infinite alternate-reverse;
+}
+
+.blob3 {
+  width: 200px;
+  height: 200px;
+  background: var(--tertiary);
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: floatAnim 12s ease-in-out infinite alternate;
+}
+
+@keyframes floatAnim {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-25px) scale(1.1) rotate(15deg);
+  }
+}
+
+/* ----- Category Search Bar ----- */
+.cat-search-bar {
+  max-width: 540px;
+  margin: 32px auto 0;
+  background: rgba(29, 32, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(77, 67, 83, 0.4);
+  border-radius: var(--radius-full);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+  position: relative;
+}
+
+.cat-search-bar:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(224, 182, 255, 0.2), 0 10px 30px rgba(157, 78, 221, 0.15);
+  background: var(--surface-container);
+}
+
+.cat-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.cat-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ----- Categories Grid & Cards ----- */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Category Card Base */
+.cat-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  min-height: 240px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.cat-card-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.cat-card-icon {
+  font-size: 40px;
+  color: #fff;
+  opacity: 0.95;
+  background: rgba(255, 255, 255, 0.15);
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cat-card-title {
+  font-family: var(--font-sora);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.cat-card-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.cat-card-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Card Glows on Hover based on category theme */
+.cat-card:hover {
+  transform: translateY(-8px);
+}
+
+.cat-card.music:hover {
+  box-shadow: 0 16px 40px rgba(157, 78, 221, 0.45);
+}
+
+.cat-card.tech:hover {
+  box-shadow: 0 16px 40px rgba(14, 165, 233, 0.45);
+}
+
+.cat-card.sports:hover {
+  box-shadow: 0 16px 40px rgba(22, 163, 74, 0.45);
+}
+
+.cat-card.workshops:hover {
+  box-shadow: 0 16px 40px rgba(217, 119, 6, 0.45);
+}
+
+.cat-card.festivals:hover {
+  box-shadow: 0 16px 40px rgba(220, 38, 38, 0.45);
+}
+
+.cat-card.business:hover {
+  box-shadow: 0 16px 40px rgba(37, 99, 118, 0.45);
+}
+
+.cat-card.education:hover {
+  box-shadow: 0 16px 40px rgba(5, 150, 105, 0.45);
+}
+
+.cat-card.entertainment:hover {
+  box-shadow: 0 16px 40px rgba(124, 58, 237, 0.45);
+}
+
+/* Scroll reveal items initial styling */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----- Trending Events Row Lists ----- */
+.cat-trending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cat-trending-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(25, 28, 34, 0.5);
+  border: 1px solid rgba(77, 67, 83, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 20px 28px;
+  transition: all 0.25s;
+}
+
+.cat-trending-row:hover {
+  background: rgba(39, 42, 49, 0.6);
+  border-color: rgba(224, 182, 255, 0.25);
+  transform: translateX(4px);
+}
+
+.cat-rank {
+  font-family: var(--font-sora);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--primary);
+  opacity: 0.8;
+  min-width: 40px;
+}
+
+/* ----- Newsletter Subscription Box ----- */
+.cat-newsletter {
+  padding: 80px 0;
+  background: var(--surface-container-lowest);
+  border-top: 1px solid rgba(77, 67, 83, 0.2);
+  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+}
+
+.cat-email-row {
+  display: flex;
+  gap: 16px;
+  max-width: 520px;
+  margin: 32px auto 0;
+}
+
+@media (max-width: 576px) {
+  .cat-email-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Categories Toast Feedback styling */
+.cat-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 150;
+  background: var(--surface-container-highest);
+  border: 1px solid rgba(224, 182, 255, 0.2);
+  color: var(--on-surface);
+  padding: 14px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.cat-toast.active {
+  transform: translateY(0);
+  opacity: 1;
+}

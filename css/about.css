@@ -1,0 +1,381 @@
+/* =====================================================
+   EventPulse - About Page Stylesheets
+   Ye CSS file about us page ke graphics, layouts, timelines aur cards animations ko handle karti hai
+   ===================================================== */
+
+/* ----- About Hero Layout & Floating blobs ----- */
+.about-hero {
+  min-height: 480px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 24px;
+  background: radial-gradient(ellipse at 30% 50%, rgba(157, 78, 221, 0.2) 0%, #10131a 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(69, 240, 244, 0.08) 0%, transparent 50%);
+  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+}
+
+.about-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  z-index: 1;
+}
+
+.ablob1 {
+  width: 320px;
+  height: 320px;
+  background: var(--primary);
+  top: -120px;
+  left: 15%;
+  animation: floatBlobs 8s ease-in-out infinite alternate;
+}
+
+.ablob2 {
+  width: 260px;
+  height: 260px;
+  background: var(--secondary);
+  bottom: -60px;
+  right: 10%;
+  animation: floatBlobs 6s ease-in-out infinite alternate-reverse;
+}
+
+.ablob3 {
+  width: 180px;
+  height: 180px;
+  background: var(--tertiary);
+  top: 40%;
+  left: 60%;
+  animation: floatBlobs 10s ease-in-out infinite alternate;
+}
+
+@keyframes floatBlobs {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-30px) rotate(12deg);
+  }
+}
+
+/* ----- Mission Section Layout ----- */
+.about-mission-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .about-mission-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.about-mission-img-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.about-mission-img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-img-glow {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 24px rgba(157, 78, 221, 0.4);
+  z-index: 2;
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+}
+
+/* ----- Feature Grid ----- */
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .about-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .about-features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.about-feature-card {
+  background: rgba(29, 32, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(224, 182, 255, 0.2);
+  box-shadow: 0 16px 40px rgba(157, 78, 221, 0.15);
+}
+
+.about-feature-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(224, 182, 255, 0.12);
+  color: var(--primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.about-feature-icon .material-symbols-outlined {
+  font-size: 24px;
+}
+
+/* ----- Statistics Display Banner ----- */
+.about-stats {
+  padding: 60px 0;
+  background: var(--surface-container-lowest);
+  border-top: 1px solid rgba(77, 67, 83, 0.2);
+  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+}
+
+.about-stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .about-stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+.about-stat-number {
+  font-family: var(--font-sora);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  display: block;
+}
+
+.about-stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--outline);
+  margin-top: 8px;
+}
+
+/* ----- Team Grid & Cards ----- */
+.about-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .about-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-team-card {
+  background: rgba(29, 32, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(157, 78, 221, 0.2);
+}
+
+.about-team-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(224, 182, 255, 0.2);
+  margin-bottom: 16px;
+  transition: border-color 0.3s;
+}
+
+.about-team-card:hover .about-team-avatar {
+  border-color: var(--primary);
+}
+
+.about-team-social {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(77, 67, 83, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--outline);
+  transition: all 0.2s;
+}
+
+.about-team-social:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(157, 78, 221, 0.1);
+}
+
+/* ----- Timeline Journey ----- */
+.about-timeline {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.about-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%);
+  transform: translateX(-50%);
+}
+
+.about-timeline-item {
+  display: flex;
+  width: 100%;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.about-timeline-item.left {
+  justify-content: flex-start;
+}
+
+.about-timeline-item.right {
+  justify-content: flex-end;
+}
+
+.about-timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px var(--primary);
+  z-index: 2;
+}
+
+.about-timeline-card {
+  width: 45%;
+  background: rgba(29, 32, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 640px) {
+  .about-timeline::before {
+    left: 20px;
+  }
+  .about-timeline-dot {
+    left: 20px;
+  }
+  .about-timeline-item {
+    justify-content: flex-end;
+  }
+  .about-timeline-card {
+    width: calc(100% - 48px);
+  }
+}
+
+/* ----- Contact CTA section ----- */
+.about-cta {
+  padding: 80px 0;
+  background: var(--surface-container-lowest);
+  border-top: 1px solid rgba(77, 67, 83, 0.2);
+}
+
+/* ----- Toast feedback alert ----- */
+.about-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 150;
+  background: var(--surface-container-highest);
+  border: 1px solid rgba(224, 182, 255, 0.2);
+  color: var(--on-surface);
+  padding: 14px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.about-toast.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ----- Scroll Reveal utility ----- */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

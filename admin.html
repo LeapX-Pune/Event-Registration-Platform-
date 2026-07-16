@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — EventPulse</title>
+  <meta name="description" content="Management portal and dashboard for EventPulse administrators.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="adm-body">
+
+  <!-- Mobile Sidebar backdrop overlay -->
+  <div class="adm-overlay" id="admOverlay" onclick="admToggleSidebar()"></div>
+
+  <!-- Left Sidebar Navigation Panel -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar-inner">
+      <div class="adm-sidebar-logo">
+        <a href="index.html" class="adm-logo">Event<span>Pulse</span></a>
+        <span class="adm-logo-tag">Admin Panel</span>
+      </div>
+      
+      <!-- Navigation Links -->
+      <nav class="adm-nav">
+        <a href="#" class="adm-nav-item active" onclick="admGoTo('dashboard', this)">
+          <span class="material-symbols-outlined">dashboard</span><span>Dashboard</span>
+        </a>
+        <a href="#" class="adm-nav-item" onclick="admGoTo('events', this)">
+          <span class="material-symbols-outlined">event</span><span>Events</span>
+        </a>
+        <a href="#" class="adm-nav-item" onclick="admGoTo('categories', this)">
+          <span class="material-symbols-outlined">category</span><span>Categories</span>
+        </a>
+        <a href="#" class="adm-nav-item" onclick="admGoTo('attendees', this)">
+          <span class="material-symbols-outlined">group</span><span>Attendees</span>
+        </a>
+        <a href="#" class="adm-nav-item" onclick="admGoTo('analytics', this)">
+          <span class="material-symbols-outlined">bar_chart</span><span>Analytics</span>
+        </a>
+        <a href="#" class="adm-nav-item" onclick="admGoTo('settings', this)">
+          <span class="material-symbols-outlined">settings</span><span>Settings</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar footer user profile and logout -->
+      <div class="adm-sidebar-footer">
+        <div class="adm-user-row">
+          <div class="adm-avatar">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          <div>
+            <p class="adm-user-name">Admin User</p>
+            <p class="adm-user-email">admin@eventpulse.io</p>
+          </div>
+        </div>
+        <a href="index.html" class="adm-nav-item adm-logout" style="margin: 8px 0 0 0;">
+          <span class="material-symbols-outlined">logout</span><span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Main Content Panel -->
+  <div class="adm-content" id="admContent">
+    
+    <!-- Top Bar with search, notifications and profiles dropdown -->
+    <header class="adm-topbar">
+      <div class="adm-topbar-left">
+        <button class="adm-menu-btn btn-icon" onclick="admToggleSidebar()" aria-label="Toggle sidebar">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="adm-search">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" placeholder="Search events, registrations, settings..." style="width:100%;background:none;border:none;color:var(--on-surface);font-size:14px;">
+        </div>
+      </div>
+      <div class="adm-topbar-right">
+        <!-- Live status counter -->
+        <div class="adm-status">
+          <div class="adm-status-dot"></div>
+          <span style="font-size:12px;color:var(--outline);font-family:var(--font-mono);text-transform:uppercase;">All Systems Live</span>
+        </div>
+        
+        <button class="btn-icon" style="position:relative;" onclick="triggerToast('You have 3 new alerts!', 'info')">
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="adm-notif-badge">3</span>
+        </button>
+
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
+        </button>
+
+        <div class="adm-profile-wrap" id="admProfileWrap">
+          <button class="adm-profile-btn" onclick="admToggleProfile()">
+            <div class="adm-avatar" style="width:28px;height:28px;font-size:14px;">A</div>
+            <span style="font-size:13px;font-weight:600;color:var(--on-surface);" class="desktop-only">Admin</span>
+            <span class="material-symbols-outlined" style="font-size:16px;" id="admProfileChevron">expand_more</span>
+          </button>
+          <!-- Profile Dropdown overlay -->
+          <div class="adm-dropdown" id="admDropdown">
+            <a href="#" class="adm-dropdown-item" onclick="admGoTo('settings')"><span class="material-symbols-outlined">person</span>Profile</a>
+            <a href="#" class="adm-dropdown-item" onclick="admGoTo('settings')"><span class="material-symbols-outlined">settings</span>Settings</a>
+            <div style="height:1px;background:rgba(77,67,83,0.2);margin:4px 0;"></div>
+            <a href="index.html" class="adm-dropdown-item danger"><span class="material-symbols-outlined">logout</span>Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Section container -->
+    <main class="adm-page-body">
+
+      <!-- Section 1: Dashboard Section (Default) -->
+      <section id="adm-sec-dashboard" class="adm-section active">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;color:var(--on-surface);margin-bottom:4px;">Dashboard</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">Welcome back, Admin. Here is what is happening today.</p>
+          </div>
+          <button class="btn btn-primary" onclick="admGoTo('events')">
+            <span class="material-symbols-outlined" style="font-size:18px;">add</span>Create Event
+          </button>
+        </div>
+
+        <!-- 4 Stats Counters Grid -->
+        <div class="adm-stats-grid">
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:rgba(224,182,255,0.12);color:var(--primary);">
+              <span class="material-symbols-outlined">event</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Total Events</p>
+              <h3 class="adm-stat-num">128</h3>
+              <p class="adm-stat-change up"><span class="material-symbols-outlined">trending_up</span>+12 this month</p>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:rgba(69,240,244,0.12);color:var(--secondary);">
+              <span class="material-symbols-outlined">confirmation_number</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Total Registrations</p>
+              <h3 class="adm-stat-num">14,280</h3>
+              <p class="adm-stat-change up"><span class="material-symbols-outlined">trending_up</span>+847 this week</p>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:rgba(171,214,0,0.12);color:var(--tertiary);">
+              <span class="material-symbols-outlined">upcoming</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Upcoming Events</p>
+              <h3 class="adm-stat-num">34</h3>
+              <p class="adm-stat-change"><span class="material-symbols-outlined">schedule</span>Next: Aug 14</p>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:rgba(255,180,171,0.12);color:var(--error);">
+              <span class="material-symbols-outlined">category</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Categories</p>
+              <h3 class="adm-stat-num">8</h3>
+              <p class="adm-stat-change">All Categories Active</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Events Table Panel -->
+        <div class="adm-table-panel">
+          <div class="adm-panel-header">
+            <h2 class="headline-md" style="font-size:18px;font-weight:700;">Recent Events</h2>
+            <button class="btn btn-outline" style="padding:6px 16px;font-size:11px;" onclick="admGoTo('events')">View All</button>
+          </div>
+          <div class="adm-table-wrap">
+            <table style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Event Name</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Venue</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--on-surface);">Starlight Symphony</td>
+                  <td><span class="tag tag-primary" style="font-size:10px;padding:2px 8px;">Music</span></td>
+                  <td style="font-family:var(--font-mono);font-size:13px;">Aug 14, 2026</td>
+                  <td>Madison Square Garden, NY</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Starlight Symphony clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('Starlight Symphony')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--on-surface);">AI &amp; Machine Learning Expo</td>
+                  <td><span class="tag tag-secondary" style="font-size:10px;padding:2px 8px;">Tech</span></td>
+                  <td style="font-family:var(--font-mono);font-size:13px;">Oct 12, 2026</td>
+                  <td>Silicon Valley Tech Hub</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Expo clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('AI & Machine Learning Expo')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--on-surface);">Enchanted Forest Soir&eacute;e</td>
+                  <td><span class="tag tag-primary" style="background:rgba(255,182,193,0.1);color:#ffb4ab;border-color:rgba(255,182,193,0.2);font-size:10px;padding:2px 8px;">Festival</span></td>
+                  <td style="font-family:var(--font-mono);font-size:13px;">Nov 12, 2026</td>
+                  <td>Asheville Meadow, NC</td>
+                  <td><span class="tag" style="background:rgba(217,119,6,0.1);color:#d97706;border-color:rgba(217,119,6,0.2);font-size:11px;">Draft</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Soirée clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('Enchanted Forest Soirée')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--on-surface);">UX Masters Global Summit</td>
+                  <td><span class="tag tag-primary" style="background:rgba(217,119,6,0.1);color:#d97706;border-color:rgba(217,119,6,0.2);font-size:10px;padding:2px 8px;">Workshop</span></td>
+                  <td style="font-family:var(--font-mono);font-size:13px;">Sep 22, 2026</td>
+                  <td>Convention Arena, London</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit UX Summit clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('UX Masters Global Summit')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Manage Events & Form -->
+      <section id="adm-sec-events" class="adm-section" style="display:none;">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;">Manage Events</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">Create, edit, and organize all events hosted on the platform.</p>
+          </div>
+          <a href="#createEventFormPanel" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size:18px;">add</span>Add Event
+          </a>
+        </div>
+
+        <!-- Filters and Search Toolbar -->
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;justify-content:space-between;align-items:center;">
+          <div style="display:flex;gap:12px;flex:1;max-width:400px;">
+            <input type="text" placeholder="Search events..." class="form-input" style="padding:8px 16px;font-size:14px;margin-bottom:0;">
+          </div>
+          <div style="display:flex;gap:12px;">
+            <select class="form-input" style="padding:8px 16px;font-size:14px;margin-bottom:0;min-width:140px;">
+              <option value="all">All Categories</option>
+              <option value="music">Music</option>
+              <option value="tech">Technology</option>
+              <option value="sports">Sports</option>
+              <option value="workshops">Workshops</option>
+            </select>
+            <select class="form-input" style="padding:8px 16px;font-size:14px;margin-bottom:0;min-width:140px;">
+              <option value="all">All Status</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Full Events Table -->
+        <div class="adm-table-panel">
+          <div class="adm-table-wrap">
+            <table style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Event Name</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                  <th>Attendees</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admEventsList">
+                <tr>
+                  <td style="font-weight:600;">Starlight Symphony</td>
+                  <td><span class="tag tag-primary" style="font-size:10px;">Music</span></td>
+                  <td>Aug 14, 2026</td>
+                  <td>18:00</td>
+                  <td>Madison Square Garden</td>
+                  <td>1,840 / 2,500</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" aria-label="Edit"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" onclick="openDeleteModal('Starlight Symphony')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">AI &amp; Machine Learning Expo</td>
+                  <td><span class="tag tag-secondary" style="font-size:10px;">Tech</span></td>
+                  <td>Oct 12, 2026</td>
+                  <td>09:00</td>
+                  <td>Silicon Valley Tech Hub</td>
+                  <td>450 / 800</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" aria-label="Edit"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" onclick="openDeleteModal('AI & Machine Learning Expo')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">UX Masters Global Summit</td>
+                  <td><span class="tag tag-primary" style="background:rgba(217,119,6,0.1);color:#d97706;font-size:10px;">Workshop</span></td>
+                  <td>Sep 22, 2026</td>
+                  <td>10:00</td>
+                  <td>Convention Arena, London</td>
+                  <td>280 / 300</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:11px;">Published</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" aria-label="Edit"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" onclick="openDeleteModal('UX Masters Global Summit')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Enchanted Forest Soir&eacute;e</td>
+                  <td><span class="tag tag-primary" style="background:rgba(255,180,171,0.1);color:#ffb4ab;font-size:10px;">Festival</span></td>
+                  <td>Nov 12, 2026</td>
+                  <td>17:00</td>
+                  <td>Asheville Meadow, NC</td>
+                  <td>120 / 500</td>
+                  <td><span class="tag" style="background:rgba(217,119,6,0.1);color:#d97706;font-size:11px;">Draft</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" aria-label="Edit"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                    <button class="btn-icon danger" onclick="openDeleteModal('Enchanted Forest Soirée')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CREATE NEW EVENT FORM UI (Glass Card) -->
+        <div class="adm-form-card" id="createEventFormPanel" style="margin-top:40px;">
+          <h2 class="headline-md" style="font-size:20px;font-weight:700;margin-bottom:24px;">Create New Event</h2>
+          <form onsubmit="event.preventDefault(); triggerAddEvent();">
+            <div class="form-grid">
+              <div class="form-group" style="grid-column: span 2;">
+                <label class="form-label" for="evtTitle">Event Title *</label>
+                <input type="text" id="evtTitle" class="form-input" placeholder="e.g. Electric Beats Music Fest" required>
+              </div>
+              <div class="form-group" style="grid-column: span 2;">
+                <label class="form-label" for="evtDesc">Description *</label>
+                <textarea id="evtDesc" class="form-input" rows="4" placeholder="Enter detailed event description..." style="resize:vertical;" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="evtCategory">Category *</label>
+                <select id="evtCategory" class="form-input" required>
+                  <option value="" disabled selected>Select Category</option>
+                  <option value="Music">Music</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Workshops">Workshops</option>
+                  <option value="Festivals">Festivals</option>
+                  <option value="Business">Business</option>
+                  <option value="Education">Education</option>
+                  <option value="Entertainment">Entertainment</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="evtDate">Date *</label>
+                <input type="date" id="evtDate" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="evtTime">Time *</label>
+                <input type="time" id="evtTime" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="evtMax">Max Attendees *</label>
+                <input type="number" id="evtMax" class="form-input" placeholder="e.g. 500" required>
+              </div>
+              <div class="form-group" style="grid-column: span 2;">
+                <label class="form-label" for="evtVenue">Venue / Location *</label>
+                <input type="text" id="evtVenue" class="form-input" placeholder="e.g. Madison Square Garden, New York" required>
+              </div>
+              <div class="form-group" style="grid-column: span 2;">
+                <label class="form-label" for="evtBanner">Banner Image URL</label>
+                <input type="url" id="evtBanner" class="form-input" placeholder="e.g. https://images.unsplash.com/photo-...">
+              </div>
+            </div>
+            
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;border-top:1px solid rgba(77,67,83,0.2);padding-top:24px;">
+              <button type="button" class="btn btn-outline" onclick="triggerToast('Saved event details as Draft', 'success')">Save as Draft</button>
+              <button type="submit" class="btn btn-primary elevated-shadow">Publish Event</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Section 3: Categories Section -->
+      <section id="adm-sec-categories" class="adm-section" style="display:none;">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;">Manage Categories</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">Customize and view event categories mapping.</p>
+          </div>
+          <button class="btn btn-primary" onclick="triggerToast('Add category panel loaded', 'success')">
+            <span class="material-symbols-outlined" style="font-size:18px;">add</span>Add Category
+          </button>
+        </div>
+
+        <div class="adm-category-grid">
+          <!-- Item 1 -->
+          <div class="adm-category-card">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:48px;height:48px;background:rgba(224,182,255,0.12);color:var(--primary);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                <span class="material-symbols-outlined">music_note</span>
+              </div>
+              <div>
+                <h3 style="font-weight:700;font-size:18px;">Music</h3>
+                <p style="font-size:12px;color:var(--outline);font-family:var(--font-mono);">124 Active Events</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:20px;border-top:1px solid rgba(77,67,83,0.2);padding-top:16px;">
+              <button class="btn btn-outline w-full" style="padding:6px;font-size:11px;justify-content:center;">Edit</button>
+              <button class="btn btn-icon danger" aria-label="Delete Category"><span class="material-symbols-outlined">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="adm-category-card">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:48px;height:48px;background:rgba(69,240,244,0.12);color:var(--secondary);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                <span class="material-symbols-outlined">computer</span>
+              </div>
+              <div>
+                <h3 style="font-weight:700;font-size:18px;">Technology</h3>
+                <p style="font-size:12px;color:var(--outline);font-family:var(--font-mono);">89 Active Events</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:20px;border-top:1px solid rgba(77,67,83,0.2);padding-top:16px;">
+              <button class="btn btn-outline w-full" style="padding:6px;font-size:11px;justify-content:center;">Edit</button>
+              <button class="btn btn-icon danger" aria-label="Delete Category"><span class="material-symbols-outlined">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="adm-category-card">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:48px;height:48px;background:rgba(171,214,0,0.12);color:var(--tertiary);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                <span class="material-symbols-outlined">sports_basketball</span>
+              </div>
+              <div>
+                <h3 style="font-weight:700;font-size:18px;">Sports</h3>
+                <p style="font-size:12px;color:var(--outline);font-family:var(--font-mono);">67 Active Events</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:20px;border-top:1px solid rgba(77,67,83,0.2);padding-top:16px;">
+              <button class="btn btn-outline w-full" style="padding:6px;font-size:11px;justify-content:center;">Edit</button>
+              <button class="btn btn-icon danger" aria-label="Delete Category"><span class="material-symbols-outlined">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div class="adm-category-card">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:48px;height:48px;background:rgba(217,119,6,0.12);color:#d97706;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                <span class="material-symbols-outlined">school</span>
+              </div>
+              <div>
+                <h3 style="font-weight:700;font-size:18px;">Workshops</h3>
+                <p style="font-size:12px;color:var(--outline);font-family:var(--font-mono);">156 Active Events</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:20px;border-top:1px solid rgba(77,67,83,0.2);padding-top:16px;">
+              <button class="btn btn-outline w-full" style="padding:6px;font-size:11px;justify-content:center;">Edit</button>
+              <button class="btn btn-icon danger" aria-label="Delete Category"><span class="material-symbols-outlined">delete</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Attendees Section -->
+      <section id="adm-sec-attendees" class="adm-section" style="display:none;">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;">Attendees Registration</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">View registered users for all public events.</p>
+          </div>
+          <button class="btn btn-outline" onclick="triggerToast('Attendees list exported to CSV', 'success')">
+            <span class="material-symbols-outlined" style="font-size:18px;">download</span>Export List
+          </button>
+        </div>
+
+        <div class="adm-stats-grid" style="margin-bottom:24px;">
+          <div class="adm-stat-card" style="padding:16px 24px;">
+            <div>
+              <p class="adm-stat-label" style="font-size:10px;">Total Attendees</p>
+              <h3 class="adm-stat-num" style="font-size:24px;">14,280</h3>
+            </div>
+          </div>
+          <div class="adm-stat-card" style="padding:16px 24px;">
+            <div>
+              <p class="adm-stat-label" style="font-size:10px;">New Registrations</p>
+              <h3 class="adm-stat-num" style="font-size:24px;">+847</h3>
+            </div>
+          </div>
+          <div class="adm-stat-card" style="padding:16px 24px;">
+            <div>
+              <p class="adm-stat-label" style="font-size:10px;">Average Check-In Rate</p>
+              <h3 class="adm-stat-num" style="font-size:24px;">88.4%</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendees Table -->
+        <div class="adm-table-panel">
+          <div class="adm-table-wrap">
+            <table style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Attendee Name</th>
+                  <th>Email</th>
+                  <th>Registered Event</th>
+                  <th>Date Registered</th>
+                  <th>Ticket Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Sumit Tiwari</td>
+                  <td>sumit@leapx.com</td>
+                  <td>Starlight Symphony</td>
+                  <td>Jul 16, 2026</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for Sumit', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Aditi Sharma</td>
+                  <td>aditi.sharma@yahoo.com</td>
+                  <td>AI &amp; Machine Learning Expo</td>
+                  <td>Jul 15, 2026</td>
+                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for Aditi', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">John Doe</td>
+                  <td>john.doe@gmail.com</td>
+                  <td>Starlight Symphony</td>
+                  <td>Jul 14, 2026</td>
+                  <td><span class="tag" style="background:rgba(217,119,6,0.1);color:#d97706;font-size:10px;">Pending</span></td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for John', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Analytics Charts Sections -->
+      <section id="adm-sec-analytics" class="adm-section" style="display:none;">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;">Analytics Dashboard</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">Visual reports and platform performance metrics.</p>
+          </div>
+          <button class="btn btn-outline" onclick="triggerToast('PDF Report download started', 'success')">
+            <span class="material-symbols-outlined" style="font-size:18px;">picture_as_pdf</span>Download Report
+          </button>
+        </div>
+
+        <div class="adm-stats-grid" style="margin-bottom:32px;">
+          <div class="adm-stat-card">
+            <div>
+              <p class="adm-stat-label">Conversion Rate</p>
+              <h3 class="adm-stat-num">42.8%</h3>
+              <p class="adm-stat-change up"><span class="material-symbols-outlined">trending_up</span>+3.4%</p>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div>
+              <p class="adm-stat-label">Page Views</p>
+              <h3 class="adm-stat-num">98.4K</h3>
+              <p class="adm-stat-change up"><span class="material-symbols-outlined">trending_up</span>+12.8%</p>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div>
+              <p class="adm-stat-label">Returning Users</p>
+              <h3 class="adm-stat-num">65.2%</h3>
+              <p class="adm-stat-change neutral">Steady</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Chart Placeholder glass cards -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
+          <div class="glass-card" style="padding:40px;border-radius:var(--radius-xl);text-align:center;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-size:64px;color:var(--outline);margin-bottom:16px;">bar_chart</span>
+            <h3 class="headline-md" style="font-size:18px;margin-bottom:8px;">Registration Analytics Chart</h3>
+            <p class="body-md" style="color:var(--outline);font-size:13px;max-width:280px;">Real-time registration growth trends report. Charts loading state.</p>
+          </div>
+          
+          <div class="glass-card" style="padding:40px;border-radius:var(--radius-xl);text-align:center;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-size:64px;color:var(--outline);margin-bottom:16px;">pie_chart</span>
+            <h3 class="headline-md" style="font-size:18px;margin-bottom:8px;">Category Distribution</h3>
+            <p class="body-md" style="color:var(--outline);font-size:13px;max-width:280px;">Active events share distribution mapping visual chart.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Settings panel forms -->
+      <section id="adm-sec-settings" class="adm-section" style="display:none;">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="display-lg-mobile" style="font-size:28px;font-weight:800;">Platform Settings</h1>
+            <p class="body-md" style="color:var(--on-surface-variant);">Update profile information and platform parameters.</p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding:32px;border-radius:var(--radius-xl);max-width:640px;">
+          <h2 class="headline-md" style="font-size:20px;margin-bottom:24px;">Admin Profile</h2>
+          <form onsubmit="event.preventDefault(); triggerToast('Admin settings successfully updated!', 'success');">
+            <div class="form-group">
+              <label class="form-label" for="adminName">Display Name</label>
+              <input type="text" id="adminName" class="form-input" value="Admin User">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adminEmail">Email Address</label>
+              <input type="email" id="adminEmail" class="form-input" value="admin@eventpulse.io">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adminPass">Update Password</label>
+              <input type="password" id="adminPass" class="form-input" placeholder="••••••••••••••••">
+            </div>
+
+            <!-- Toggles and Switches options -->
+            <div style="margin:24px 0;border-top:1px solid rgba(77,67,83,0.2);padding-top:24px;">
+              <h3 class="label-sm" style="color:var(--outline);margin-bottom:16px;">Platform Preferences</h3>
+              <div style="display:flex;justify-content:between;align-items:center;margin-bottom:12px;">
+                <span class="body-md">Enable Real-Time Search Drops</span>
+                <input type="checkbox" checked style="width:20px;height:20px;accent-color:var(--primary);margin-left:auto;">
+              </div>
+              <div style="display:flex;justify-content:between;align-items:center;margin-bottom:12px;">
+                <span class="body-md">Enable Registration Notification Emails</span>
+                <input type="checkbox" checked style="width:20px;height:20px;accent-color:var(--primary);margin-left:auto;">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary elevated-shadow" style="width:100%;justify-content:center;">Save Changes</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Delete Confirmation Modal (UI skeleton only) -->
+  <div class="modal-overlay" id="admModal">
+    <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="headline-md" style="font-size:18px;font-weight:700;">Delete Event</h3>
+          <button class="btn-icon" onclick="closeDeleteModal()" aria-label="Close modal"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="modal-body" style="padding:24px;text-align:center;">
+          <div class="confirm-icon" style="background:rgba(255,180,171,0.12);color:var(--error);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+            <span class="material-symbols-outlined" style="font-size:28px;">warning</span>
+          </div>
+          <p class="body-lg" style="margin-bottom:8px;font-weight:600;">Are you sure you want to delete this event?</p>
+          <p class="body-md" style="color:var(--outline);" id="delModalEventName">You are deleting the event name details. This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+          <button class="btn btn-danger" onclick="confirmDeleteEvent()">Delete Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Toast messages feedback popup -->
+  <div class="adm-toast" id="admToast">
+    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px;" id="admToastIcon">check_circle</span>
+    <span style="font-size:14px;" id="admToastMsg">Action completed successfully.</span>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

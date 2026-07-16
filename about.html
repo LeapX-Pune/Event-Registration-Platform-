@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | EventPulse</title>
+  <meta name="description" content="Learn about EventPulse's mission, values, our team, and journey connecting people with extraordinary experiences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar common template -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <a href="index.html" class="navbar-brand">EventPulse</a>
+        <div class="navbar-search">
+          <span class="material-symbols-outlined" style="color:var(--outline);font-size:20px;">search</span>
+          <input type="text" placeholder="Search for events...">
+        </div>
+      </div>
+      <div class="navbar-right">
+        <a href="event-details.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;">
+          Events
+        </a>
+        <a href="categories.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;">
+          <span class="material-symbols-outlined" style="font-size:18px;">category</span>
+          Categories
+        </a>
+        <a href="about.html" class="btn active" style="background:transparent;color:var(--primary);border:none;gap:4px;">
+          About
+        </a>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
+        </button>
+        <button class="btn btn-primary elevated-shadow">Sign In</button>
+        <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile navigation overlays -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <span class="navbar-brand">EventPulse</span>
+      <button class="btn-icon" onclick="closeMobileNav()" style="border-radius:50%;" aria-label="Close menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">home</span>Home
+      </a>
+      <a href="categories.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">category</span>Categories
+      </a>
+      <a href="event-details.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">event</span>Events
+      </a>
+      <a href="about.html" class="mobile-nav-link active">
+        <span class="material-symbols-outlined">info</span>About
+      </a>
+      <a href="admin.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+    </nav>
+    <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
+      <button class="btn btn-primary w-full" style="justify-content:center;">Sign In</button>
+    </div>
+  </div>
+
+  <main style="min-height:100vh;padding-bottom:80px;">
+
+    <!-- About Page Hero with floating dynamic shapes -->
+    <section class="about-hero">
+      <div class="about-blob ablob1"></div>
+      <div class="about-blob ablob2"></div>
+      <div class="about-blob ablob3"></div>
+      <div class="container" style="position:relative;z-index:2;text-align:center;">
+        <span class="hero-tag" style="background:rgba(224,182,255,0.15);color:var(--primary);border:1px solid rgba(224,182,255,0.25);">OUR STORY</span>
+        <h1 class="display-lg-mobile" style="font-size:48px;font-weight:800;color:var(--on-surface);margin-top:12px;margin-bottom:16px;">Where Events Come to Life</h1>
+        <p class="body-lg" style="color:var(--on-surface-variant);max-width:680px;margin:0 auto 36px;line-height:1.6;">
+          We are building the future of event discovery, registration, and experience hosting. Connecting communities, artists, techies, and organizers across the globe.
+        </p>
+        <div style="display:flex;gap:16px;justify-content:center;margin-bottom:48px;">
+          <a href="categories.html" class="btn btn-primary elevated-shadow" style="padding:14px 28px;">Explore Events</a>
+          <a href="#aboutMission" class="btn btn-outline" style="padding:14px 28px;">Our Mission</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission statement section: 2-column details -->
+    <section class="container reveal" id="aboutMission" style="padding-top:60px;padding-bottom:60px;">
+      <div class="about-mission-layout">
+        <div class="about-mission-img-wrap">
+          <div class="about-img-glow"></div>
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Audience performance event gathering" class="about-mission-img">
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="tag tag-primary" style="align-self:flex-start;margin-bottom:12px;">WHO WE ARE</span>
+          <h2 class="headline-md" style="font-size:28px;font-weight:700;margin-bottom:16px;">Making Events Accessible to Everyone</h2>
+          <p class="body-lg" style="color:var(--on-surface-variant);margin-bottom:16px;line-height:1.7;">
+            At EventPulse, we believe that shared experiences have the power to define who we are, teach us new skills, inspire creativity, and build lifelong bonds.
+          </p>
+          <p class="body-lg" style="color:var(--on-surface-variant);margin-bottom:20px;line-height:1.7;">
+            Our mission is to eliminate barriers to event discovery and organization. By providing robust discovery feeds, glassmorphism UI widgets, and streamlined registration setups, we bring the best of the local entertainment ecosystem right to your fingertips.
+          </p>
+          
+          <ul style="display:flex;flex-direction:column;gap:8px;">
+            <li style="display:flex;align-items:center;gap:12px;"><span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span> <strong>Community First Values</strong></li>
+            <li style="display:flex;align-items:center;gap:12px;"><span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span> <strong>Transparent and Secure Registrations</strong></li>
+            <li style="display:flex;align-items:center;gap:12px;"><span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span> <strong>Diverse Curations for Everyone</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us: Feature grid -->
+    <section class="container reveal" style="padding-top:40px;padding-bottom:60px;">
+      <h2 class="headline-md" style="font-size:28px;font-weight:700;margin-bottom:12px;text-align:center;">Why Choose EventPulse</h2>
+      <p class="body-md" style="color:var(--outline);text-align:center;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;">
+        We integrate modern visual aesthetics and speed to ensure your search for live events is smooth.
+      </p>
+
+      <div class="about-features-grid">
+        <!-- Item 1 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">bolt</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Lightning Fast Discovery</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">Real-time search drop downs, direct categorization filters, and swift navigation flows.</p>
+        </div>
+        <!-- Item 2 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">security</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Safe &amp; Secure</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">All organizers are verified, ensuring fake registrations and tickets are blocked completely.</p>
+        </div>
+        <!-- Item 3 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">support_agent</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">24/7 Support Desk</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">Get direct help from our team via AI chat assistants and active ticket resolution support desks.</p>
+        </div>
+        <!-- Item 4 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">groups</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Community Centric</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">Join discussions, share your favorite concert moments and interact with other attendees.</p>
+        </div>
+        <!-- Item 5 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">star</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Curated Curation</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">Our curators sort through thousands of events to highlight the highest quality workshops and symphonies.</p>
+        </div>
+        <!-- Item 6 -->
+        <div class="about-feature-card">
+          <div class="about-feature-icon"><span class="material-symbols-outlined">verified</span></div>
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Verified Organizers</h3>
+          <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.5;">Direct verification badges given to validated brands, businesses and clubs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics counter banner -->
+    <section class="about-stats reveal">
+      <div class="container">
+        <div class="about-stats-inner">
+          <div class="about-stat-item">
+            <span class="about-stat-number" data-target="500">0</span>
+            <p class="about-stat-label">Events Hosted</p>
+          </div>
+          <div class="about-stat-item">
+            <span class="about-stat-number" data-target="50000">0</span>
+            <p class="about-stat-label">Happy Users</p>
+          </div>
+          <div class="about-stat-item">
+            <span class="about-stat-number" data-target="2500000">0</span>
+            <p class="about-stat-label">Registrations</p>
+          </div>
+          <div class="about-stat-item">
+            <span class="about-stat-number" data-target="12">0</span>
+            <p class="about-stat-label">Cities Covered</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team section: Cards layout -->
+    <section class="container reveal" style="padding-top:60px;padding-bottom:60px;">
+      <h2 class="headline-md" style="font-size:28px;font-weight:700;margin-bottom:12px;text-align:center;">Meet Our Team</h2>
+      <p class="body-md" style="color:var(--outline);text-align:center;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;">
+        Meet the creators behind the ultimate event Registration dashboard.
+      </p>
+
+      <div class="about-team-grid">
+        <!-- Member 1 -->
+        <div class="about-team-card">
+          <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=9d4edd&color=fff&size=200" alt="Sarah Johnson" class="about-team-avatar">
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:4px;">Sarah Johnson</h3>
+          <p class="label-sm" style="color:var(--primary);font-size:11px;margin-bottom:12px;">CEO &amp; Co-Founder</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;margin-bottom:16px;">Sarah coordinates business strategy and partnerships with local arenas.</p>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <a href="#" class="about-team-social" aria-label="Sarah's LinkedIn"><span class="material-symbols-outlined" style="font-size:18px;">work</span></a>
+            <a href="#" class="about-team-social" aria-label="Sarah's Twitter"><span class="material-symbols-outlined" style="font-size:18px;">chat</span></a>
+          </div>
+        </div>
+        <!-- Member 2 -->
+        <div class="about-team-card">
+          <img src="https://ui-avatars.com/api/?name=Marcus+Chen&background=0ea5e9&color=fff&size=200" alt="Marcus Chen" class="about-team-avatar">
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:4px;">Marcus Chen</h3>
+          <p class="label-sm" style="color:var(--primary);font-size:11px;margin-bottom:12px;">CTO</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;margin-bottom:16px;">Marcus heads development teams and manages real-time caching systems.</p>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <a href="#" class="about-team-social" aria-label="Marcus's LinkedIn"><span class="material-symbols-outlined" style="font-size:18px;">work</span></a>
+            <a href="#" class="about-team-social" aria-label="Marcus's Twitter"><span class="material-symbols-outlined" style="font-size:18px;">chat</span></a>
+          </div>
+        </div>
+        <!-- Member 3 -->
+        <div class="about-team-card">
+          <img src="https://ui-avatars.com/api/?name=Priya+Patel&background=16a34a&color=fff&size=200" alt="Priya Patel" class="about-team-avatar">
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:4px;">Priya Patel</h3>
+          <p class="label-sm" style="color:var(--primary);font-size:11px;margin-bottom:12px;">Head of Design</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;margin-bottom:16px;">Priya crafts custom Glassmorphic components and visual guidelines.</p>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <a href="#" class="about-team-social" aria-label="Priya's LinkedIn"><span class="material-symbols-outlined" style="font-size:18px;">work</span></a>
+            <a href="#" class="about-team-social" aria-label="Priya's Twitter"><span class="material-symbols-outlined" style="font-size:18px;">chat</span></a>
+          </div>
+        </div>
+        <!-- Member 4 -->
+        <div class="about-team-card">
+          <img src="https://ui-avatars.com/api/?name=James+Wilson&background=d97706&color=fff&size=200" alt="James Wilson" class="about-team-avatar">
+          <h3 style="font-weight:700;font-size:18px;margin-bottom:4px;">James Wilson</h3>
+          <p class="label-sm" style="color:var(--primary);font-size:11px;margin-bottom:12px;">Marketing Lead</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;margin-bottom:16px;">James coordinates public campaigns and global festival outreach programs.</p>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <a href="#" class="about-team-social" aria-label="James's LinkedIn"><span class="material-symbols-outlined" style="font-size:18px;">work</span></a>
+            <a href="#" class="about-team-social" aria-label="James's Twitter"><span class="material-symbols-outlined" style="font-size:18px;">chat</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Journey Section -->
+    <section class="container reveal" style="padding-top:40px;padding-bottom:60px;">
+      <h2 class="headline-md" style="font-size:28px;font-weight:700;margin-bottom:12px;text-align:center;">Our Journey</h2>
+      <p class="body-md" style="color:var(--outline);text-align:center;margin-bottom:48px;max-width:500px;margin-left:auto;margin-right:auto;">
+        How we went from an idea in a dormitory to scaling globally.
+      </p>
+
+      <div class="about-timeline">
+        <!-- Milestone 1 -->
+        <div class="about-timeline-item left">
+          <div class="about-timeline-dot"></div>
+          <div class="about-timeline-card">
+            <span class="label-sm" style="color:var(--primary);font-size:11px;font-weight:700;">2024</span>
+            <h3 style="font-weight:700;font-size:16px;margin:4px 0 8px 0;">The Dormitory Idea</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;">EventPulse was founded by Sarah and Marcus to simplify listing campus tech hackathons and local theater plays.</p>
+          </div>
+        </div>
+        <!-- Milestone 2 -->
+        <div class="about-timeline-item right">
+          <div class="about-timeline-dot"></div>
+          <div class="about-timeline-card">
+            <span class="label-sm" style="color:var(--secondary);font-size:11px;font-weight:700;">2025</span>
+            <h3 style="font-weight:700;font-size:16px;margin:4px 0 8px 0;">Beta Launch</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;">Released beta version across Los Angeles. Reached over 10,000 active registrations in less than six months.</p>
+          </div>
+        </div>
+        <!-- Milestone 3 -->
+        <div class="about-timeline-item left">
+          <div class="about-timeline-dot"></div>
+          <div class="about-timeline-card">
+            <span class="label-sm" style="color:var(--tertiary);font-size:11px;font-weight:700;">2026</span>
+            <h3 style="font-weight:700;font-size:16px;margin:4px 0 8px 0;">Scaling Up</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.5;">Launched advanced AI Chat assistant, glassmorphic dashboards, and scaled to support massive crowds at MSG, NY.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA section -->
+    <section class="about-cta">
+      <div class="container">
+        <div class="glass-panel" style="border-radius:var(--radius-xl);padding:48px;border:1px solid rgba(224,182,255,0.15);text-align:center;max-width:760px;margin:0 auto;box-shadow:0 0 40px rgba(157,78,221,0.1);">
+          <h2 class="display-lg-mobile" style="font-size:32px;margin-bottom:12px;">Ready to Experience EventPulse?</h2>
+          <p class="body-lg" style="color:var(--on-surface-variant);max-width:520px;margin:0 auto 24px;line-height:1.6;">
+            Sign up as an attendee to discover awesome shows, or partner as an organizer to list your event today.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+            <a href="categories.html" class="btn btn-primary elevated-shadow">Browse Events</a>
+            <button class="btn btn-outline" onclick="triggerContactMsg()">Contact Team</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Common Footer -->
+  <footer style="width:100%;background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.2);">
+    <div class="container" style="display:flex;flex-direction:column;gap:24px;padding-top:48px;padding-bottom:48px;">
+      <div style="display:flex;flex-direction:column;gap:8px;text-align:center;">
+        <span class="headline-md" style="font-weight:800;color:var(--primary);">EventPulse</span>
+        <p style="color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Connecting people through extraordinary shared experiences since 2024.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+        <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
+      </div>
+      <div style="border-top:1px solid rgba(77,67,83,0.1);padding-top:24px;text-align:center;">
+        <p class="label-sm" style="color:var(--on-surface-variant);opacity:0.7;">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification alerts -->
+  <div class="about-toast" id="aboutToast">
+    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px;">check_circle</span>
+    <span style="font-size:14px;" id="aboutToastMsg">Contact initialized!</span>
+  </div>
+
+  <script src="js/about.js"></script>
+</body>
+</html>

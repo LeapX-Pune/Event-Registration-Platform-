@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starlight Symphony | EventPulse</title>
+  <meta name="description" content="Starlight Symphony event details on EventPulse. Experience electronic music reimagined at Madison Square Garden.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/event-details.css">
+</head>
+<body>
+
+  <!-- Ye navbar section hai jo homepage se common hai -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <a href="index.html" class="navbar-brand">EventPulse</a>
+        <div class="navbar-search">
+          <span class="material-symbols-outlined" style="color:var(--outline);font-size:20px;">search</span>
+          <input type="text" placeholder="Search for events...">
+        </div>
+      </div>
+      <div class="navbar-right">
+        <a href="event-details.html" class="btn active" style="background:transparent;color:var(--primary);border:none;gap:4px;">
+          Events
+        </a>
+        <a href="categories.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;">
+          <span class="material-symbols-outlined" style="font-size:18px;">category</span>
+          Categories
+        </a>
+        <a href="about.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;">
+          About
+        </a>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
+        </button>
+        <button class="btn btn-primary elevated-shadow">Sign In</button>
+        <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Overlay aur Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <span class="navbar-brand">EventPulse</span>
+      <button class="btn-icon" onclick="closeMobileNav()" style="border-radius:50%;" aria-label="Close menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">home</span>Home
+      </a>
+      <a href="categories.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">category</span>Categories
+      </a>
+      <a href="event-details.html" class="mobile-nav-link active">
+        <span class="material-symbols-outlined">event</span>Events
+      </a>
+      <a href="about.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">info</span>About
+      </a>
+      <a href="admin.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+    </nav>
+    <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
+      <button class="btn btn-primary w-full" style="justify-content:center;">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Main section jisme Event Banner aur Event details showcase honge -->
+  <main style="min-height:100vh;padding-bottom:80px;">
+
+    <!-- Event Banner Section jo responsive and visually premium banner show karega -->
+    <section class="ed-banner ed-banner-animate">
+      <div class="ed-banner-overlay"></div>
+      <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80" alt="Starlight Symphony Concert Banner" class="ed-banner-img">
+      <div class="container" style="position:relative;z-index:3;height:100%;display:flex;align-items:flex-end;padding-bottom:32px;">
+        <div>
+          <span class="tag tag-primary" style="margin-bottom:12px;display:inline-block;">Music</span>
+          <h1 class="display-lg-mobile" style="font-size:42px;line-height:1.2;font-weight:800;color:var(--on-surface);margin-bottom:8px;">Starlight Symphony</h1>
+          <p class="body-lg" style="color:var(--primary);font-weight:500;">Electronic Reimagined • Live Orchestral Symphony</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Container layout with left details column and right register sidebar -->
+    <div class="container" style="margin-top:40px;">
+      <!-- Back navigation link -->
+      <a href="index.html" class="ed-back-link" style="display:inline-flex;align-items:center;gap:8px;color:var(--on-surface-variant);margin-bottom:32px;transition:color 0.2s;">
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+        <span class="body-md">Back to Events</span>
+      </a>
+
+      <div class="ed-layout">
+        <!-- Left Column: Details -->
+        <div class="ed-main">
+          
+          <!-- Event Core Info Row -->
+          <div class="glass-card" style="padding:28px;border-radius:var(--radius-xl);display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:24px;margin-bottom:32px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:rgba(224,182,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary);">
+                <span class="material-symbols-outlined">calendar_today</span>
+              </div>
+              <div>
+                <p class="label-sm" style="color:var(--outline);font-size:11px;">Date</p>
+                <p class="body-md" style="font-weight:600;">August 14 - 16, 2026</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:rgba(224,182,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary);">
+                <span class="material-symbols-outlined">schedule</span>
+              </div>
+              <div>
+                <p class="label-sm" style="color:var(--outline);font-size:11px;">Time</p>
+                <p class="body-md" style="font-weight:600;">6:00 PM - 11:00 PM</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:rgba(224,182,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary);">
+                <span class="material-symbols-outlined">location_on</span>
+              </div>
+              <div>
+                <p class="label-sm" style="color:var(--outline);font-size:11px;">Venue</p>
+                <p class="body-md" style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;" title="Madison Square Garden, New York">Madison Square Garden, NY</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description Section -->
+          <div style="margin-bottom:40px;">
+            <h2 class="headline-md" style="margin-bottom:16px;font-size:22px;font-weight:700;">About This Event</h2>
+            <p class="body-lg" style="color:var(--on-surface-variant);line-height:1.8;margin-bottom:16px;">
+              Prepare to witness an extraordinary fusion of futuristic electronic rhythms and classical orchestration. The Starlight Symphony returns for its annual showcase, bringing together legendary synth pioneers and a live 60-piece symphonic orchestra to reimagine the music of the past, present, and future.
+            </p>
+            <p class="body-lg" style="color:var(--on-surface-variant);line-height:1.8;margin-bottom:16px;">
+              Experience immersive 3D spatial audio, high-resolution laser projections, and custom light installations tailored to sync with every beat and violin sweep. This year's lineup features award-winning global electronic music producers cooperating with master conductors to deliver a breathtaking three-day concert experience.
+            </p>
+            <p class="body-lg" style="color:var(--on-surface-variant);line-height:1.8;margin-bottom:24px;">
+              Whether you are an electronic music fan or a classical symphony enthusiast, this event promises to break boundaries and create unforgettable memories under the stars of New York's premier arena.
+            </p>
+
+            <!-- Tags display -->
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;">
+              <span class="ed-tag">#Electronic</span>
+              <span class="ed-tag">#Symphony</span>
+              <span class="ed-tag">#LiveMusic</span>
+              <span class="ed-tag">#NewYork</span>
+            </div>
+          </div>
+
+          <!-- Social Share Buttons -->
+          <div style="margin-bottom:40px;padding:24px 0;border-top:1px solid rgba(77,67,83,0.2);border-bottom:1px solid rgba(77,67,83,0.2);">
+            <p class="label-sm" style="color:var(--outline);margin-bottom:12px;">Share This Event</p>
+            <div style="display:flex;gap:12px;">
+              <button class="ed-share-btn fb" aria-label="Share on Facebook">
+                <span class="material-symbols-outlined" style="font-size:20px;">share</span>Facebook
+              </button>
+              <button class="ed-share-btn tw" aria-label="Share on Twitter">
+                <span class="material-symbols-outlined" style="font-size:20px;">chat</span>Twitter
+              </button>
+              <button class="ed-share-btn li" aria-label="Share on LinkedIn">
+                <span class="material-symbols-outlined" style="font-size:20px;">work</span>LinkedIn
+              </button>
+            </div>
+          </div>
+
+          <!-- Event Gallery Section -->
+          <div style="margin-bottom:48px;">
+            <h2 class="headline-md" style="margin-bottom:20px;font-size:22px;font-weight:700;">Event Gallery</h2>
+            <div class="ed-gallery">
+              <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=80" alt="Concert Crowd Performance Light" onclick="openLightbox(this.src)">
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" alt="Stage Lights Electronic Music" onclick="openLightbox(this.src)">
+              <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Festival Fireworks Glow" onclick="openLightbox(this.src)">
+            </div>
+          </div>
+
+          <!-- Similar Events Horizontal Scroll list -->
+          <div>
+            <h2 class="headline-md" style="margin-bottom:20px;font-size:22px;font-weight:700;">Similar Events</h2>
+            <div style="display:flex;gap:20px;overflow-x:auto;padding-bottom:12px;" class="hide-scrollbar">
+              
+              <!-- Card 1 -->
+              <a href="event-details.html" class="event-card" style="text-decoration:none;">
+                <div class="event-card-image">
+                  <img src="https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80" alt="Jazz Concert">
+                  <div class="event-card-badge">Concert</div>
+                </div>
+                <h3 class="event-card-title">Jazz &amp; Blues Night</h3>
+                <p class="event-card-meta">New Orleans, LA</p>
+                <p class="event-card-meta">Dec 05, 2026</p>
+              </a>
+
+              <!-- Card 2 -->
+              <a href="event-details.html" class="event-card" style="text-decoration:none;">
+                <div class="event-card-image">
+                  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80" alt="Enchanted Forest">
+                  <div class="event-card-badge">Festival</div>
+                </div>
+                <h3 class="event-card-title">Enchanted Forest Soir&eacute;e</h3>
+                <p class="event-card-meta">Asheville, NC</p>
+                <p class="event-card-meta">Nov 12, 2026</p>
+              </a>
+
+              <!-- Card 3 -->
+              <a href="event-details.html" class="event-card" style="text-decoration:none;">
+                <div class="event-card-image">
+                  <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80" alt="Summer Fest">
+                  <div class="event-card-badge">Festival</div>
+                </div>
+                <h3 class="event-card-title">Summer Solstice Fest</h3>
+                <p class="event-card-meta">Los Angeles, CA</p>
+                <p class="event-card-meta">Jul 28, 2026</p>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Registration Ticket Sidebar -->
+        <div class="ed-sidebar">
+          <div class="ed-register-card">
+            <h3 class="headline-md" style="font-size:20px;font-weight:700;margin-bottom:8px;">Register for This Event</h3>
+            
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:20px;">
+              <span class="display-lg-mobile" style="font-size:32px;color:var(--tertiary);font-weight:800;">FREE</span>
+              <span class="body-md" style="color:var(--outline);text-decoration:line-through;">$85.00</span>
+            </div>
+
+            <!-- Capacity Progress Bar UI -->
+            <div style="margin-bottom:24px;">
+              <div style="display:flex;justify-content:between;margin-bottom:8px;font-size:13px;">
+                <span style="color:var(--on-surface-variant);">Capacity Status</span>
+                <span style="font-weight:700;color:var(--secondary);margin-left:auto;">73% Filled</span>
+              </div>
+              <div class="ed-capacity-bar">
+                <div class="ed-capacity-fill" style="width:73.6%;"></div>
+              </div>
+              <p style="font-size:12px;color:var(--outline);margin-top:6px;font-family:var(--font-mono);">1,840 of 2,500 spots registered</p>
+            </div>
+
+            <!-- Register Button UI -->
+            <button class="btn btn-primary w-full elevated-shadow" style="padding:14px;font-size:14px;justify-content:center;margin-bottom:12px;" onclick="triggerRegistration()">
+              Register Now
+              <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+            </button>
+            <p style="text-align:center;font-size:12px;color:var(--outline);margin-bottom:24px;">No credit card required. Free registration.</p>
+
+            <div style="border-top:1px solid rgba(77,67,83,0.2);padding-top:24px;">
+              <p class="label-sm" style="color:var(--outline);margin-bottom:12px;">ORGANIZER</p>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg, var(--primary), var(--secondary));display:flex;align-items:center;justify-content:center;color:#10131a;font-weight:700;">
+                  PE
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="body-md" style="font-weight:700;">Pulse Events Co.</span>
+                    <span class="material-symbols-outlined" style="color:var(--secondary);font-size:16px;">verified</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--outline);">Verified Organizer</p>
+                </div>
+              </div>
+              <button class="btn btn-outline w-full" style="justify-content:center;font-size:12px;" onclick="contactOrganizer()">
+                <span class="material-symbols-outlined" style="font-size:16px;">mail</span>
+                Contact Organizer
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer section common -->
+  <footer style="width:100%;background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.2);">
+    <div class="container" style="display:flex;flex-direction:column;gap:24px;padding-top:48px;padding-bottom:48px;">
+      <div style="display:flex;flex-direction:column;gap:8px;text-align:center;">
+        <span class="headline-md" style="font-weight:800;color:var(--primary);">EventPulse</span>
+        <p style="color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Connecting people through extraordinary shared experiences since 2024.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+        <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
+      </div>
+      <div style="border-top:1px solid rgba(77,67,83,0.1);padding-top:24px;text-align:center;">
+        <p class="label-sm" style="color:var(--on-surface-variant);opacity:0.7;">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Gallery Modal -->
+  <div class="ed-lightbox" id="edLightbox">
+    <button class="ed-lightbox-close" onclick="closeLightbox()" aria-label="Close image popup">&times;</button>
+    <img src="" alt="Expanded View" id="edLightboxImg">
+  </div>
+
+  <!-- Toast Toast message display for feedback -->
+  <div class="ed-toast" id="edToast">
+    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px;" id="edToastIcon">check_circle</span>
+    <span style="font-size:14px;" id="edToastMsg">Toast message here</span>
+  </div>
+
+  <script src="js/event-details.js"></script>
+</body>
+</html>
