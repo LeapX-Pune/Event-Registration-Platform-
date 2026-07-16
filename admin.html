@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — EventPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/admin-spa.css">
+</head>
+<body class="adm-body">
+<div class="adm-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar-inner">
+      <div class="adm-sidebar-logo">
+        <a href="index.html" class="adm-logo">Event<span>Pulse</span></a>
+        <span class="adm-logo-tag">Admin Panel</span>
+      </div>
+      <nav class="adm-nav">
+        <a href="#" class="adm-nav-item active" data-section="dashboard">
+          <span class="material-symbols-outlined">dashboard</span><span>Dashboard</span>
+        </a>
+        <a href="#" class="adm-nav-item" data-section="events">
+          <span class="material-symbols-outlined">event</span><span>Events</span>
+        </a>
+        <a href="#" class="adm-nav-item" data-section="categories">
+          <span class="material-symbols-outlined">category</span><span>Categories</span>
+        </a>
+        <a href="#" class="adm-nav-item" data-section="attendees">
+          <span class="material-symbols-outlined">group</span><span>Attendees</span>
+        </a>
+        <a href="#" class="adm-nav-item" data-section="analytics">
+          <span class="material-symbols-outlined">bar_chart</span><span>Analytics</span>
+        </a>
+        <a href="#" class="adm-nav-item" data-section="settings">
+          <span class="material-symbols-outlined">settings</span><span>Settings</span>
+        </a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div class="adm-user-row">
+          <div class="adm-avatar">
+            <span class="material-symbols-outlined" style="font-size:18px;">person</span>
+          </div>
+          <div>
+            <p class="adm-user-name">Admin User</p>
+            <p class="adm-user-email">admin@eventpulse.io</p>
+          </div>
+        </div>
+        <a href="index.html" class="adm-nav-item adm-logout">
+          <span class="material-symbols-outlined">logout</span><span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="adm-content">
+
+    <!-- TOPBAR -->
+    <header class="adm-topbar">
+      <div class="adm-topbar-left">
+        <button class="adm-menu-btn s-btn-icon" onclick="admToggleSidebar()" aria-label="Toggle sidebar">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="adm-search">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" placeholder="Search events, attendees...">
+        </div>
+      </div>
+      <div class="adm-topbar-right">
+        <div class="adm-status">
+          <div class="adm-status-dot"></div>
+          <span>All Systems Live</span>
+        </div>
+        <button class="s-btn-icon" onclick="sToast('No new notifications','info')" style="position:relative;">
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="adm-notif-badge">3</span>
+        </button>
+        <div class="adm-profile-wrap" id="admProfileWrap">
+          <button class="adm-profile-btn" onclick="admToggleProfile()">
+            <div class="adm-avatar" style="width:30px;height:30px;">
+              <span class="material-symbols-outlined" style="font-size:15px;">person</span>
+            </div>
+            <span>Admin</span>
+            <span class="material-symbols-outlined" style="font-size:16px;" id="admProfileChevron">expand_more</span>
+          </button>
+          <div class="adm-dropdown" id="admDropdown">
+            <a href="#" class="adm-dropdown-item"><span class="material-symbols-outlined">person</span>Profile</a>
+            <a href="#" class="adm-dropdown-item"><span class="material-symbols-outlined">settings</span>Settings</a>
+            <div class="adm-dropdown-divider"></div>
+            <a href="index.html" class="adm-dropdown-item adm-dropdown-danger">
+              <span class="material-symbols-outlined">logout</span>Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE BODY -->
+    <main class="adm-page-body">
+
+      <!-- ========== SECTION: DASHBOARD ========== -->
+      <section class="adm-section active" id="sec-dashboard">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Dashboard</h1>
+            <p class="adm-page-sub">Welcome back. Here's what's happening with your events today.</p>
+          </div>
+          <button class="s-btn s-btn-primary" onclick="admSwitchSection('events')">
+            <span class="material-symbols-outlined" style="font-size:18px;">add</span>Create Event
+          </button>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="adm-stats-grid">
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(168,85,247,0.14);">
+              <span class="material-symbols-outlined" style="color:#a855f7;">event</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Total Events</p>
+              <p class="adm-stat-num">128</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+12 this month</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(6,182,212,0.12);">
+              <span class="material-symbols-outlined" style="color:#22d3ee;">confirmation_number</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Total Registrations</p>
+              <p class="adm-stat-num">14,280</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+847 this week</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(52,211,153,0.1);">
+              <span class="material-symbols-outlined" style="color:#34d399;">upcoming</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Upcoming Events</p>
+              <p class="adm-stat-num">34</p>
+              <p class="adm-stat-change adm-change-neutral"><span class="material-symbols-outlined">schedule</span>Next: Aug 14</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(251,146,60,0.1);">
+              <span class="material-symbols-outlined" style="color:#fb923c;">category</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Categories</p>
+              <p class="adm-stat-num">8</p>
+              <p class="adm-stat-change adm-change-neutral"><span class="material-symbols-outlined">info</span>All active</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="adm-dash-grid">
+          <div class="s-glass adm-panel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">history</span>Recent Activity</h2>
+            </div>
+            <div class="adm-activity-list">
+              <div class="adm-activity-item">
+                <div class="adm-activity-dot" style="background:#a855f7;"></div>
+                <div class="adm-activity-info">
+                  <p class="adm-activity-text">New registration for <strong>Starlight Symphony</strong></p>
+                  <span class="adm-activity-time">2 minutes ago</span>
+                </div>
+              </div>
+              <div class="adm-activity-item">
+                <div class="adm-activity-dot" style="background:#22d3ee;"></div>
+                <div class="adm-activity-info">
+                  <p class="adm-activity-text">Event <strong>AI & ML Expo</strong> published</p>
+                  <span class="adm-activity-time">18 minutes ago</span>
+                </div>
+              </div>
+              <div class="adm-activity-item">
+                <div class="adm-activity-dot" style="background:#34d399;"></div>
+                <div class="adm-activity-info">
+                  <p class="adm-activity-text">Category <strong>Workshops</strong> updated</p>
+                  <span class="adm-activity-time">1 hour ago</span>
+                </div>
+              </div>
+              <div class="adm-activity-item">
+                <div class="adm-activity-dot" style="background:#fb923c;"></div>
+                <div class="adm-activity-info">
+                  <p class="adm-activity-text">45 new attendees registered this morning</p>
+                  <span class="adm-activity-time">3 hours ago</span>
+                </div>
+              </div>
+              <div class="adm-activity-item">
+                <div class="adm-activity-dot" style="background:#f87171;"></div>
+                <div class="adm-activity-info">
+                  <p class="adm-activity-text"><strong>Jazz & Blues Night</strong> marked as cancelled</p>
+                  <span class="adm-activity-time">Yesterday</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s-glass adm-panel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">leaderboard</span>Top Events</h2>
+            </div>
+            <div class="adm-top-events">
+              <div class="adm-top-event-row">
+                <span class="adm-rank">01</span>
+                <div class="adm-top-event-info">
+                  <p class="adm-top-event-name">Starlight Symphony</p>
+                  <div class="adm-progress-bar"><div class="adm-progress-fill" style="width:96%;background:#a855f7;"></div></div>
+                </div>
+                <span class="adm-top-event-count">4,800</span>
+              </div>
+              <div class="adm-top-event-row">
+                <span class="adm-rank">02</span>
+                <div class="adm-top-event-info">
+                  <p class="adm-top-event-name">AI & ML Expo</p>
+                  <div class="adm-progress-bar"><div class="adm-progress-fill" style="width:78%;background:#22d3ee;"></div></div>
+                </div>
+                <span class="adm-top-event-count">3,800</span>
+              </div>
+              <div class="adm-top-event-row">
+                <span class="adm-rank">03</span>
+                <div class="adm-top-event-info">
+                  <p class="adm-top-event-name">Elite Hoops Invitational</p>
+                  <div class="adm-progress-bar"><div class="adm-progress-fill" style="width:61%;background:#34d399;"></div></div>
+                </div>
+                <span class="adm-top-event-count">3,050</span>
+              </div>
+              <div class="adm-top-event-row">
+                <span class="adm-rank">04</span>
+                <div class="adm-top-event-info">
+                  <p class="adm-top-event-name">Enchanted Forest Soirée</p>
+                  <div class="adm-progress-bar"><div class="adm-progress-fill" style="width:45%;background:#fb923c;"></div></div>
+                </div>
+                <span class="adm-top-event-count">2,250</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION: EVENTS ========== -->
+      <section class="adm-section" id="sec-events">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Events</h1>
+            <p class="adm-page-sub">Create, manage and publish your events.</p>
+          </div>
+        </div>
+
+        <div class="adm-main-grid">
+          <!-- Add Event Form -->
+          <div class="adm-form-panel s-glass" id="admFormPanel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title" id="admFormTitle">
+                <span class="material-symbols-outlined" style="color:#a855f7;">add_circle</span>Create New Event
+              </h2>
+            </div>
+            <form id="admEventForm" class="adm-form" onsubmit="admHandleSubmit(event)">
+              <div class="adm-form-group">
+                <label class="adm-label">Event Title *</label>
+                <input type="text" class="adm-input" placeholder="e.g. Global Tech Summit 2025">
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Description</label>
+                <textarea class="adm-input" rows="3" placeholder="Brief description of the event..."></textarea>
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label class="adm-label">Category *</label>
+                  <select class="adm-input adm-select">
+                    <option value="">Select category</option>
+                    <option>Music</option><option>Technology</option><option>Sports</option>
+                    <option>Workshops</option><option>Festivals</option><option>Business</option>
+                    <option>Education</option><option>Entertainment</option>
+                  </select>
+                </div>
+                <div class="adm-form-group">
+                  <label class="adm-label">Status</label>
+                  <select class="adm-input adm-select">
+                    <option>Published</option><option>Draft</option><option>Cancelled</option>
+                  </select>
+                </div>
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label class="adm-label">Date *</label>
+                  <input type="date" class="adm-input">
+                </div>
+                <div class="adm-form-group">
+                  <label class="adm-label">Time</label>
+                  <input type="time" class="adm-input">
+                </div>
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Venue</label>
+                <input type="text" class="adm-input" placeholder="e.g. Shrine Expo Hall, Los Angeles">
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Banner Image URL</label>
+                <input type="url" class="adm-input" placeholder="https://...">
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Max Attendees</label>
+                <input type="number" class="adm-input" placeholder="e.g. 5000" min="1">
+              </div>
+              <div class="adm-form-actions">
+                <button type="submit" class="s-btn s-btn-primary" id="admSubmitBtn">
+                  <span class="material-symbols-outlined" style="font-size:16px;">add</span>Add Event
+                </button>
+                <button type="button" class="s-btn s-btn-ghost" onclick="admResetForm()">Reset</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Events Table -->
+          <div class="adm-table-panel s-glass">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title">
+                <span class="material-symbols-outlined" style="color:#a855f7;">table_rows</span>All Events
+              </h2>
+              <div style="display:flex;gap:8px;">
+                <button class="s-btn s-btn-ghost s-btn-sm" onclick="sToast('Filter applied!','info')">
+                  <span class="material-symbols-outlined" style="font-size:15px;">filter_list</span>Filter
+                </button>
+                <button class="s-btn s-btn-ghost s-btn-sm" onclick="sToast('Exported to CSV!','success')">
+                  <span class="material-symbols-outlined" style="font-size:15px;">download</span>Export
+                </button>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr><th>Event Name</th><th>Category</th><th>Date</th><th>Venue</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="adm-td-name">Global Tech Summit</td>
+                    <td><span class="s-tag s-tag-cyan">Technology</span></td>
+                    <td class="adm-td-mono">Aug 14, 2025</td>
+                    <td class="adm-td-muted">San Francisco, CA</td>
+                    <td><span class="adm-badge adm-badge-pub">Published</span></td>
+                    <td><div class="adm-actions">
+                      <button class="s-btn-icon" title="Edit" onclick="admEditEvent(1)"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                      <button class="s-btn-icon adm-btn-danger" title="Delete" onclick="admConfirmDelete(1)"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td class="adm-td-name">Elite Hoops Invitational</td>
+                    <td><span class="s-tag s-tag-green">Sports</span></td>
+                    <td class="adm-td-mono">Oct 05, 2025</td>
+                    <td class="adm-td-muted">Madison Square Garden</td>
+                    <td><span class="adm-badge adm-badge-pub">Published</span></td>
+                    <td><div class="adm-actions">
+                      <button class="s-btn-icon" title="Edit" onclick="admEditEvent(2)"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                      <button class="s-btn-icon adm-btn-danger" title="Delete" onclick="admConfirmDelete(2)"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td class="adm-td-name">Enchanted Forest Soirée</td>
+                    <td><span class="s-tag s-tag-amber">Festival</span></td>
+                    <td class="adm-td-mono">Nov 12, 2025</td>
+                    <td class="adm-td-muted">Asheville, NC</td>
+                    <td><span class="adm-badge adm-badge-draft">Draft</span></td>
+                    <td><div class="adm-actions">
+                      <button class="s-btn-icon" title="Edit" onclick="admEditEvent(3)"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                      <button class="s-btn-icon adm-btn-danger" title="Delete" onclick="admConfirmDelete(3)"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td class="adm-td-name">AI & ML Expo</td>
+                    <td><span class="s-tag s-tag-cyan">Technology</span></td>
+                    <td class="adm-td-mono">Oct 12, 2025</td>
+                    <td class="adm-td-muted">San Francisco, CA</td>
+                    <td><span class="adm-badge adm-badge-pub">Published</span></td>
+                    <td><div class="adm-actions">
+                      <button class="s-btn-icon" title="Edit" onclick="admEditEvent(4)"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                      <button class="s-btn-icon adm-btn-danger" title="Delete" onclick="admConfirmDelete(4)"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td class="adm-td-name">Jazz & Blues Night</td>
+                    <td><span class="s-tag s-tag-purple">Music</span></td>
+                    <td class="adm-td-mono">Dec 05, 2025</td>
+                    <td class="adm-td-muted">New Orleans, LA</td>
+                    <td><span class="adm-badge adm-badge-cancel">Cancelled</span></td>
+                    <td><div class="adm-actions">
+                      <button class="s-btn-icon" title="Edit" onclick="admEditEvent(5)"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+                      <button class="s-btn-icon adm-btn-danger" title="Delete" onclick="admConfirmDelete(5)"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+                    </div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION: CATEGORIES ========== -->
+      <section class="adm-section" id="sec-categories">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Categories</h1>
+            <p class="adm-page-sub">Manage event categories and their visibility.</p>
+          </div>
+          <button class="s-btn s-btn-primary" onclick="sToast('Category added!','success')">
+            <span class="material-symbols-outlined" style="font-size:18px;">add</span>Add Category
+          </button>
+        </div>
+
+        <div class="adm-cat-grid">
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">music_note</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Music</h3>
+              <p class="adm-cat-count">124 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Music...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#0e7490,#06b6d4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">computer</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Technology</h3>
+              <p class="adm-cat-count">89 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Technology...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#065f46,#10b981);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">sports_basketball</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Sports</h3>
+              <p class="adm-cat-count">67 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Sports...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#7c2d12,#f97316);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">celebration</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Festivals</h3>
+              <p class="adm-cat-count">41 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Festivals...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">business_center</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Business</h3>
+              <p class="adm-cat-count">38 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Business...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+          <div class="s-glass adm-cat-card">
+            <div class="adm-cat-icon" style="background:linear-gradient(135deg,#831843,#ec4899);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:24px;">school</span>
+            </div>
+            <div class="adm-cat-info">
+              <h3 class="adm-cat-name">Education</h3>
+              <p class="adm-cat-count">72 events</p>
+            </div>
+            <div class="adm-cat-actions">
+              <button class="s-btn-icon" onclick="sToast('Editing Education...','info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
+              <button class="s-btn-icon adm-btn-danger" onclick="sToast('Category deleted','success')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Category Form -->
+        <div class="s-glass adm-form-panel" style="margin-top:24px;max-width:480px;">
+          <div class="adm-panel-header">
+            <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">add_circle</span>Add New Category</h2>
+          </div>
+          <form class="adm-form" onsubmit="event.preventDefault();sToast('Category created!','success')">
+            <div class="adm-form-group">
+              <label class="adm-label">Category Name *</label>
+              <input type="text" class="adm-input" placeholder="e.g. Comedy Shows">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Icon (Material Symbol)</label>
+              <input type="text" class="adm-input" placeholder="e.g. mic">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Gradient Color</label>
+              <input type="text" class="adm-input" placeholder="e.g. #7c3aed, #9333ea">
+            </div>
+            <div class="adm-form-actions">
+              <button type="submit" class="s-btn s-btn-primary">
+                <span class="material-symbols-outlined" style="font-size:16px;">add</span>Create Category
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========== SECTION: ATTENDEES ========== -->
+      <section class="adm-section" id="sec-attendees">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Attendees</h1>
+            <p class="adm-page-sub">View and manage all registered attendees.</p>
+          </div>
+          <button class="s-btn s-btn-ghost s-btn-sm" onclick="sToast('Exported to CSV!','success')">
+            <span class="material-symbols-outlined" style="font-size:16px;">download</span>Export
+          </button>
+        </div>
+
+        <!-- Search + Filter row -->
+        <div class="adm-attendees-toolbar">
+          <div class="adm-search" style="max-width:320px;flex:1;">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search by name or email...">
+          </div>
+          <select class="adm-input adm-select" style="max-width:180px;">
+            <option>All Events</option>
+            <option>Global Tech Summit</option>
+            <option>Elite Hoops Invitational</option>
+            <option>AI & ML Expo</option>
+          </select>
+          <select class="adm-input adm-select" style="max-width:140px;">
+            <option>All Status</option>
+            <option>Confirmed</option>
+            <option>Pending</option>
+            <option>Cancelled</option>
+          </select>
+        </div>
+
+        <div class="adm-table-panel s-glass" style="margin-top:20px;">
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr><th>Name</th><th>Email</th><th>Event</th><th>Registered</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="adm-attendee-avatar">AM</div><span class="adm-td-name">Arjun Mehta</span></div></td>
+                  <td class="adm-td-muted">arjun@email.com</td>
+                  <td class="adm-td-muted">Global Tech Summit</td>
+                  <td class="adm-td-mono">Jul 12, 2025</td>
+                  <td><span class="adm-badge adm-badge-pub">Confirmed</span></td>
+                  <td><div class="adm-actions"><button class="s-btn-icon" onclick="sToast('View profile','info')"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span></button></div></td>
+                </tr>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="adm-attendee-avatar" style="background:rgba(6,182,212,0.2);color:#22d3ee;">PS</div><span class="adm-td-name">Priya Sharma</span></div></td>
+                  <td class="adm-td-muted">priya@email.com</td>
+                  <td class="adm-td-muted">AI & ML Expo</td>
+                  <td class="adm-td-mono">Jul 14, 2025</td>
+                  <td><span class="adm-badge adm-badge-pub">Confirmed</span></td>
+                  <td><div class="adm-actions"><button class="s-btn-icon" onclick="sToast('View profile','info')"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span></button></div></td>
+                </tr>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="adm-attendee-avatar" style="background:rgba(52,211,153,0.2);color:#34d399;">RK</div><span class="adm-td-name">Rohan Kapoor</span></div></td>
+                  <td class="adm-td-muted">rohan@email.com</td>
+                  <td class="adm-td-muted">Elite Hoops Invitational</td>
+                  <td class="adm-td-mono">Jul 15, 2025</td>
+                  <td><span class="adm-badge adm-badge-draft">Pending</span></td>
+                  <td><div class="adm-actions"><button class="s-btn-icon" onclick="sToast('View profile','info')"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span></button></div></td>
+                </tr>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="adm-attendee-avatar" style="background:rgba(251,146,60,0.2);color:#fb923c;">NJ</div><span class="adm-td-name">Neha Joshi</span></div></td>
+                  <td class="adm-td-muted">neha@email.com</td>
+                  <td class="adm-td-muted">Enchanted Forest Soirée</td>
+                  <td class="adm-td-mono">Jul 16, 2025</td>
+                  <td><span class="adm-badge adm-badge-cancel">Cancelled</span></td>
+                  <td><div class="adm-actions"><button class="s-btn-icon" onclick="sToast('View profile','info')"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span></button></div></td>
+                </tr>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="adm-attendee-avatar" style="background:rgba(248,113,113,0.2);color:#f87171;">SK</div><span class="adm-td-name">Sana Khan</span></div></td>
+                  <td class="adm-td-muted">sana@email.com</td>
+                  <td class="adm-td-muted">Global Tech Summit</td>
+                  <td class="adm-td-mono">Jul 17, 2025</td>
+                  <td><span class="adm-badge adm-badge-pub">Confirmed</span></td>
+                  <td><div class="adm-actions"><button class="s-btn-icon" onclick="sToast('View profile','info')"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span></button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION: ANALYTICS ========== -->
+      <section class="adm-section" id="sec-analytics">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Analytics</h1>
+            <p class="adm-page-sub">Track performance, revenue, and registrations.</p>
+          </div>
+          <button class="s-btn s-btn-ghost s-btn-sm" onclick="sToast('Report downloaded!','success')">
+            <span class="material-symbols-outlined" style="font-size:16px;">download</span>Download Report
+          </button>
+        </div>
+
+        <!-- Revenue + Summary Cards -->
+        <div class="adm-stats-grid" style="margin-bottom:24px;">
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(168,85,247,0.14);">
+              <span class="material-symbols-outlined" style="color:#a855f7;">currency_rupee</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Total Revenue</p>
+              <p class="adm-stat-num">₹84.2L</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+18% vs last month</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(6,182,212,0.12);">
+              <span class="material-symbols-outlined" style="color:#22d3ee;">person_add</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">New Registrations</p>
+              <p class="adm-stat-num">2,340</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+847 this week</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(52,211,153,0.1);">
+              <span class="material-symbols-outlined" style="color:#34d399;">sell</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Tickets Sold</p>
+              <p class="adm-stat-num">8,920</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+12.5% growth</p>
+            </div>
+          </div>
+          <div class="adm-stat-card s-glass">
+            <div class="adm-stat-icon" style="background:rgba(251,146,60,0.1);">
+              <span class="material-symbols-outlined" style="color:#fb923c;">star</span>
+            </div>
+            <div>
+              <p class="adm-stat-label">Avg. Rating</p>
+              <p class="adm-stat-num">4.8 / 5</p>
+              <p class="adm-stat-change adm-change-up"><span class="material-symbols-outlined">trending_up</span>+0.2 this month</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart placeholders + Category breakdown -->
+        <div class="adm-dash-grid">
+          <div class="s-glass adm-panel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">show_chart</span>Registrations Over Time</h2>
+            </div>
+            <div class="adm-chart-placeholder">
+              <div class="adm-chart-bars">
+                <div class="adm-bar" style="height:45%;background:#7c3aed;"><span>Jan</span></div>
+                <div class="adm-bar" style="height:60%;background:#8b5cf6;"><span>Feb</span></div>
+                <div class="adm-bar" style="height:50%;background:#7c3aed;"><span>Mar</span></div>
+                <div class="adm-bar" style="height:75%;background:#a855f7;"><span>Apr</span></div>
+                <div class="adm-bar" style="height:65%;background:#8b5cf6;"><span>May</span></div>
+                <div class="adm-bar" style="height:90%;background:#a855f7;"><span>Jun</span></div>
+                <div class="adm-bar" style="height:80%;background:#c084fc;"><span>Jul</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s-glass adm-panel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">donut_small</span>Popular Categories</h2>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Music</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:85%;background:#a855f7;"></div></div><span class="adm-analytics-pct">85%</span></div>
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Technology</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:72%;background:#22d3ee;"></div></div><span class="adm-analytics-pct">72%</span></div>
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Festivals</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:60%;background:#fb923c;"></div></div><span class="adm-analytics-pct">60%</span></div>
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Sports</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:48%;background:#34d399;"></div></div><span class="adm-analytics-pct">48%</span></div>
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Workshops</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:35%;background:#60a5fa;"></div></div><span class="adm-analytics-pct">35%</span></div>
+              <div class="adm-analytics-row"><span class="adm-analytics-label">Business</span><div class="adm-progress-bar"><div class="adm-progress-fill" style="width:28%;background:#f472b6;"></div></div><span class="adm-analytics-pct">28%</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION: SETTINGS ========== -->
+      <section class="adm-section" id="sec-settings">
+        <div class="adm-heading-row">
+          <div>
+            <h1 class="adm-page-title">Settings</h1>
+            <p class="adm-page-sub">Manage your profile, theme and notification preferences.</p>
+          </div>
+        </div>
+
+        <div class="adm-settings-grid">
+          <!-- Profile Settings -->
+          <div class="s-glass adm-form-panel">
+            <div class="adm-panel-header">
+              <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">manage_accounts</span>Profile Settings</h2>
+            </div>
+            <form class="adm-form" onsubmit="event.preventDefault();sToast('Profile saved!','success')">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+                <div class="adm-avatar" style="width:64px;height:64px;font-size:28px;background:linear-gradient(135deg,#7c3aed,#9333ea);">
+                  <span class="material-symbols-outlined" style="font-size:28px;">person</span>
+                </div>
+                <div>
+                  <p style="font-size:15px;font-weight:700;color:#e2e8f0;">Admin User</p>
+                  <button type="button" class="s-btn s-btn-ghost s-btn-sm" onclick="sToast('Upload feature coming soon','info')">Change Photo</button>
+                </div>
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label class="adm-label">First Name</label>
+                  <input type="text" class="adm-input" value="Admin">
+                </div>
+                <div class="adm-form-group">
+                  <label class="adm-label">Last Name</label>
+                  <input type="text" class="adm-input" value="User">
+                </div>
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Email Address</label>
+                <input type="email" class="adm-input" value="admin@eventpulse.io">
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">Phone Number</label>
+                <input type="tel" class="adm-input" placeholder="+1 (555) 000-0000">
+              </div>
+              <div class="adm-form-group">
+                <label class="adm-label">New Password</label>
+                <input type="password" class="adm-input" placeholder="Leave blank to keep current">
+              </div>
+              <div class="adm-form-actions">
+                <button type="submit" class="s-btn s-btn-primary">
+                  <span class="material-symbols-outlined" style="font-size:16px;">save</span>Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Theme + Notifications -->
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="s-glass adm-form-panel">
+              <div class="adm-panel-header">
+                <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">palette</span>Theme Settings</h2>
+              </div>
+              <div class="adm-form" style="padding:18px 20px;">
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">Dark Mode</p>
+                    <p class="adm-settings-hint">Use dark background (default)</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox" checked><span class="adm-toggle-slider"></span></label>
+                </div>
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">Compact Sidebar</p>
+                    <p class="adm-settings-hint">Show icons only in sidebar</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox"><span class="adm-toggle-slider"></span></label>
+                </div>
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">Glassmorphism Cards</p>
+                    <p class="adm-settings-hint">Use frosted glass effect on cards</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox" checked><span class="adm-toggle-slider"></span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="s-glass adm-form-panel">
+              <div class="adm-panel-header">
+                <h2 class="adm-panel-title"><span class="material-symbols-outlined" style="color:#a855f7;">notifications_active</span>Notifications</h2>
+              </div>
+              <div class="adm-form" style="padding:18px 20px;">
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">New Registrations</p>
+                    <p class="adm-settings-hint">Alert when someone registers</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox" checked><span class="adm-toggle-slider"></span></label>
+                </div>
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">Event Reminders</p>
+                    <p class="adm-settings-hint">24h before event starts</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox" checked><span class="adm-toggle-slider"></span></label>
+                </div>
+                <div class="adm-settings-toggle-row">
+                  <div>
+                    <p class="adm-settings-label">Weekly Reports</p>
+                    <p class="adm-settings-hint">Send weekly analytics summary</p>
+                  </div>
+                  <label class="adm-toggle"><input type="checkbox"><span class="adm-toggle-slider"></span></label>
+                </div>
+                <div style="margin-top:16px;">
+                  <button class="s-btn s-btn-primary" onclick="event.preventDefault();sToast('Notification settings saved!','success')">
+                    <span class="material-symbols-outlined" style="font-size:16px;">save</span>Save Preferences
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="s-modal" id="admDeleteModal">
+  <div class="s-modal-backdrop"></div>
+  <div class="s-modal-box">
+    <div class="s-modal-header">
+      <span class="s-modal-title">Confirm Delete</span>
+      <button class="s-btn-icon" onclick="sCloseModal('admDeleteModal')">
+        <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+      </button>
+    </div>
+    <div class="s-modal-body" style="text-align:center;padding:32px 24px;">
+      <div class="adm-modal-icon">
+        <span class="material-symbols-outlined" style="font-size:28px;color:#f87171;">delete_forever</span>
+      </div>
+      <p style="color:#94a3b8;margin-top:12px;font-size:14px;">Are you sure you want to delete this event?<br>This action cannot be undone.</p>
+    </div>
+    <div class="s-modal-footer">
+      <button class="s-btn s-btn-ghost" onclick="sCloseModal('admDeleteModal')">Cancel</button>
+      <button class="s-btn s-btn-danger" onclick="admDeleteConfirmed()">
+        <span class="material-symbols-outlined" style="font-size:16px;">delete</span>Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script src="js/admin.js"></script>
+<script>
+/* ===== SPA SECTION SWITCHER ===== */
+function admSwitchSection(name) {
+  /* Hide all sections */
+  document.querySelectorAll('.adm-section').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  /* Show target section with fade */
+  var target = document.getElementById('sec-' + name);
+  if (target) {
+    target.classList.add('active');
+  }
+  /* Update sidebar active state */
+  document.querySelectorAll('.adm-nav-item[data-section]').forEach(function(n) {
+    n.classList.toggle('active', n.getAttribute('data-section') === name);
+  });
+  /* Close mobile sidebar */
+  document.getElementById('admSidebar').classList.remove('open');
+}
+
+/* Wire sidebar nav items */
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.adm-nav-item[data-section]').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      admSwitchSection(item.getAttribute('data-section'));
+    });
+  });
+});
+</script>
+</body>
+</html>

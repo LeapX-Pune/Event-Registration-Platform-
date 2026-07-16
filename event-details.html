@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starlight Symphony — EventPulse</title>
+  <!-- Fonts wahi jo homepage pe hain -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/event-details.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR — sabhi pages pe same hai ===== -->
+<nav class="s-nav">
+  <div class="s-nav-inner">
+    <a href="index.html" class="s-nav-brand">Event<span>Pulse</span></a>
+    <div class="s-nav-links">
+      <a href="index.html"         class="s-nav-link">Home</a>
+      <a href="event-details.html" class="s-nav-link active">Events</a>
+      <a href="categories.html"    class="s-nav-link">Categories</a>
+      <a href="about.html"         class="s-nav-link">About</a>
+      <a href="admin.html"         class="s-nav-link">Admin</a>
+    </div>
+    <div class="s-nav-right">
+      <button class="s-btn s-btn-primary s-btn-sm">Sign In</button>
+      <button class="s-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <!-- Mobile navigation -->
+  <div class="s-mobile-menu">
+    <a href="index.html"         class="s-nav-link">Home</a>
+    <a href="event-details.html" class="s-nav-link active">Events</a>
+    <a href="categories.html"    class="s-nav-link">Categories</a>
+    <a href="about.html"         class="s-nav-link">About</a>
+    <a href="admin.html"         class="s-nav-link">Admin</a>
+  </div>
+</nav>
+
+<!-- ===== EVENT BANNER ===== -->
+<!-- Ye event ka full-width hero banner hai -->
+<section class="ed-banner">
+  <div class="ed-banner-bg">
+    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80" alt="Starlight Symphony">
+  </div>
+  <div class="ed-banner-overlay"></div>
+  <div class="s-container ed-banner-content">
+    <h1 class="ed-event-title">Starlight Symphony</h1>
+    <p class="ed-event-sub">Electronic Reimagined &bull; Three Nights of Sound &amp; Light</p>
+    <div class="ed-chips">
+      <span class="ed-chip"><span class="material-symbols-outlined">calendar_today</span>Aug 14–16, 2025</span>
+      <span class="ed-chip"><span class="material-symbols-outlined">schedule</span>7:00 PM onwards</span>
+      <span class="ed-chip"><span class="material-symbols-outlined">location_on</span>Los Angeles, CA</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="s-container ed-main">
+
+  <!-- LEFT COLUMN: event description, gallery, similar events -->
+  <div class="ed-left">
+
+    <!-- About section -->
+    <div class="ed-card s-glass" data-reveal>
+      <h2 class="ed-card-title"><span class="material-symbols-outlined">info</span>About This Event</h2>
+      <p class="ed-text">Starlight Symphony is a three-day immersive music festival celebrating the intersection of classical orchestration and cutting-edge electronic music. Headlined by world-class artists, the event features multiple stages, visual art installations, and curated experiences for true music enthusiasts.</p>
+      <p class="ed-text" style="margin-top:12px;">From ambient soundscapes to high-energy beats — food vendors, merchandise stalls, and an immersive art zone surround the main stages. Gates open at 5:00 PM each evening.</p>
+    </div>
+
+    <!-- Date, Venue, Attendees info cards -->
+    <!-- Ye 3 detail cards hain — date, venue, attendees -->
+    <div class="ed-info-cards" data-reveal>
+      <div class="s-glass ed-info-card">
+        <span class="material-symbols-outlined" style="color:#a855f7;font-size:28px;">calendar_today</span>
+        <p class="ed-info-label">Date &amp; Time</p>
+        <p class="ed-info-val">Aug 14–16, 2025</p>
+        <p class="ed-info-sub">7:00 PM – 2:00 AM daily</p>
+      </div>
+      <div class="s-glass ed-info-card">
+        <span class="material-symbols-outlined" style="color:#22d3ee;font-size:28px;">location_on</span>
+        <p class="ed-info-label">Venue</p>
+        <p class="ed-info-val">Shrine Expo Hall</p>
+        <p class="ed-info-sub">700 W 32nd St, Los Angeles</p>
+      </div>
+      <div class="s-glass ed-info-card">
+        <span class="material-symbols-outlined" style="color:#34d399;font-size:28px;">group</span>
+        <p class="ed-info-label">Attendees</p>
+        <p class="ed-info-val">2,480 / 5,000</p>
+        <p class="ed-info-sub">49% seats filled</p>
+      </div>
+    </div>
+
+    <!-- Event Gallery -->
+    <!-- Ye 4-image gallery hai — click karo lightbox khulega -->
+    <div class="ed-card" data-reveal>
+      <h2 class="ed-card-title"><span class="material-symbols-outlined">photo_library</span>Gallery</h2>
+      <div class="ed-gallery">
+        <div class="ed-gallery-item" onclick="edOpenLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=500&q=80" alt="Gallery 1">
+          <div class="ed-gallery-overlay"><span class="material-symbols-outlined">zoom_in</span></div>
+        </div>
+        <div class="ed-gallery-item" onclick="edOpenLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" alt="Gallery 2">
+          <div class="ed-gallery-overlay"><span class="material-symbols-outlined">zoom_in</span></div>
+        </div>
+        <div class="ed-gallery-item" onclick="edOpenLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&q=80" alt="Gallery 3">
+          <div class="ed-gallery-overlay"><span class="material-symbols-outlined">zoom_in</span></div>
+        </div>
+        <div class="ed-gallery-item" onclick="edOpenLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?w=500&q=80" alt="Gallery 4">
+          <div class="ed-gallery-overlay"><span class="material-symbols-outlined">zoom_in</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Similar Events section -->
+    <!-- Ye similar events grid hai -->
+    <div class="ed-card" data-reveal>
+      <h2 class="ed-card-title"><span class="material-symbols-outlined">recommend</span>Similar Events</h2>
+      <div class="ed-similar-grid">
+        <a href="event-details.html" class="s-event-card">
+          <div class="s-card-img"><img src="https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80" alt="Jazz"><span class="s-card-badge">Concert</span></div>
+          <div class="s-card-body">
+            <div class="s-card-title">Jazz &amp; Blues Night</div>
+            <div class="s-card-meta"><span class="material-symbols-outlined">location_on</span>New Orleans, LA</div>
+            <div class="s-card-footer"><span class="s-card-price">₹999</span><button class="s-btn s-btn-sm s-btn-outline" onclick="event.preventDefault()">View</button></div>
+          </div>
+        </a>
+        <a href="event-details.html" class="s-event-card">
+          <div class="s-card-img"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80" alt="Festival"><span class="s-card-badge">Festival</span></div>
+          <div class="s-card-body">
+            <div class="s-card-title">Enchanted Forest Soirée</div>
+            <div class="s-card-meta"><span class="material-symbols-outlined">location_on</span>Asheville, NC</div>
+            <div class="s-card-footer"><span class="s-card-price">₹1,299</span><button class="s-btn s-btn-sm s-btn-outline" onclick="event.preventDefault()">View</button></div>
+          </div>
+        </a>
+        <a href="event-details.html" class="s-event-card">
+          <div class="s-card-img"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80" alt="Tech"><span class="s-card-badge">Technology</span></div>
+          <div class="s-card-body">
+            <div class="s-card-title">AI &amp; ML Expo 2025</div>
+            <div class="s-card-meta"><span class="material-symbols-outlined">location_on</span>San Francisco, CA</div>
+            <div class="s-card-footer"><span class="s-card-price">₹2,499</span><button class="s-btn s-btn-sm s-btn-outline" onclick="event.preventDefault()">View</button></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /ed-left -->
+
+  <!-- RIGHT COLUMN: sticky registration sidebar -->
+  <!-- Ye sticky sidebar hai — price, register, organizer -->
+  <aside class="ed-sidebar">
+
+    <!-- Registration card -->
+    <div class="s-glass ed-reg-card" data-reveal>
+      <div class="ed-price-row">
+        <span class="ed-price">₹1,499</span>
+        <span class="s-tag s-tag-green">Available</span>
+      </div>
+      <div class="ed-reg-details">
+        <div class="ed-reg-row"><span class="material-symbols-outlined">calendar_today</span><div><p class="ed-info-label">Date</p><p style="font-size:13px;color:#e2e8f0;font-weight:600;">Aug 14–16, 2025</p></div></div>
+        <div class="ed-reg-row"><span class="material-symbols-outlined">schedule</span><div><p class="ed-info-label">Time</p><p style="font-size:13px;color:#e2e8f0;font-weight:600;">7:00 PM – 2:00 AM</p></div></div>
+        <div class="ed-reg-row"><span class="material-symbols-outlined">location_on</span><div><p class="ed-info-label">Venue</p><p style="font-size:13px;color:#e2e8f0;font-weight:600;">Shrine Expo Hall, LA</p></div></div>
+      </div>
+      <!-- Capacity progress bar -->
+      <div class="ed-progress-wrap">
+        <div class="ed-progress-track"><div class="ed-progress-fill" id="edFill"></div></div>
+        <p class="ed-progress-text">49% seats filled &bull; 2,520 spots left</p>
+      </div>
+      <!-- Register button — UI only -->
+      <button class="s-btn s-btn-primary ed-reg-btn" onclick="sToast('Registration coming soon! 🎟','success')">
+        <span class="material-symbols-outlined">confirmation_number</span>Register Now
+      </button>
+      <button class="s-btn s-btn-ghost ed-save-btn" onclick="sToast('Saved to wishlist!','success')">
+        <span class="material-symbols-outlined">bookmark_border</span>Save Event
+      </button>
+    </div>
+
+    <!-- Organizer card -->
+    <div class="s-glass ed-org-card" data-reveal>
+      <h3 class="ed-card-title" style="font-size:15px;margin-bottom:14px;"><span class="material-symbols-outlined">business</span>Organizer</h3>
+      <div class="ed-org-row">
+        <div class="ed-org-avatar"><span class="material-symbols-outlined" style="font-size:20px;color:#a855f7;">business</span></div>
+        <div>
+          <p style="font-weight:700;font-size:14px;color:#e2e8f0;">Pulse Productions Inc.</p>
+          <p style="font-size:12px;color:#64748b;">Verified Organizer &bull; Since 2018</p>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#64748b;margin-top:12px;line-height:1.7;">120+ events hosted &bull; 500,000+ attendees served across North America.</p>
+      <button class="s-btn s-btn-outline s-btn-sm" style="width:100%;justify-content:center;margin-top:14px;" onclick="sToast('Organizer page coming soon!','info')">View All Events</button>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="s-footer">
+  <div class="s-container">
+    <div class="s-footer-grid">
+      <div>
+        <div class="s-footer-brand">EventPulse</div>
+        <p class="s-footer-tagline">Connecting people through extraordinary shared experiences since 2024.</p>
+        <div class="s-footer-socials" style="margin-top:16px;">
+          <a href="#" class="s-social"><span class="material-symbols-outlined">language</span></a>
+          <a href="#" class="s-social"><span class="material-symbols-outlined">photo_camera</span></a>
+          <a href="#" class="s-social"><span class="material-symbols-outlined">work</span></a>
+        </div>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Explore</p>
+        <a href="event-details.html" class="s-footer-link">All Events</a>
+        <a href="categories.html"    class="s-footer-link">Categories</a>
+        <a href="about.html"         class="s-footer-link">About Us</a>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Company</p>
+        <a href="#" class="s-footer-link">Careers</a>
+        <a href="#" class="s-footer-link">Blog</a>
+        <a href="admin.html" class="s-footer-link">Admin</a>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Legal</p>
+        <a href="#" class="s-footer-link">Privacy Policy</a>
+        <a href="#" class="s-footer-link">Terms of Service</a>
+        <a href="#" class="s-footer-link">Help Center</a>
+      </div>
+    </div>
+    <div class="s-footer-bottom">
+      <span class="s-footer-copy">&copy; 2025 EventPulse. All rights reserved.</span>
+      <span class="s-footer-copy">Made with ❤ for event lovers</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox Modal — gallery image fullscreen -->
+<div class="s-modal" id="edLightbox">
+  <div class="s-modal-backdrop"></div>
+  <div class="ed-lightbox-inner">
+    <button class="ed-lightbox-close" onclick="sCloseModal('edLightbox')"><span class="material-symbols-outlined">close</span></button>
+    <img id="edLightboxImg" src="" alt="Gallery fullscreen">
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script src="js/event-details.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — EventPulse</title>
+  <!-- Fonts wahi jo homepage pe hain -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/categories.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="s-nav">
+  <div class="s-nav-inner">
+    <a href="index.html" class="s-nav-brand">Event<span>Pulse</span></a>
+    <div class="s-nav-links">
+      <a href="index.html"         class="s-nav-link">Home</a>
+      <a href="event-details.html" class="s-nav-link">Events</a>
+      <a href="categories.html"    class="s-nav-link active">Categories</a>
+      <a href="about.html"         class="s-nav-link">About</a>
+      <a href="admin.html"         class="s-nav-link">Admin</a>
+    </div>
+    <div class="s-nav-right">
+      <button class="s-btn s-btn-primary s-btn-sm">Sign In</button>
+      <button class="s-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="s-mobile-menu">
+    <a href="index.html"         class="s-nav-link">Home</a>
+    <a href="event-details.html" class="s-nav-link">Events</a>
+    <a href="categories.html"    class="s-nav-link active">Categories</a>
+    <a href="about.html"         class="s-nav-link">About</a>
+    <a href="admin.html"         class="s-nav-link">Admin</a>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<!-- Ye categories page ka hero hai -->
+<section class="cat-hero">
+  <div class="cat-hero-glow"></div>
+  <div class="s-container cat-hero-inner">
+    <h1 class="cat-hero-title" data-reveal>Explore <span>Categories</span></h1>
+    <p class="cat-hero-sub" data-reveal>Find events that match your passion — from live music to tech conferences and everything in between.</p>
+    <!-- Search bar UI only -->
+    <div class="cat-search-bar" data-reveal>
+      <span class="material-symbols-outlined">search</span>
+      <input type="text" placeholder="Search a category..." readonly onclick="sToast('Search coming soon!','info')">
+      <button class="s-btn s-btn-primary s-btn-sm" onclick="sToast('Search coming soon!','info')">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES GRID ===== -->
+<!-- Ye 8 category cards hain -->
+<section class="s-section">
+  <div class="s-container">
+    <div class="s-sec-header" data-reveal>
+      <h2 class="s-sec-title">All <span>Categories</span> <span class="cat-count">8</span></h2>
+      <p style="font-size:13px;color:#64748b;">Click any category to explore events</p>
+    </div>
+    <div class="cat-grid">
+
+      <!-- Music -->
+      <div class="cat-card" style="--from:#4c1d95;--to:#7c3aed;" data-reveal data-delay="0" onclick="catFilter('Music')" data-cat="Music">
+        <div class="cat-card-glow"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap"><span class="material-symbols-outlined">music_note</span></div>
+          <h3 class="cat-card-title">Music</h3>
+          <p class="cat-card-desc">Concerts, live performances, festivals and more across every genre.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-purple">124 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Technology -->
+      <div class="cat-card" style="--from:#0e7490;--to:#06b6d4;" data-reveal data-delay="60" onclick="catFilter('Technology')" data-cat="Technology">
+        <div class="cat-card-glow"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(6,182,212,0.14);border-color:rgba(6,182,212,0.22);"><span class="material-symbols-outlined" style="color:#22d3ee;">computer</span></div>
+          <h3 class="cat-card-title">Technology</h3>
+          <p class="cat-card-desc">Hackathons, AI summits, developer conferences and product launches.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-cyan">89 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Sports -->
+      <div class="cat-card" style="--from:#064e3b;--to:#10b981;" data-reveal data-delay="120" onclick="catFilter('Sports')" data-cat="Sports">
+        <div class="cat-card-glow"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);"><span class="material-symbols-outlined" style="color:#34d399;">sports_basketball</span></div>
+          <h3 class="cat-card-title">Sports</h3>
+          <p class="cat-card-desc">Live matches, tournaments, marathons and outdoor sporting events.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-green">67 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Workshops -->
+      <div class="cat-card" style="--from:#4a1d96;--to:#8b5cf6;" data-reveal data-delay="180" onclick="catFilter('Workshops')" data-cat="Workshops">
+        <div class="cat-card-glow"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap"><span class="material-symbols-outlined">construction</span></div>
+          <h3 class="cat-card-title">Workshops</h3>
+          <p class="cat-card-desc">Hands-on learning, skill development and interactive masterclasses.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-purple">53 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Festivals -->
+      <div class="cat-card" style="--from:#7c2d12;--to:#f97316;" data-reveal data-delay="0" onclick="catFilter('Festivals')" data-cat="Festivals">
+        <div class="cat-card-glow" style="background:rgba(249,115,22,0.1);"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.2);"><span class="material-symbols-outlined" style="color:#fb923c;">celebration</span></div>
+          <h3 class="cat-card-title">Festivals</h3>
+          <p class="cat-card-desc">Cultural celebrations, food fests, art fairs and community gatherings.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-amber">41 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Business -->
+      <div class="cat-card" style="--from:#1e3a5f;--to:#3b82f6;" data-reveal data-delay="60" onclick="catFilter('Business')" data-cat="Business">
+        <div class="cat-card-glow" style="background:rgba(59,130,246,0.08);"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.2);"><span class="material-symbols-outlined" style="color:#60a5fa;">business_center</span></div>
+          <h3 class="cat-card-title">Business</h3>
+          <p class="cat-card-desc">Networking events, startup expos, investor meets and leadership summits.</p>
+          <div class="cat-card-footer"><span class="s-tag" style="background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">38 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="cat-card" style="--from:#713f12;--to:#f59e0b;" data-reveal data-delay="120" onclick="catFilter('Education')" data-cat="Education">
+        <div class="cat-card-glow" style="background:rgba(245,158,11,0.08);"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.2);"><span class="material-symbols-outlined" style="color:#fbbf24;">school</span></div>
+          <h3 class="cat-card-title">Education</h3>
+          <p class="cat-card-desc">Seminars, bootcamps, lectures and academic symposiums worldwide.</p>
+          <div class="cat-card-footer"><span class="s-tag s-tag-amber">72 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+      <!-- Entertainment -->
+      <div class="cat-card" style="--from:#831843;--to:#ec4899;" data-reveal data-delay="180" onclick="catFilter('Entertainment')" data-cat="Entertainment">
+        <div class="cat-card-glow" style="background:rgba(236,72,153,0.08);"></div>
+        <div class="cat-card-body">
+          <div class="cat-icon-wrap" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.2);"><span class="material-symbols-outlined" style="color:#f472b6;">theaters</span></div>
+          <h3 class="cat-card-title">Entertainment</h3>
+          <p class="cat-card-desc">Movies, comedy shows, stand-up specials and immersive experiences.</p>
+          <div class="cat-card-footer"><span class="s-tag" style="background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">95 Events</span><span class="material-symbols-outlined cat-arrow">arrow_forward</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FILTERED EVENTS PANEL ===== -->
+<section class="s-section" style="padding-top:0;" id="catEventsSection" style="display:none;">
+  <div class="s-container">
+    <div class="cat-filter-header" id="catFilterHeader">
+      <div>
+        <h2 class="s-sec-title" id="catFilterTitle">Events</h2>
+        <p id="catFilterSub" style="font-size:13px;color:#64748b;margin-top:4px;"></p>
+      </div>
+      <button class="s-btn s-btn-ghost s-btn-sm" onclick="catClearFilter()" id="catClearBtn" style="display:none;">
+        <span class="material-symbols-outlined" style="font-size:15px;">close</span> Clear Filter
+      </button>
+    </div>
+    <div class="cat-events-grid" id="catEventsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER CTA ===== -->
+<!-- Ye newsletter subscribe section hai -->
+<section class="cat-newsletter">
+  <div class="cat-newsletter-glow"></div>
+  <div class="s-container cat-newsletter-inner" data-reveal>
+    <div class="cat-nl-text">
+      <h2>Never miss an <span>event</span></h2>
+      <p>Get personalised event recommendations and early-bird offers straight to your inbox.</p>
+    </div>
+    <form class="cat-nl-form" onsubmit="event.preventDefault();sToast('Subscribed! 🎉','success')">
+      <input type="email" placeholder="Enter your email address" class="cat-nl-input" required>
+      <button type="submit" class="s-btn s-btn-primary">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="s-footer">
+  <div class="s-container">
+    <div class="s-footer-grid">
+      <div>
+        <div class="s-footer-brand">EventPulse</div>
+        <p class="s-footer-tagline">Connecting people through extraordinary shared experiences since 2024.</p>
+        <div class="s-footer-socials" style="margin-top:16px;">
+          <a href="#" class="s-social"><span class="material-symbols-outlined">language</span></a>
+          <a href="#" class="s-social"><span class="material-symbols-outlined">photo_camera</span></a>
+          <a href="#" class="s-social"><span class="material-symbols-outlined">work</span></a>
+        </div>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Explore</p>
+        <a href="event-details.html" class="s-footer-link">All Events</a>
+        <a href="categories.html"    class="s-footer-link">Categories</a>
+        <a href="about.html"         class="s-footer-link">About Us</a>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Company</p>
+        <a href="#" class="s-footer-link">Careers</a>
+        <a href="#" class="s-footer-link">Blog</a>
+        <a href="admin.html" class="s-footer-link">Admin</a>
+      </div>
+      <div>
+        <p class="s-footer-col-title">Legal</p>
+        <a href="#" class="s-footer-link">Privacy Policy</a>
+        <a href="#" class="s-footer-link">Terms of Service</a>
+        <a href="#" class="s-footer-link">Help Center</a>
+      </div>
+    </div>
+    <div class="s-footer-bottom">
+      <span class="s-footer-copy">&copy; 2025 EventPulse. All rights reserved.</span>
+      <span class="s-footer-copy">Made with ❤ for event lovers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/shared.js"></script>
+<script src="js/categories.js"></script>
+</body>
+</html>

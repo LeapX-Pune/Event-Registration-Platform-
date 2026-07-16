@@ -1,0 +1,117 @@
+/* ============================================================
+   about.css — About page styles
+   shared.css ke upar build hota hai
+   ============================================================ */
+
+/* ===== HERO ===== */
+.abt-hero { position:relative; padding:92px 0 80px; overflow:hidden; text-align:center; }
+.abt-hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 40%, rgba(124,58,237,0.2) 0%, transparent 65%); pointer-events:none; }
+
+/* Decorative floating shapes */
+.abt-shape { position:absolute; border-radius:50%; opacity:0.06; pointer-events:none; animation:abtFloat 8s ease-in-out infinite alternate; }
+.abt-shape-1 { width:400px; height:400px; background:#a855f7; top:-120px; left:-80px; animation-delay:0s; }
+.abt-shape-2 { width:280px; height:280px; background:#22d3ee; bottom:-60px; right:-60px; animation-delay:3s; }
+@keyframes abtFloat { from { transform:translateY(0) rotate(0deg); } to { transform:translateY(-20px) rotate(8deg); } }
+
+.abt-hero-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:20px; }
+.abt-hero-title { font-size:52px; font-weight:800; color:#e2e8f0; letter-spacing:-0.03em; line-height:1.1; max-width:720px; }
+.abt-hero-title span { color:#a855f7; }
+.abt-hero-sub { font-size:16px; color:#64748b; max-width:520px; line-height:1.75; }
+.abt-hero-actions { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+/* ===== STATS STRIP ===== */
+.abt-stats-strip { background:rgba(11,14,36,0.8); border-top:1px solid rgba(139,92,246,0.1); border-bottom:1px solid rgba(139,92,246,0.1); padding:32px 0; }
+.abt-stats-inner { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0; }
+.abt-stat { display:flex; flex-direction:column; align-items:center; gap:6px; padding:10px 48px; }
+.abt-stat-icon { font-size:26px; }
+.abt-stat-num { font-size:32px; font-weight:800; color:#e2e8f0; line-height:1; }
+.abt-stat-label { font-size:12px; color:#64748b; font-weight:500; white-space:nowrap; }
+.abt-stat-divider { width:1px; height:50px; background:rgba(139,92,246,0.15); }
+
+/* ===== SECTION TITLE ===== */
+.abt-section-title { font-size:30px; font-weight:800; color:#e2e8f0; letter-spacing:-0.02em; line-height:1.2; margin-top:12px; }
+.abt-body { font-size:15px; color:#64748b; line-height:1.8; }
+
+/* ===== MISSION ===== */
+/* Ye mission section ka 2-column layout hai */
+.abt-mission-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.abt-mission-text { display:flex; flex-direction:column; gap:16px; }
+.abt-values { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+.abt-value-chip { display:inline-flex; align-items:center; gap:6px; padding:7px 16px; background:rgba(11,14,36,0.7); border:1px solid rgba(139,92,246,0.18); border-radius:999px; font-size:13px; font-weight:500; color:#94a3b8; }
+
+/* Mission visual */
+.abt-mission-visual { border-radius:18px; overflow:hidden; }
+.abt-mission-img-wrap { position:relative; height:260px; overflow:hidden; }
+.abt-mission-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 6s ease; }
+.abt-mission-visual:hover .abt-mission-img-wrap img { transform:scale(1.04); }
+.abt-mission-img-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(11,14,36,0.85) 0%, transparent 60%); }
+
+/* ===== WHY CHOOSE US ===== */
+.abt-why-section { background:rgba(11,14,36,0.6); border-top:1px solid rgba(139,92,246,0.1); border-bottom:1px solid rgba(139,92,246,0.1); padding:72px 0; }
+.abt-why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+.abt-why-card { border-radius:18px; padding:24px; transition:transform 0.3s, box-shadow 0.3s; }
+.abt-why-card:hover { transform:translateY(-5px); box-shadow:0 16px 44px rgba(124,58,237,0.18); }
+.abt-why-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+.abt-why-icon .material-symbols-outlined { font-size:24px; }
+.abt-why-title { font-size:16px; font-weight:700; color:#e2e8f0; margin-bottom:8px; }
+.abt-why-text  { font-size:13px; color:#64748b; line-height:1.65; }
+
+/* ===== TEAM ===== */
+.abt-team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+.abt-team-card { border-radius:18px; padding:28px 20px; text-align:center; transition:transform 0.3s, box-shadow 0.3s; }
+.abt-team-card:hover { transform:translateY(-5px); box-shadow:0 16px 44px rgba(124,58,237,0.18); }
+.abt-team-avatar { width:72px; height:72px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; }
+.abt-team-name { font-size:16px; font-weight:700; color:#e2e8f0; margin-bottom:4px; }
+.abt-team-role { font-size:12px; color:#64748b; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
+.abt-team-socials { display:flex; justify-content:center; gap:8px; }
+.abt-social { width:30px; height:30px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center; color:#64748b; transition:all 0.2s; }
+.abt-social:hover { background:rgba(168,85,247,0.14); color:#a855f7; border-color:rgba(168,85,247,0.3); }
+.abt-social .material-symbols-outlined { font-size:14px; }
+
+/* ===== TIMELINE ===== */
+.abt-timeline-section { background:rgba(11,14,36,0.5); border-top:1px solid rgba(139,92,246,0.1); padding:72px 0; }
+.abt-timeline { display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; }
+/* Connecting line */
+.abt-timeline::before { content:''; position:absolute; top:20px; left:10%; right:10%; height:2px; background:linear-gradient(90deg, #a855f7, #22d3ee, #34d399, #fb923c); opacity:0.25; }
+.abt-timeline-item { display:flex; flex-direction:column; align-items:center; padding:0 12px; }
+.abt-tl-dot { width:40px; height:40px; border-radius:50%; border:4px solid #07091a; flex-shrink:0; margin-bottom:20px; z-index:1; }
+.abt-tl-card { border-radius:16px; padding:18px; width:100%; transition:transform 0.3s; }
+.abt-tl-card:hover { transform:translateY(-4px); }
+.abt-tl-year  { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+.abt-tl-title { font-size:15px; font-weight:700; color:#e2e8f0; margin:6px 0 4px; }
+.abt-tl-text  { font-size:12px; color:#64748b; line-height:1.6; }
+
+/* ===== CTA SECTION ===== */
+.abt-cta-section { position:relative; padding:80px 0; overflow:hidden; text-align:center; }
+.abt-cta-glow { position:absolute; inset:0; background:rgba(11,14,36,0.92); border-top:1px solid rgba(139,92,246,0.12); }
+.abt-cta-glow::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 70%); }
+.abt-cta-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:18px; }
+.abt-cta-title { font-size:38px; font-weight:800; color:#e2e8f0; letter-spacing:-0.02em; line-height:1.2; }
+.abt-cta-title span { color:#a855f7; }
+.abt-cta-sub  { font-size:15px; color:#64748b; max-width:460px; line-height:1.7; }
+.abt-cta-actions { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .abt-why-grid { grid-template-columns:repeat(2,1fr); }
+  .abt-team-grid { grid-template-columns:repeat(2,1fr); }
+  .abt-timeline { grid-template-columns:repeat(2,1fr); row-gap:28px; }
+  .abt-timeline::before { display:none; }
+}
+@media (max-width: 900px) {
+  .abt-mission-grid { grid-template-columns:1fr; gap:32px; }
+}
+@media (max-width: 768px) {
+  .abt-hero-title { font-size:36px; }
+  .abt-stats-inner { flex-wrap:wrap; }
+  .abt-stat { padding:10px 28px; }
+  .abt-stat-divider { display:none; }
+  .abt-cta-title { font-size:28px; }
+}
+@media (max-width: 560px) {
+  .abt-hero-title { font-size:26px; }
+  .abt-why-grid { grid-template-columns:1fr; }
+  .abt-timeline { grid-template-columns:1fr; }
+  .abt-team-grid { grid-template-columns:repeat(2,1fr); }
+  .abt-section-title { font-size:24px; }
+}

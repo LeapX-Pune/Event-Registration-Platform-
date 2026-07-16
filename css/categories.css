@@ -1,0 +1,120 @@
+/* ============================================================
+   categories.css — Categories page styles
+   ============================================================ */
+
+/* ===== HERO ===== */
+/* Ye categories page ka hero section hai */
+.cat-hero { position:relative; padding:88px 0 72px; overflow:hidden; text-align:center; }
+.cat-hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 40%, rgba(124,58,237,0.18) 0%, transparent 65%); pointer-events:none; }
+.cat-hero-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:20px; }
+.cat-hero-title { font-size:52px; font-weight:800; color:#e2e8f0; letter-spacing:-0.03em; line-height:1.1; }
+.cat-hero-title span { color:#a855f7; }
+.cat-hero-sub { font-size:16px; color:#64748b; max-width:480px; line-height:1.75; }
+
+/* Search bar */
+.cat-search-bar { display:flex; align-items:center; gap:10px; background:rgba(11,14,36,0.85); border:1px solid rgba(139,92,246,0.22); border-radius:999px; padding:8px 8px 8px 20px; max-width:500px; width:100%; backdrop-filter:blur(10px); transition:border-color 0.2s; }
+.cat-search-bar:focus-within { border-color:#a855f7; }
+.cat-search-bar .material-symbols-outlined { font-size:20px; color:#64748b; flex-shrink:0; }
+.cat-search-bar input { flex:1; background:transparent; border:none; color:#e2e8f0; font-size:14px; min-width:0; cursor:pointer; }
+.cat-search-bar input::placeholder { color:#334155; }
+
+/* ===== CATEGORIES GRID ===== */
+/* Ye 8 category cards ka 4-column grid hai */
+.cat-count { display:inline-flex; align-items:center; padding:2px 8px; background:rgba(168,85,247,0.18); color:#c084fc; border:1px solid rgba(168,85,247,0.25); border-radius:6px; font-size:12px; font-weight:600; margin-left:8px; vertical-align:middle; }
+
+.cat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+
+/* Individual category card */
+.cat-card {
+  position:relative;
+  background:rgba(11,14,36,0.75);
+  border:1px solid rgba(139,92,246,0.12);
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.cat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--from), var(--to)); opacity:0; transition:opacity 0.3s; }
+.cat-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.4); border-color:rgba(168,85,247,0.3); }
+.cat-card:hover::before { opacity:1; }
+
+/* Glow overlay */
+.cat-card-glow { position:absolute; inset:0; background:rgba(124,58,237,0.06); opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.cat-card:hover .cat-card-glow { opacity:1; }
+
+.cat-card-body { padding:22px; position:relative; z-index:1; }
+
+/* Icon wrapper */
+.cat-icon-wrap { width:52px; height:52px; border-radius:14px; background:rgba(168,85,247,0.12); border:1px solid rgba(168,85,247,0.2); display:flex; align-items:center; justify-content:center; margin-bottom:16px; transition:transform 0.3s; }
+.cat-card:hover .cat-icon-wrap { transform:scale(1.08) rotate(-4deg); }
+.cat-icon-wrap .material-symbols-outlined { font-size:24px; color:#a855f7; }
+
+.cat-card-title { font-size:16px; font-weight:700; color:#e2e8f0; margin-bottom:6px; }
+.cat-card-desc  { font-size:13px; color:#64748b; line-height:1.65; margin-bottom:16px; }
+.cat-card-footer { display:flex; align-items:center; justify-content:space-between; }
+.cat-arrow { font-size:18px; color:#475569; transition:color 0.3s, transform 0.3s; }
+.cat-card:hover .cat-arrow { color:#a855f7; transform:translateX(4px); }
+
+/* ===== FEATURED EVENTS GRID ===== */
+.cat-events-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+
+/* ===== NEWSLETTER ===== */
+/* Ye newsletter subscription section hai */
+.cat-newsletter { position:relative; padding:80px 0; overflow:hidden; }
+.cat-newsletter-glow { position:absolute; inset:0; background:rgba(11,14,36,0.92); border-top:1px solid rgba(139,92,246,0.12); border-bottom:1px solid rgba(139,92,246,0.12); }
+.cat-newsletter-glow::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%); }
+.cat-newsletter-inner { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+.cat-nl-text { display:flex; flex-direction:column; gap:10px; max-width:500px; }
+.cat-nl-text h2 { font-size:32px; font-weight:800; color:#e2e8f0; line-height:1.2; }
+.cat-nl-text h2 span { color:#a855f7; }
+.cat-nl-text p { font-size:15px; color:#64748b; line-height:1.7; }
+.cat-nl-form { display:flex; gap:10px; flex-shrink:0; flex-wrap:wrap; }
+.cat-nl-input { padding:11px 18px; background:rgba(7,9,26,0.9); border:1px solid rgba(139,92,246,0.22); border-radius:10px; color:#e2e8f0; font-size:14px; width:260px; transition:border-color 0.2s, box-shadow 0.2s; }
+.cat-nl-input:focus { border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,0.15); outline:none; }
+.cat-nl-input::placeholder { color:#334155; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) { .cat-grid { grid-template-columns:repeat(3,1fr); } }
+@media (max-width: 900px)  {
+  .cat-grid { grid-template-columns:repeat(2,1fr); }
+  .cat-events-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 768px) {
+  .cat-hero { padding:64px 0 56px; }
+  .cat-hero-title { font-size:36px; }
+  .cat-newsletter-inner { flex-direction:column; text-align:center; }
+  .cat-nl-form { justify-content:center; }
+  .cat-nl-input { width:100%; max-width:340px; }
+}
+@media (max-width: 560px) {
+  .cat-grid { grid-template-columns:1fr; }
+  .cat-events-grid { grid-template-columns:1fr; }
+  .cat-hero-title { font-size:28px; }
+}
+
+/* ===== CATEGORY CARD ACTIVE STATE ===== */
+.cat-card-active {
+  border-color: rgba(168,85,247,0.55) !important;
+  box-shadow: 0 0 0 2px rgba(168,85,247,0.25), 0 16px 40px rgba(0,0,0,0.5) !important;
+  transform: translateY(-4px);
+}
+.cat-card-active .cat-card-glow { opacity: 1 !important; }
+
+/* ===== FILTERED EVENTS HEADER ===== */
+.cat-filter-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ===== EVENTS GRID FOR CATEGORIES ===== */
+.cat-events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1100px) { .cat-events-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px)  { .cat-events-grid { grid-template-columns: 1fr; } }

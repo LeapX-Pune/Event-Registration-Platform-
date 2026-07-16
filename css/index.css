@@ -1,0 +1,131 @@
+/* ============================================================
+   index.css — Homepage ka specific CSS
+   ============================================================ */
+
+/* ===== HERO ===== */
+.idx-hero { position: relative; padding: 80px 0 72px; overflow: hidden; }
+.idx-hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse at 30% 40%, rgba(124,58,237,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(99,102,241,0.1) 0%, transparent 50%);
+}
+.idx-hero-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.idx-hero-text { display: flex; flex-direction: column; gap: 20px; }
+.idx-hero-title {
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #e2e8f0;
+  letter-spacing: -0.03em;
+}
+.idx-hero-title span { color: #a855f7; }
+.idx-hero-sub  { font-size: 16px; color: #64748b; line-height: 1.75; max-width: 420px; }
+.idx-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Hero Carousel */
+.idx-carousel-wrap { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,92,246,0.18); }
+.idx-carousel { display: flex; overflow: hidden; width: 100%; }
+.idx-slide { min-width: 100%; width: 100%; position: relative; height: 380px; flex-shrink: 0; background: #0a0d20; overflow: hidden; }
+.idx-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.idx-slide-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 24px 28px;
+  background: linear-gradient(to top, rgba(7,9,26,0.95) 0%, rgba(7,9,26,0.5) 50%, transparent 100%);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.idx-slide-cat {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: #e2e8f0; background: rgba(124,58,237,0.75); backdrop-filter: blur(6px);
+  padding: 3px 10px; border-radius: 5px; align-self: flex-start;
+}
+.idx-slide-overlay h3 { font-size: 22px; font-weight: 800; color: #e2e8f0; letter-spacing: -0.3px; }
+.idx-slide-overlay p  { font-size: 13px; color: #94a3b8; }
+.idx-carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px;
+  background: rgba(7,9,26,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(139,92,246,0.25);
+  border-radius: 50%;
+  color: #e2e8f0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; z-index: 10;
+}
+.idx-carousel-btn:hover { background: #7c3aed; border-color: #7c3aed; }
+.idx-carousel-btn.prev { left: 14px; }
+.idx-carousel-btn.next { right: 14px; }
+.idx-dots { position: absolute; bottom: 14px; right: 16px; display: flex; gap: 6px; z-index: 10; }
+.idx-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.25s; }
+.idx-dot.active { background: #a855f7; width: 18px; border-radius: 3px; }
+
+/* ===== STATS STRIP ===== */
+.idx-stats-strip { background: rgba(11,14,36,0.7); border-top: 1px solid rgba(139,92,246,0.1); border-bottom: 1px solid rgba(139,92,246,0.1); padding: 28px 0; }
+.idx-stats-inner { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+.idx-stat { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 48px; }
+.idx-stat-num { font-size: 32px; font-weight: 800; color: #a855f7; line-height: 1; }
+.idx-stat-label { font-size: 12px; color: #64748b; font-weight: 500; white-space: nowrap; }
+.idx-stat-divider { width: 1px; height: 40px; background: rgba(139,92,246,0.15); }
+
+/* ===== EVENTS GRID ===== */
+/* Ye 4-column grid hai — cards equal height ke saath */
+.idx-events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ===== CATEGORY CARDS ===== */
+.idx-cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.idx-cat-card {
+  border-radius: 16px;
+  padding: 24px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.idx-cat-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+.idx-cat-icon { font-size: 32px; color: #fff; }
+.idx-cat-label { font-size: 14px; font-weight: 700; color: #fff; }
+.idx-cat-count { font-size: 11px; color: rgba(255,255,255,0.65); }
+
+/* ===== CTA SECTION ===== */
+.idx-cta-section { position: relative; padding: 80px 0; overflow: hidden; }
+.idx-cta-bg { position: absolute; inset: 0; background: rgba(11,14,36,0.9); border-top: 1px solid rgba(139,92,246,0.12); border-bottom: 1px solid rgba(139,92,246,0.12); }
+.idx-cta-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(124,58,237,0.14) 0%, transparent 70%); }
+.idx-cta-inner {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap;
+}
+.idx-cta-text { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+.idx-cta-text h2 { font-size: 34px; font-weight: 800; color: #e2e8f0; line-height: 1.2; }
+.idx-cta-text h2 span { color: #a855f7; }
+.idx-cta-text p { font-size: 15px; color: #64748b; line-height: 1.7; }
+.idx-cta-actions { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .idx-cats-grid { grid-template-columns: repeat(3,1fr); }
+  .idx-events-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 900px) {
+  .idx-hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .idx-hero-title { font-size: 38px; }
+  .idx-slide { height: 300px; }
+}
+@media (max-width: 640px) {
+  .idx-hero { padding: 52px 0 48px; }
+  .idx-hero-title { font-size: 28px; }
+  .idx-events-grid { grid-template-columns: 1fr; }
+  .idx-cats-grid { grid-template-columns: repeat(2,1fr); }
+  .idx-stat { padding: 8px 24px; }
+  .idx-stat-divider { display: none; }
+  .idx-cta-inner { flex-direction: column; text-align: center; }
+  .idx-cta-text h2 { font-size: 26px; }
+  .idx-cta-actions { justify-content: center; }
+}
