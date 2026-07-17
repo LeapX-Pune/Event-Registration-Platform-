@@ -7,7 +7,7 @@
   .bento-grid { grid-template-columns: repeat(6, 1fr); }
   .bento-c4, .bento-c5, .bento-c3 { grid-column: span 6 !important; }
   .cat-nav { gap: 16px; padding: 0 16px; }
-  .navbar-inner { padding: 8px 16px; height: 64px; }
+  .navbar-inner { padding: 10px 16px; min-height: 68px; }
   .container { padding: 0 16px; }
   .chat-window { width: 300px; }
   .display-lg { font-size: 32px; line-height: 40px; }
@@ -28,7 +28,7 @@
   .bento-c4, .bento-c5, .bento-c3 { grid-column: span 1 !important; }
   .navbar-right .btn { padding: 10px 16px; }
   .navbar-right .btn span:first-child { display: none; }
-  .navbar-inner { height: 60px; }
+  .navbar-inner { min-height: 60px; }
   .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 80px; }
   .chat-fab { width: 48px; height: 48px; }
   .modal-container { max-width: 100%; padding: 0 12px; }
@@ -36,4 +36,5 @@
   .display-lg { font-size: 28px; line-height: 36px; }
   .headline-md { font-size: 20px; }
   .toast-container { right: 16px; bottom: 16px; left: 16px; }
+  .page-shell { padding-top: 12px; }
 }

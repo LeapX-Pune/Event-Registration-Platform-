@@ -330,6 +330,15 @@
   overflow-y: auto;
 }
 
+.adm-section {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.adm-section.active {
+  display: block;
+}
+
 .adm-heading-row {
   display: flex;
   justify-content: space-between;

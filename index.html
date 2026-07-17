@@ -14,58 +14,31 @@
 </head>
 <body>
 
-  <!-- Ye navbar section hai jisme brand logo, search aur navigation links hain -->
+  <!-- ===== NAVBAR — sabhi pages pe same navbar order hai ===== -->
+  <!-- Ye navbar sabhi pages pe sticky rahega with proper order -->
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="navbar-left">
         <a href="index.html" class="navbar-brand">EventPulse</a>
-        <div class="navbar-search">
-          <span class="material-symbols-outlined" style="color:var(--outline);font-size:20px;">search</span>
-          <input type="text" placeholder="Search for events by title in real-time...">
-          <!-- Search dropdown jo popular searches show karta hai -->
-          <div class="search-dropdown">
-            <div style="padding:16px;">
-              <p class="label-sm" style="text-transform:uppercase;color:var(--on-surface-variant);opacity:0.7;margin-bottom:12px;">Popular Searches</p>
-              <div style="display:flex;flex-direction:column;gap:4px;">
-                <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--surface-container)'" onmouseout="this.style.background='transparent'">
-                  <span class="material-symbols-outlined" style="color:var(--outline);font-size:18px;">music_note</span>
-                  <span class="body-md">Starlight Symphony</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--surface-container)'" onmouseout="this.style.background='transparent'">
-                  <span class="material-symbols-outlined" style="color:var(--outline);font-size:18px;">sports_basketball</span>
-                  <span class="body-md">Elite Hoops Invitational</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--surface-container)'" onmouseout="this.style.background='transparent'">
-                  <span class="material-symbols-outlined" style="color:var(--outline);font-size:18px;">celebration</span>
-                  <span class="body-md">Summer Solstice Fest</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Ye desktop nav links hain — proper order -->
+        <div class="navbar-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="event-details.html" class="nav-link">Events</a>
+          <a href="categories.html" class="nav-link">Categories</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+          <a href="about.html" class="nav-link">About</a>
         </div>
       </div>
-      <!-- Navbar ke right side mein location, theme toggle aur sign in button hai -->
       <div class="navbar-right">
-        <a href="event-details.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;display:none;" id="navEventsLink">
-          Events
-        </a>
-        <a href="categories.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;display:none;" id="navCatLink">
-          <span class="material-symbols-outlined" style="font-size:18px;">category</span>
-          Categories
-        </a>
-        <a href="about.html" class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;display:none;" id="navAboutLink">
-          About
-        </a>
-        <button class="btn" style="background:transparent;color:var(--on-surface);border:none;gap:4px;">
-          <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
-          Los Angeles
-          <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
-        </button>
+        <!-- Compact search bar -->
+        <div class="navbar-search-compact">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" placeholder="Search events...">
+        </div>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
           <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
         </button>
-        <button class="btn btn-primary elevated-shadow" style="display:none;" id="navSignIn">Sign In</button>
-        <!-- Mobile menu hamburger button -->
+        <button class="btn btn-primary elevated-shadow" id="navSignIn">Sign In</button>
         <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
           <span class="material-symbols-outlined">menu</span>
         </button>
@@ -87,17 +60,17 @@
       <a href="index.html" class="mobile-nav-link active">
         <span class="material-symbols-outlined">home</span>Home
       </a>
-      <a href="categories.html" class="mobile-nav-link">
-        <span class="material-symbols-outlined">category</span>Categories
-      </a>
       <a href="event-details.html" class="mobile-nav-link">
         <span class="material-symbols-outlined">event</span>Events
       </a>
-      <a href="about.html" class="mobile-nav-link">
-        <span class="material-symbols-outlined">info</span>About
+      <a href="categories.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">category</span>Categories
       </a>
       <a href="admin.html" class="mobile-nav-link">
         <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+      <a href="about.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">info</span>About
       </a>
     </nav>
     <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
@@ -125,7 +98,6 @@
               <span class="hero-tag">MUST ATTEND</span>
               <h2 class="hero-title">Starlight Symphony</h2>
               <p class="hero-subtitle">Electronic Reimagined &bull; Aug 14 - 16</p>
-              <a href="event-details.html" class="btn btn-primary" style="margin-top:16px;box-shadow:0 0 20px rgba(157,78,221,0.5);">View Details</a>
             </div>
           </div>
           <!-- Slide 2: Sports Event -->
@@ -139,7 +111,6 @@
               <span class="hero-tag" style="background:rgba(224,182,255,0.2);color:var(--primary);border-color:rgba(224,182,255,0.3);">SPORTS</span>
               <h2 class="hero-title">Elite Hoops Invitational</h2>
               <p class="hero-subtitle">Madison Square Garden &bull; Oct 05</p>
-              <a href="event-details.html" class="btn btn-primary" style="margin-top:16px;box-shadow:0 0 20px rgba(157,78,221,0.5);">View Details</a>
             </div>
           </div>
           <!-- Slide 3: Festival Event -->
@@ -153,7 +124,6 @@
               <span class="hero-tag" style="background:rgba(69,240,244,0.2);color:var(--secondary);border-color:rgba(69,240,244,0.3);">FESTIVAL</span>
               <h2 class="hero-title">Enchanted Forest Soir&eacute;e</h2>
               <p class="hero-subtitle">Asheville, NC &bull; Nov 12</p>
-              <a href="event-details.html" class="btn btn-primary" style="margin-top:16px;box-shadow:0 0 20px rgba(157,78,221,0.5);">View Details</a>
             </div>
           </div>
         </div>
@@ -185,8 +155,7 @@
       </div>
       <!-- Event cards horizontal scroll container -->
       <div style="display:flex;gap:24px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;" class="hide-scrollbar" id="eventsContainer">
-        <!-- Event Card 1 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
+        <a href="event-details.html?id=1" class="event-card" style="text-decoration:none;">
           <div class="event-card-image">
             <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
             <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt="Workshop" onerror="this.style.display='none'">
@@ -196,8 +165,7 @@
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> London, UK</p>
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Sep 22, 2026</p>
         </a>
-        <!-- Event Card 2 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
+        <a href="event-details.html?id=2" class="event-card" style="text-decoration:none;">
           <div class="event-card-image">
             <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
             <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80" alt="Tech" onerror="this.style.display='none'">
@@ -207,8 +175,7 @@
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> San Francisco, CA</p>
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Oct 12, 2026</p>
         </a>
-        <!-- Event Card 3 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
+        <a href="event-details.html?id=3" class="event-card" style="text-decoration:none;">
           <div class="event-card-image">
             <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
             <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80" alt="Festival" onerror="this.style.display='none'">
@@ -218,8 +185,7 @@
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> Asheville, NC</p>
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Nov 12, 2026</p>
         </a>
-        <!-- Event Card 4 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
+        <a href="event-details.html?id=4" class="event-card" style="text-decoration:none;">
           <div class="event-card-image">
             <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
             <img src="https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80" alt="Music" onerror="this.style.display='none'">
@@ -229,8 +195,7 @@
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> New Orleans, LA</p>
           <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Dec 05, 2026</p>
         </a>
-        <!-- Event Card 5 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
+        <a href="event-details.html?id=5" class="event-card" style="text-decoration:none;">
           <div class="event-card-image">
             <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
             <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&q=80" alt="Art" onerror="this.style.display='none'">
@@ -375,21 +340,5 @@
 
   <!-- Homepage ka main JS file load karo -->
   <script src="js/script.js"></script>
-  <!-- Navbar pe responsive links show karo -->
-  <script>
-    /* Desktop par extra nav links aur sign in button dikhao */
-    (function() {
-      if (window.innerWidth >= 768) {
-        var el0 = document.getElementById('navEventsLink');
-        var el = document.getElementById('navCatLink');
-        var el2 = document.getElementById('navAboutLink');
-        var el3 = document.getElementById('navSignIn');
-        if (el0) el0.style.display = 'inline-flex';
-        if (el) el.style.display = 'inline-flex';
-        if (el2) el2.style.display = 'inline-flex';
-        if (el3) el3.style.display = 'inline-flex';
-      }
-    })();
-  </script>
 </body>
 </html>
