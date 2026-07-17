@@ -333,46 +333,58 @@
   </div>
 
   <!-- Chat Widget - AI assistant ke liye floating button -->
-  <div style="position:fixed;bottom:40px;right:24px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:16px;" id="chatWidget">
+  <div class="chat-widget-root" id="chatWidget">
     <div class="chat-window glass-panel elevated-shadow" id="chatWindow">
+      <!-- Header: uppercase title + clear + close -->
       <div class="chat-header">
-        <div class="chat-header-left">
-          <div class="chat-avatar">
-            <span class="material-symbols-outlined" style="font-size:14px;">bolt</span>
-          </div>
-          <div>
-            <p class="label-sm" style="color:var(--on-primary);font-weight:700;text-transform:none;">Pulse AI</p>
-            <p style="font-size:10px;opacity:0.8;font-family:var(--font-mono);">Online &bull; Assistant</p>
-          </div>
-        </div>
-        <button style="background:none;border:none;color:var(--on-primary);cursor:pointer;padding:4px;border-radius:4px;" onclick="toggleChat()">
-          <span class="material-symbols-outlined" style="font-size:14px;">close</span>
-        </button>
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-msg bot">Hi there! Looking for a specific event or need help planning one?</div>
-        <div class="chat-actions">
-          <button class="chat-action-btn">Tech Events</button>
-          <button class="chat-action-btn">Music</button>
-          <button class="chat-action-btn">Help</button>
+        <span class="chat-header-title">PULSE ASSISTANT</span>
+        <div class="chat-header-actions">
+          <button id="chatClearBtn" title="Clear chat" aria-label="Clear chat" class="chat-header-btn">
+            <span class="material-symbols-outlined" style="font-size:16px;">delete_sweep</span>
+          </button>
+          <button onclick="toggleChat()" aria-label="Close chat" class="chat-header-btn chat-close-btn">
+            &#10005;
+          </button>
         </div>
       </div>
+
+      <!-- Messages area -->
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages">
+        <!-- Messages injected by ChatWidget.init() -->
+      </div>
+
+      <!-- Persistent suggestion chips bar -->
+      <div class="chat-chips-bar" id="chatChipsBar" aria-label="Quick suggestions">
+        <!-- Chips injected by ChatWidget.init() -->
+      </div>
+
+      <!-- Input row -->
       <div class="chat-input-area">
-        <input type="text" placeholder="Type a message...">
-        <button style="background:var(--primary);color:var(--on-primary);border:none;padding:8px;border-radius:var(--radius);cursor:pointer;">
-          <span class="material-symbols-outlined" style="font-size:14px;">send</span>
+        <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off" aria-label="Chat message input" maxlength="300">
+        <button id="chatSendBtn" aria-label="Send message" class="chat-send-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
-    <div style="position:relative;">
-      <div style="position:absolute;right:68px;top:50%;transform:translateY(-50%);background:var(--surface-container-high);color:var(--on-surface);padding:4px 12px;border-radius:var(--radius);font-size:12px;font-family:var(--font-mono);white-space:nowrap;opacity:0;transition:opacity 0.2s;pointer-events:none;border:1px solid rgba(77,67,83,0.3);" id="chatTooltip">Chat Assistant</div>
-      <button class="chat-fab" onclick="toggleChat()">
-        <span class="material-symbols-outlined" style="font-size:24px;">chat</span>
+
+    <!-- FAB -->
+    <div style="position:relative;align-self:flex-end;">
+      <div id="chatTooltip" class="chat-tooltip">Chat Assistant</div>
+      <button class="chat-fab" onclick="toggleChat()" aria-label="Open chat assistant">
+        <span class="material-symbols-outlined" style="font-size:22px;">chat</span>
         <span class="chat-fab-badge">1</span>
       </button>
     </div>
   </div>
 
+  <!-- Event data (DEFAULT_EVENTS) — must load before chatbot -->
+  <script src="js/data/events.js"></script>
+  <!-- Storage utility — lets ChatBot read events from localStorage -->
+  <script src="js/utils/storage.js"></script>
+  <!-- ChatBot logic — pure response layer, no DOM -->
+  <script src="js/utils/chatbot.js"></script>
+  <!-- ChatWidget UI — DOM layer for the chat window -->
+  <script src="js/components/chatWidget.js"></script>
   <!-- Homepage ka main JS file load karo -->
   <script src="js/script.js"></script>
   <!-- Navbar pe responsive links show karo -->

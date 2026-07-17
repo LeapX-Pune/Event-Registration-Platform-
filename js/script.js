@@ -131,46 +131,16 @@ function closeMobileNav() {
 })();
 
 /* ----- Chat Widget ----- */
-/* Ye chat widget open/close karta hai */
-function toggleChat() {
-  var w = document.getElementById('chatWindow');
-  if (w) w.classList.toggle('active');
-}
+/* ChatWidget is initialised on first open via toggleChat() in chatWidget.js.
+   toggleChat() is defined there and called by the FAB button in index.html.
+   No stub logic needed here — all chat behaviour lives in chatWidget.js + chatbot.js. */
 
-var chatFab = document.querySelector('.chat-fab');
-if (chatFab) {
-  chatFab.addEventListener('mouseenter', function () {
-    var tooltip = document.getElementById('chatTooltip');
-    if (tooltip) tooltip.style.opacity = '1';
-  });
-  chatFab.addEventListener('mouseleave', function () {
-    var tooltip = document.getElementById('chatTooltip');
-    if (tooltip) tooltip.style.opacity = '0';
-  });
+/* Seed localStorage with DEFAULT_EVENTS if not already set.
+   This ensures Storage.load() returns live data (including admin edits/deletes)
+   rather than always falling back to the hardcoded DEFAULT_EVENTS constant. */
+if (typeof Storage !== 'undefined' && Storage.init) {
+  Storage.init();
 }
-
-/* Chat action buttons pe click karo message bhejo */
-var chatActionBtns = document.querySelectorAll('.chat-action-btn');
-chatActionBtns.forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var msg = btn.textContent.trim();
-    var messages = document.getElementById('chatMessages');
-    if (messages) {
-      var userMsg = document.createElement('div');
-      userMsg.className = 'chat-msg user';
-      userMsg.textContent = msg;
-      messages.appendChild(userMsg);
-      messages.scrollTop = messages.scrollHeight;
-      setTimeout(function () {
-        var botMsg = document.createElement('div');
-        botMsg.className = 'chat-msg bot';
-        botMsg.textContent = 'Searching for ' + msg + ' events near you...';
-        messages.appendChild(botMsg);
-        messages.scrollTop = messages.scrollHeight;
-      }, 800);
-    }
-  });
-});
 
 /* ----- Empty State Reset ----- */
 /* Search empty state reset karta hai */
