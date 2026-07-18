@@ -257,7 +257,7 @@ function renderHomepageEvents() {
       }
     } catch(e) {}
     
-    return '<a href="' + link + '" class="event-card" style="text-decoration:none;">' +
+    return '<a href="' + link + '" class="event-card" data-category="' + displayCat + '" style="text-decoration:none;">' +
              '<div class="event-card-image">' +
                '<span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>' +
                '<img src="' + imgUrl + '" alt="' + displayCat + '" onerror="this.style.display=\'none\'">' +
@@ -274,16 +274,14 @@ document.addEventListener('DOMContentLoaded', function() {
   renderHomepageEvents();
 });
 
-/* ----- Empty State Reset ----- */
-/* Search empty state reset karta hai */
-function resetEmpty() {
+/* ----- Category Filter ----- */
+(function initCategoryFilter() {
   var empty = document.getElementById('emptyState');
   var container = document.getElementById('eventsContainer');
   var statusEl = document.getElementById('filterStatus');
   var resetBtn = document.getElementById('resetCategoryFilter');
+  var categoryBtns = document.querySelectorAll('.filter-chip[data-filter-category]');
   var activeCategory = 'all';
-
-  if (!cards.length || !categoryBtns.length) return;
 
   function normalize(cat) {
     return String(cat || '').trim().toLowerCase();
@@ -297,6 +295,7 @@ function resetEmpty() {
   }
 
   function filterEvents(category) {
+    var cards = document.querySelectorAll('#eventsContainer .event-card');
     activeCategory = category || 'all';
     var key = normalize(activeCategory);
     var visible = 0;
@@ -305,12 +304,7 @@ function resetEmpty() {
       var cat = normalize(card.getAttribute('data-category'));
       var match = key === 'all' || cat === key;
       card.classList.toggle('is-hidden', !match);
-      if (match) {
-        card.classList.remove('fade-in');
-        void card.offsetWidth;
-        card.classList.add('fade-in');
-        visible++;
-      }
+      if (match) visible++;
     });
 
     if (empty) empty.style.display = visible === 0 ? 'flex' : 'none';

@@ -34,26 +34,6 @@ function admLogout(event) {
   window.location.reload();
 }
 
-/* ----- Theme Sync (Dark/Light) ----- */
-function toggleTheme() {
-  var html = document.documentElement;
-  var current = html.getAttribute('data-theme') || 'dark';
-  var next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('eventpulse_theme', next);
-  var icon = document.getElementById('themeIcon');
-  if (icon) icon.textContent = next === 'dark' ? 'dark_mode' : 'light_mode';
-}
-
-(function initTheme() {
-  var saved = localStorage.getItem('eventpulse_theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    var icon = document.getElementById('themeIcon');
-    if (icon) icon.textContent = saved === 'dark' ? 'dark_mode' : 'light_mode';
-  }
-})();
-
 /* ----- Sidebar Toggle (Mobile) ----- */
 function admToggleSidebar() {
   var sidebar = document.getElementById('admSidebar');

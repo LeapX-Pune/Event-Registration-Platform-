@@ -42,26 +42,26 @@
             <span class="material-symbols-outlined" style="color:var(--primary);font-size:28px;">event</span>
           </div>
           <h1 class="display-lg-mobile" style="font-size:28px;margin-bottom:8px;">Register for Event</h1>
-          <p class="body-md" style="color:var(--on-surface-variant);">Frontend Bootcamp &bull; Oct 15, 2024</p>
+          <p class="body-md" style="color:var(--on-surface-variant);" id="regEventInfo">Loading event...</p>
         </div>
 
         <div class="registration-card glass-panel elevated-shadow">
           <form style="display:flex;flex-direction:column;gap:24px;">
             <div class="form-group">
               <label class="form-label">Full Name <span style="color:var(--error);">*</span></label>
-              <input type="text" class="form-input" placeholder="Enter your full name">
+              <input type="text" id="regName" class="form-input" placeholder="Enter your full name">
             </div>
             <div class="form-group">
               <label class="form-label">Email Address <span style="color:var(--error);">*</span></label>
-              <input type="email" class="form-input" placeholder="you@example.com">
+              <input type="email" id="regEmail" class="form-input" placeholder="you@example.com">
             </div>
             <div class="form-group">
               <label class="form-label">Phone Number</label>
-              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000">
+              <input type="tel" id="regPhone" class="form-input" placeholder="+1 (555) 000-0000">
             </div>
             <div class="form-group">
               <label class="form-label">Company / Organization</label>
-              <input type="text" class="form-input" placeholder="Optional">
+              <input type="text" id="regCompany" class="form-input" placeholder="Optional">
             </div>
             <button type="button" class="btn btn-primary" id="registerBtn" style="width:100%;justify-content:center;padding:14px;font-size:14px;box-shadow:0 0 20px rgba(157,78,221,0.4);margin-top:8px;" onclick="handleRegister(this)">
               Complete Registration
@@ -94,7 +94,7 @@
           </div>
           <h3 class="headline-md" style="margin-bottom:8px;">You&rsquo;re Registered!</h3>
           <p class="body-md" style="color:var(--on-surface-variant);margin-bottom:24px;">
-            You have successfully registered for <strong style="color:var(--on-surface);">Frontend Bootcamp</strong>.
+            You have successfully registered for <strong style="color:var(--on-surface);" id="confirmEventName">Frontend Bootcamp</strong>.
           </p>
           <div style="display:flex;flex-direction:column;gap:12px;">
             <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="closeConfirm()">
@@ -123,34 +123,49 @@
     </div>
   </footer>
 
+  <script src="../js/utils/theme.js"></script>
+  <script src="../js/data/events.js"></script>
+  <script src="../js/utils/storage.js"></script>
+  <script src="../js/utils/helpers.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/components/navbar.js"></script>
   <script>
-    function toggleTheme() {
-      var html = document.documentElement;
-      var current = html.getAttribute('data-theme') || 'dark';
-      var next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('eventpulse_theme', next);
-      var icon = document.getElementById('themeIconReg');
-      if (icon) icon.textContent = next === 'dark' ? 'dark_mode' : 'light_mode';
-    }
-    (function initTheme() {
-      var saved = localStorage.getItem('eventpulse_theme');
-      if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-        var icon = document.getElementById('themeIconReg');
-        if (icon) icon.textContent = saved === 'dark' ? 'dark_mode' : 'light_mode';
-      }
-    })();
+    var currentEvent = null;
 
-    function handleRegister(btn) {
-      btn.disabled = true;
-      btn.style.opacity = '0.6';
-      btn.textContent = 'Registering...';
-      setTimeout(function() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get("id");
+      if (id) {
+        currentEvent = Storage.getById(Number(id));
+      }
+      if (currentEvent) {
+        document.getElementById("regEventInfo").textContent = currentEvent.title + " \u2022 " + Helpers.formatDate(currentEvent.date);
+        document.getElementById("confirmEventName").textContent = currentEvent.title;
+      } else {
+        document.getElementById("regEventInfo").textContent = "Event not found.";
+      }
+
+      document.getElementById("submitRegistration").addEventListener("click", function() {
+        var name = document.getElementById("regName").value.trim();
+        var email = document.getElementById("regEmail").value.trim();
+        if (!name || !email) {
+          Toast("Please fill in all required fields.", "error");
+          return;
+        }
+        if (!currentEvent) {
+          Toast("Event not found.", "error");
+          return;
+        }
+        if (currentEvent.attendees >= currentEvent.maxAttendees) {
+          Toast("This event is fully booked.", "error");
+          return;
+        }
+        Storage.update(currentEvent.id, { attendees: currentEvent.attendees + 1 });
+        currentEvent.attendees++;
         document.getElementById('confirmModal').classList.add('active');
         document.body.style.overflow = 'hidden';
-      }, 600);
-    }
+      });
+    });
 
     function closeConfirm() {
       document.getElementById('confirmModal').classList.remove('active');

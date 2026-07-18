@@ -32,7 +32,12 @@ const Registration = {
         Toast("Please fill in all fields.", "error");
         return;
       }
-      App.registerForEvent(event.id);
+      if (event.attendees >= event.maxAttendees) {
+        Toast("This event is fully booked.", "error");
+        return;
+      }
+      Storage.update(event.id, { attendees: event.attendees + 1 });
+      event.attendees++;
       Toast(`Welcome, ${name}! You're registered for "${event.title}".`);
     });
   }
