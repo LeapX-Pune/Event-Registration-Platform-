@@ -1,29 +1,9 @@
 /* =====================================================
    EventPulse - About Page Interactions (JS)
-   Ye file about us page ke counters, scroll-reveals aur theme toggling handle karti hai
    ===================================================== */
 
-/* ----- Theme Sync (Dark/Light) ----- */
-function toggleTheme() {
-  var html = document.documentElement;
-  var current = html.getAttribute('data-theme') || 'dark';
-  var next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('eventpulse_theme', next);
-  var icon = document.getElementById('themeIcon');
-  if (icon) icon.textContent = next === 'dark' ? 'dark_mode' : 'light_mode';
-}
+/* Theme: js/utils/theme.js | Contact: js/components/contactModal.js */
 
-(function initTheme() {
-  var saved = localStorage.getItem('eventpulse_theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    var icon = document.getElementById('themeIcon');
-    if (icon) icon.textContent = saved === 'dark' ? 'dark_mode' : 'light_mode';
-  }
-})();
-
-/* ----- Mobile Nav Drawer Toggles ----- */
 var mobileMenuBtn = document.getElementById('mobileMenuBtn');
 var mobileNavOverlay = document.getElementById('mobileNavOverlay');
 var mobileNavDrawer = document.getElementById('mobileNavDrawer');
@@ -46,7 +26,6 @@ function closeMobileNav() {
   document.body.style.overflow = '';
 }
 
-/* ----- Toast Feedback Notification Alerts ----- */
 var toastTimer = null;
 function showToast(message) {
   var toast = document.getElementById('aboutToast');
@@ -62,11 +41,7 @@ function showToast(message) {
   }, 3500);
 }
 
-function triggerContactMsg() {
-  showToast('Connecting you with the partner program executive. Live chat loading!');
-}
-
-/* ----- IntersectionObserver for Scroll Reveal & Counter Increments ----- */
+/* Contact modal opened via data-open-contact / openContactModal() */
 document.addEventListener('DOMContentLoaded', function() {
   var revealElements = document.querySelectorAll('.reveal');
   var statsNumbers = document.querySelectorAll('.about-stat-number');

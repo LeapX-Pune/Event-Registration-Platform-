@@ -1,6 +1,5 @@
 /* =====================================================
    EventPulse - Admin Dashboard Page Interactions (JS)
-   Ye Javascript file admin dashboard ke navigation, profile dropdown, tabs aur modal delete verification flows handle karti hai
    ===================================================== */
 
 /* ----- Admin Authentication & Initialization ----- */

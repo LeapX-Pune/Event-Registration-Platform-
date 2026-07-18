@@ -13,9 +13,9 @@
   position: relative;
   overflow: hidden;
   padding: 100px 24px;
-  background: radial-gradient(ellipse at 30% 50%, rgba(157, 78, 221, 0.2) 0%, #10131a 60%),
+  background: radial-gradient(ellipse at 30% 50%, rgba(157, 78, 221, 0.2) 0%, var(--background) 60%),
               radial-gradient(ellipse at 80% 20%, rgba(69, 240, 244, 0.08) 0%, transparent 50%);
-  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .about-blob {
@@ -122,7 +122,7 @@
 }
 
 .about-feature-card {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -158,8 +158,8 @@
 .about-stats {
   padding: 60px 0;
   background: var(--surface-container-lowest);
-  border-top: 1px solid rgba(77, 67, 83, 0.2);
-  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .about-stats-inner {
@@ -214,7 +214,7 @@
 }
 
 .about-team-card {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -248,7 +248,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(77, 67, 83, 0.3);
+  border: 1px solid var(--border-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,7 +311,7 @@
 
 .about-timeline-card {
   width: 45%;
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -339,7 +339,7 @@
 .about-cta {
   padding: 80px 0;
   background: var(--surface-container-lowest);
-  border-top: 1px solid rgba(77, 67, 83, 0.2);
+  border-top: 1px solid var(--border-subtle);
 }
 
 /* ----- Toast feedback alert ----- */
@@ -378,4 +378,16 @@
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+
+[data-theme="light"] .about-hero {
+  background: radial-gradient(ellipse at 30% 50%, rgba(103, 80, 164, 0.14) 0%, var(--background) 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(15, 118, 110, 0.06) 0%, transparent 50%);
+}
+[data-theme="light"] .about-timeline-card,
+[data-theme="light"] .about-value-card,
+[data-theme="light"] .about-team-card {
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
 }
