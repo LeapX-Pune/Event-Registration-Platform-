@@ -1,403 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | EventPulse</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/responsive.css">
-  <style>
-    .md-flex { display: none; }
-    @media (min-width: 768px) { .md-flex { display: flex; } .md-row { flex-direction: row; align-items: center; } .md-w-auto { width: auto; } .bento-c4 { grid-column: span 4 !important; } .bento-c5 { grid-column: span 5 !important; } .bento-c3 { grid-column: span 3 !important; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listing - Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
+    <div class="admin-container">
+        <h1>Event Listing & Registration - Admin Panel</h1>
+        
+        <!-- Event Form Section (Create and Edit) -->
+        <div class="form-section">
+            <h2 id="form-title">Create New Event</h2>
+            <form id="event-form" novalidate>
+                <!-- Hidden input to store event ID when editing -->
+                <input type="hidden" id="event-id">
 
-  <!-- Top Navbar -->
-  <header style="width:100%;position:sticky;top:0;z-index:50;background:rgba(16,19,26,0.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(77,67,83,0.3);">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 24px;max-width:1280px;margin:0 auto;height:64px;">
-      <div style="display:flex;align-items:center;gap:40px;">
-        <span class="headline-md" style="font-weight:700;color:var(--primary);font-size:22px;">EventPulse</span>
-        <nav class="md-flex" style="gap:24px;align-items:center;">
-          <a href="#" class="label-sm" style="color:var(--primary);border-bottom:2px solid var(--primary);padding-bottom:4px;">Dashboard</a>
-          <a href="#" class="label-sm" style="color:var(--on-surface-variant);">Concerts</a>
-          <a href="#" class="label-sm" style="color:var(--on-surface-variant);">Workshops</a>
-          <a href="#" class="label-sm" style="color:var(--on-surface-variant);">Festivals</a>
-        </nav>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggleAdmin" aria-label="Toggle theme">
-          <span class="material-symbols-outlined" style="font-size:18px;" id="themeIconAdmin">dark_mode</span>
-        </button>
-        <button class="btn-icon" style="border-radius:50%;border:none;background:transparent;">
-          <span class="material-symbols-outlined" style="font-size:20px;">chat_bubble</span>
-        </button>
-        <div style="display:flex;align-items:center;gap:4px;">
-          <button class="btn btn-primary" onclick="toggleModal()" id="openModalBtn">
-            <span class="material-symbols-outlined" style="font-size:16px;">add</span>
-            Create Event
-          </button>
-          <button class="btn-icon" style="border-radius:50%;border:none;background:transparent;">
-            <span class="material-symbols-outlined" style="font-size:20px;">account_circle</span>
-          </button>
+                <div class="form-group">
+                    <label for="event-title">Event Title *</label>
+                    <input type="text" id="event-title" placeholder="Enter event title">
+                    <span class="error-msg" id="error-title"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="event-description">Description *</label>
+                    <textarea id="event-description" rows="3" placeholder="Enter event description"></textarea>
+                    <span class="error-msg" id="error-description"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="event-category">Category *</label>
+                    <select id="event-category">
+                        <option value="">Select Category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Music">Music</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Art">Art</option>
+                    </select>
+                    <span class="error-msg" id="error-category"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-date">Date *</label>
+                        <input type="date" id="event-date">
+                        <span class="error-msg" id="error-date"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-time">Time *</label>
+                        <input type="time" id="event-time">
+                        <span class="error-msg" id="error-time"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="event-venue">Venue *</label>
+                    <input type="text" id="event-venue" placeholder="Enter venue / location">
+                    <span class="error-msg" id="error-venue"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-image">Banner Image URL</label>
+                        <input type="url" id="event-image" placeholder="https://example.com/banner.jpg">
+                        <span class="error-msg" id="error-image"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-max-attendees">Maximum Attendees *</label>
+                        <input type="number" id="event-max-attendees" min="1" placeholder="e.g. 100">
+                        <span class="error-msg" id="error-max-attendees"></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn btn-primary">Create Event</button>
+                    <button type="button" id="cancel-btn" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                </div>
+            </form>
         </div>
-      </div>
-    </div>
-  </header>
 
-  <main style="max-width:1280px;margin:0 auto;padding:40px 24px;">
-
-    <!-- Dashboard Header -->
-    <div style="margin-bottom:40px;">
-      <div class="admin-header">
-        <div>
-          <h1 class="display-lg" style="font-size:36px;">Event Management</h1>
-          <p class="body-md" style="color:var(--on-surface-variant);margin-top:8px;">Monitor and control your event ecosystem performance.</p>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-          <div class="system-status">
-            <span class="status-dot"></span>
-            <span class="label-sm" style="text-transform:none;letter-spacing:0;">System Online</span>
-          </div>
-          <span class="label-sm" style="font-size:10px;color:rgba(208,194,213,0.7);text-transform:none;letter-spacing:0;" id="lastSynced">Last synced: Just now</span>
-        </div>
-      </div>
-
-      <!-- Bento Analytics -->
-      <div class="bento-grid">
-        <div class="bento-card glass-card bento-c4" style="grid-column:span 12;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <span class="label-sm">Total Registrations</span>
-              <span class="material-symbols-outlined" style="color:var(--primary);">groups</span>
+        <!-- Event List Table Section -->
+        <div class="list-section">
+            <h2>Current Events</h2>
+            <div class="table-responsive">
+                <table id="events-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Date / Time</th>
+                            <th>Venue</th>
+                            <th>Attendees (Max)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-list">
+                        <!-- Dynamic content injected by admin.js -->
+                    </tbody>
+                </table>
             </div>
-            <div style="margin-top:16px;">
-              <span class="display-lg" style="color:var(--primary);font-size:36px;text-shadow:0 0 12px rgba(224,182,255,0.2);">42,890</span>
-              <div style="display:flex;align-items:center;gap:4px;color:var(--secondary);margin-top:8px;">
-                <span class="material-symbols-outlined" style="font-size:16px;">trending_up</span>
-                <span class="label-sm" style="text-transform:none;letter-spacing:0;">+12.5% vs last month</span>
-              </div>
+            <div id="no-events-msg" style="display: none; text-align: center; margin: 20px 0; color: #777;">
+                No events found. Create one using the form above.
             </div>
-          </div>
         </div>
-
-        <div class="bento-card glass-card bento-c5" style="grid-column:span 12;">
-          <span class="label-sm" style="margin-bottom:16px;">Top Categories</span>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:80px;">
-              <div style="height:8px;width:100%;background:var(--surface-container-highest);border-radius:var(--radius-full);overflow:hidden;">
-                <div style="height:100%;background:var(--primary);width:85%;box-shadow:0 0 10px rgba(224,182,255,0.5);"></div>
-              </div>
-              <span class="label-sm" style="text-transform:none;letter-spacing:0;">Concerts (85%)</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:80px;">
-              <div style="height:8px;width:100%;background:var(--surface-container-highest);border-radius:var(--radius-full);overflow:hidden;">
-                <div style="height:100%;background:var(--secondary);width:62%;box-shadow:0 0 10px rgba(69,240,244,0.5);"></div>
-              </div>
-              <span class="label-sm" style="text-transform:none;letter-spacing:0;">Festivals (62%)</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:80px;">
-              <div style="height:8px;width:100%;background:var(--surface-container-highest);border-radius:var(--radius-full);overflow:hidden;">
-                <div style="height:100%;background:var(--tertiary);width:45%;box-shadow:0 0 10px rgba(171,214,0,0.5);"></div>
-              </div>
-              <span class="label-sm" style="text-transform:none;letter-spacing:0;">Workshops (45%)</span>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:4px;color:var(--on-surface-variant);margin-top:8px;">
-            <span class="material-symbols-outlined" style="font-size:16px;">info</span>
-            <span class="label-sm" style="text-transform:none;letter-spacing:0;font-size:11px;">Based on ticket sales and social engagement</span>
-          </div>
-        </div>
-
-        <div class="bento-c3" style="grid-column:span 12;background:linear-gradient(135deg,var(--primary-container),var(--primary));padding:24px;border-radius:var(--radius-xl);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;border:1px solid rgba(224,182,255,0.2);box-shadow:0 8px 32px rgba(157,78,221,0.3);">
-          <div style="position:relative;z-index:1;">
-            <span class="label-sm" style="color:rgba(255,255,255,0.9);">Pending Approvals</span>
-            <div class="display-lg" style="margin-top:16px;color:var(--on-primary-container);text-shadow:0 2px 8px rgba(0,0,0,0.3);">14</div>
-          </div>
-          <button class="btn" style="position:relative;z-index:1;width:100%;background:rgba(255,255,255,0.1);color:var(--on-primary-container);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px);justify-content:center;">
-            Review Now
-          </button>
-          <div style="position:absolute;right:-32px;top:-32px;width:128px;height:128px;background:rgba(255,255,255,0.2);border-radius:50%;filter:blur(40px);"></div>
-          <div style="position:absolute;left:-48px;bottom:-48px;width:160px;height:160px;background:rgba(69,240,244,0.15);border-radius:50%;filter:blur(60px);"></div>
-        </div>
-      </div>
     </div>
 
-    <!-- Events Table -->
-    <div style="background:var(--surface-container);border-radius:var(--radius-xl);border:1px solid rgba(77,67,83,0.3);overflow:hidden;">
-      <div style="padding:24px;border-bottom:1px solid rgba(77,67,83,0.3);display:flex;flex-direction:column;gap:16px;background:rgba(29,32,38,0.5);" class="md-row">
-        <h2 class="headline-md" style="font-size:20px;flex-shrink:0;">Recent Events</h2>
-        <div style="display:flex;width:100%;gap:8px;" class="md-w-auto">
-          <div style="position:relative;flex:1;">
-            <span class="material-symbols-outlined" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--on-surface-variant);font-size:20px;">search</span>
-            <input type="text" class="form-input" style="padding-left:40px;background:var(--surface-container-lowest);" placeholder="Search events...">
-          </div>
-          <button class="btn-icon" style="border-radius:var(--radius);width:auto;padding:10px;">
-            <span class="material-symbols-outlined">filter_list</span>
-          </button>
-        </div>
-      </div>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Event Title</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Venue</th>
-              <th style="text-align:right;">Attendees</th>
-              <th style="text-align:center;">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:16px;">
-                  <div style="width:40px;height:40px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(77,67,83,0.2);background:var(--surface-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-symbols-outlined" style="color:var(--outline-variant);font-size:18px;">image</span>
-                  </div>
-                  <span class="body-md" style="font-weight:600;">Neon Symphony 2024</span>
-                </div>
-              </td>
-              <td><span class="tag tag-primary">Concerts</span></td>
-              <td class="body-md">Oct 24, 2024</td>
-              <td class="body-md" style="color:var(--on-surface-variant);">Grand Arena, NY</td>
-              <td class="body-md" style="text-align:right;"><span style="color:var(--secondary);font-weight:600;">4,820</span> / 5,000</td>
-              <td>
-                <div style="display:flex;justify-content:center;gap:8px;">
-                  <button class="btn-icon"><span class="material-symbols-outlined" style="font-size:20px;">edit</span></button>
-                  <button class="btn-icon danger" onclick="showDeleteModal('Neon Symphony 2024')"><span class="material-symbols-outlined" style="font-size:20px;">delete</span></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:16px;">
-                  <div style="width:40px;height:40px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(77,67,83,0.2);background:var(--surface-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-symbols-outlined" style="color:var(--outline-variant);font-size:18px;">image</span>
-                  </div>
-                  <span class="body-md" style="font-weight:600;">UX Design Masterclass</span>
-                </div>
-              </td>
-              <td><span class="tag tag-tertiary">Workshops</span></td>
-              <td class="body-md">Nov 02, 2024</td>
-              <td class="body-md" style="color:var(--on-surface-variant);">Creative Hub, SF</td>
-              <td class="body-md" style="text-align:right;"><span style="color:var(--secondary);font-weight:600;">48</span> / 50</td>
-              <td>
-                <div style="display:flex;justify-content:center;gap:8px;">
-                  <button class="btn-icon"><span class="material-symbols-outlined" style="font-size:20px;">edit</span></button>
-                  <button class="btn-icon danger" onclick="showDeleteModal('UX Design Masterclass')"><span class="material-symbols-outlined" style="font-size:20px;">delete</span></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:16px;">
-                  <div style="width:40px;height:40px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(77,67,83,0.2);background:var(--surface-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-symbols-outlined" style="color:var(--outline-variant);font-size:18px;">image</span>
-                  </div>
-                  <span class="body-md" style="font-weight:600;">Summer Solstice Fest</span>
-                </div>
-              </td>
-              <td><span class="tag tag-secondary">Festivals</span></td>
-              <td class="body-md">Aug 15, 2024</td>
-              <td class="body-md" style="color:var(--on-surface-variant);">Central Park, NY</td>
-              <td class="body-md" style="text-align:right;"><span style="color:var(--secondary);font-weight:600;">12,400</span> / 15,000</td>
-              <td>
-                <div style="display:flex;justify-content:center;gap:8px;">
-                  <button class="btn-icon"><span class="material-symbols-outlined" style="font-size:20px;">edit</span></button>
-                  <button class="btn-icon danger" onclick="showDeleteModal('Summer Solstice Fest')"><span class="material-symbols-outlined" style="font-size:20px;">delete</span></button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- Pagination -->
-      <div style="padding:24px;border-top:1px solid rgba(77,67,83,0.3);display:flex;justify-content:space-between;align-items:center;background:rgba(29,32,38,0.5);">
-        <span class="label-sm" style="text-transform:none;letter-spacing:0;color:var(--on-surface-variant);">Showing 1-3 of 124 events</span>
-        <div style="display:flex;gap:8px;">
-          <button class="btn-icon" style="border-radius:var(--radius);width:32px;height:32px;"><span class="material-symbols-outlined" style="font-size:18px;">chevron_left</span></button>
-          <button style="width:32px;height:32px;border-radius:var(--radius);background:var(--primary);color:var(--on-primary);border:1px solid rgba(224,182,255,0.5);font-family:var(--font-mono);font-size:12px;font-weight:500;cursor:pointer;box-shadow:0 0 10px rgba(224,182,255,0.3);">1</button>
-          <button class="btn-icon" style="border-radius:var(--radius);width:32px;height:32px;font-family:var(--font-mono);font-size:12px;">2</button>
-          <button class="btn-icon" style="border-radius:var(--radius);width:32px;height:32px;font-family:var(--font-mono);font-size:12px;">3</button>
-          <button class="btn-icon" style="border-radius:var(--radius);width:32px;height:32px;"><span class="material-symbols-outlined" style="font-size:18px;">chevron_right</span></button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Footer -->
-  <footer style="width:100%;margin-top:40px;background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.3);position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(224,182,255,0.05),transparent);pointer-events:none;"></div>
-    <div style="display:flex;flex-direction:column;gap:24px;align-items:center;padding:40px 24px;max-width:1280px;margin:0 auto;position:relative;z-index:1;text-align:center;">
-      <div>
-        <span class="headline-md" style="font-weight:800;color:var(--on-surface);">EventPulse</span>
-        <p class="body-md" style="color:var(--on-surface-variant);">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Create Event Modal -->
-  <div class="modal-overlay" id="createModal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-container">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="headline-md" style="font-size:20px;">Create New Event</h3>
-          <button style="background:none;border:none;color:var(--on-surface-variant);cursor:pointer;padding:4px;border-radius:var(--radius-full);" onclick="toggleModal()">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </div>
-        <form class="modal-body" style="display:flex;flex-direction:column;gap:24px;">
-          <div class="form-group">
-            <label class="form-label">Event Title <span style="color:var(--error);">*</span></label>
-            <div style="position:relative;">
-              <input type="text" class="form-input error" placeholder="e.g. Annual Tech Summit" style="padding-right:40px;">
-              <span class="material-symbols-outlined" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--error);font-size:18px;">error</span>
-            </div>
-            <p class="form-error-text">Event title is required to continue.</p>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            <div class="form-group">
-              <label class="form-label">Category</label>
-              <select class="form-input">
-                <option>Concerts</option>
-                <option>Workshops</option>
-                <option>Festivals</option>
-                <option>Sports</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Venue</label>
-            <div style="position:relative;">
-              <input type="text" class="form-input success" placeholder="Location or Virtual Link" value="Convention Center" style="padding-right:40px;">
-              <span class="material-symbols-outlined" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--tertiary);font-size:18px;">check_circle</span>
-            </div>
-            <p class="form-success-text">Location verified.</p>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Max Attendees</label>
-            <input type="number" class="form-input" placeholder="500">
-          </div>
-        </form>
-        <div class="modal-footer">
-          <button class="btn btn-outline" onclick="toggleModal()">Cancel</button>
-          <button class="btn btn-primary" onclick="handleSave()">Save Event</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Delete Confirmation Modal -->
-  <div class="modal-overlay" id="deleteModal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-container" style="max-width:420px;">
-      <div class="modal-content">
-        <div class="modal-header" style="gap:12px;">
-          <div style="width:40px;height:40px;border-radius:var(--radius-full);background:rgba(255,180,171,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span class="material-symbols-outlined" style="color:var(--error);">warning</span>
-          </div>
-          <h3 class="headline-md" style="font-size:20px;">Delete Event</h3>
-          <div style="flex:1;"></div>
-          <button style="background:none;border:none;color:var(--on-surface-variant);cursor:pointer;padding:4px;" onclick="hideDeleteModal()">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="body-md" style="color:var(--on-surface-variant);">
-            Are you sure you want to delete <strong style="color:var(--on-surface);" id="deleteEventName">this event</strong>? This action cannot be undone.
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-outline" onclick="hideDeleteModal()">Cancel</button>
-          <button class="btn btn-danger" onclick="hideDeleteModal()">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
-
-  <script>
-    var createModal = document.getElementById('createModal');
-    function toggleModal() {
-      createModal.classList.toggle('active');
-      document.body.style.overflow = createModal.classList.contains('active') ? 'hidden' : '';
-    }
-    createModal.addEventListener('click', function(e) {
-      if (e.target === this.querySelector('.modal-backdrop')) toggleModal();
-    });
-
-    var deleteModal = document.getElementById('deleteModal');
-    function showDeleteModal(name) {
-      document.getElementById('deleteEventName').textContent = name;
-      deleteModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function hideDeleteModal() {
-      deleteModal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    deleteModal.addEventListener('click', function(e) {
-      if (e.target === this.querySelector('.modal-backdrop')) hideDeleteModal();
-    });
-
-    function updateSyncTime() {
-      document.getElementById('lastSynced').textContent = 'Last synced: ' + new Date().toLocaleTimeString();
-    }
-    updateSyncTime();
-
-    function showToast(msg, type) {
-      var c = document.getElementById('toastContainer');
-      var t = document.createElement('div');
-      t.className = 'toast ' + (type === 'error' ? 'toast-error' : 'toast-success');
-      t.innerHTML = '<span class="material-symbols-outlined" style="font-size:20px;">' + (type === 'error' ? 'error' : 'check_circle') + '</span><span style="font-size:14px;">' + msg + '</span>';
-      c.appendChild(t);
-      setTimeout(function() { t.style.opacity = '0'; t.style.transform = 'translateY(8px)'; setTimeout(function() { t.remove(); }, 300); }, 3000);
-    }
-
-    function handleSave() {
-      toggleModal();
-      showToast('Event Saved Successfully', 'success');
-      updateSyncTime();
-    }
-
-    function toggleTheme() {
-      var html = document.documentElement;
-      var current = html.getAttribute('data-theme') || 'dark';
-      var next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('eventpulse_theme', next);
-      var icon = document.getElementById('themeIconAdmin');
-      if (icon) icon.textContent = next === 'dark' ? 'dark_mode' : 'light_mode';
-    }
-    (function initTheme() {
-      var saved = localStorage.getItem('eventpulse_theme');
-      if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-        var icon = document.getElementById('themeIconAdmin');
-        if (icon) icon.textContent = saved === 'dark' ? 'dark_mode' : 'light_mode';
-      }
-    })();
-  </script>
+    <script src="../js/pages/admin.js"></script>
 </body>
 </html>
