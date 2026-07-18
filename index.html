@@ -169,20 +169,27 @@
         </a>
       </div>
 
-      <div class="filter-bar" role="toolbar" aria-label="Filter by category">
-        <button type="button" class="filter-chip active" data-filter-category="all">All</button>
-        <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
-        <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
-        <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
-        <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
-        <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
-        <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
-        <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
-        <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
-        <button type="button" class="filter-chip" data-filter-category="Food">Food</button>
-        <button type="button" class="filter-chip" data-filter-category="Health">Health</button>
-        <button type="button" class="filter-chip" data-filter-category="Community">Community</button>
-        <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;align-items:center;">
+        <div class="filter-bar" role="toolbar" aria-label="Filter by category">
+          <button type="button" class="filter-chip active" data-filter-category="all">All</button>
+          <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
+          <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
+          <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
+          <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
+          <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
+          <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
+          <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
+          <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
+          <button type="button" class="filter-chip" data-filter-category="Food">Food</button>
+          <button type="button" class="filter-chip" data-filter-category="Health">Health</button>
+          <button type="button" class="filter-chip" data-filter-category="Community">Community</button>
+          <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label class="label-sm" style="color:var(--outline);white-space:nowrap;" for="dateFilter">Filter by date:</label>
+          <input type="date" id="dateFilter" class="form-input" style="padding:6px 12px;font-size:13px;margin-bottom:0;max-width:160px;">
+          <button type="button" class="btn btn-outline" id="clearDateFilter" style="padding:6px 12px;font-size:11px;display:none;">Clear</button>
+        </div>
       </div>
 
       <div class="category-grid">

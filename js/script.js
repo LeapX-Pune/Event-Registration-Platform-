@@ -257,7 +257,7 @@ function renderHomepageEvents() {
       }
     } catch(e) {}
     
-    return '<a href="' + link + '" class="event-card" data-category="' + displayCat + '" style="text-decoration:none;">' +
+    return '<a href="' + link + '" class="event-card" data-category="' + displayCat + '" data-date="' + (event.date || '') + '" style="text-decoration:none;">' +
              '<div class="event-card-image">' +
                '<span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>' +
                '<img src="' + imgUrl + '" alt="' + displayCat + '" onerror="this.style.display=\'none\'">' +
@@ -294,15 +294,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  var dateFilter = document.getElementById('dateFilter');
+  var clearDateBtn = document.getElementById('clearDateFilter');
+
   function filterEvents(category) {
     var cards = document.querySelectorAll('#eventsContainer .event-card');
     activeCategory = category || 'all';
     var key = normalize(activeCategory);
+    var selectedDate = dateFilter ? dateFilter.value : '';
     var visible = 0;
 
     cards.forEach(function (card) {
       var cat = normalize(card.getAttribute('data-category'));
-      var match = key === 'all' || cat === key;
+      var cardDate = card.getAttribute('data-date') || '';
+      var matchCat = key === 'all' || cat === key;
+      var matchDate = !selectedDate || cardDate === selectedDate;
+      var match = matchCat && matchDate;
       card.classList.toggle('is-hidden', !match);
       if (match) visible++;
     });
@@ -311,15 +318,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (container) container.style.display = visible === 0 ? 'none' : 'flex';
 
     if (statusEl) {
-      if (key === 'all') {
-        statusEl.innerHTML = '<span>Showing <strong>all events</strong></span>';
-      } else {
-        var label = activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1);
-        statusEl.innerHTML = '<span>Showing <strong>' + label + '</strong> events (' + visible + ')</span>';
+      var parts = [];
+      if (key === 'all') parts.push('all events');
+      else parts.push('<strong>' + (activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)) + '</strong>');
+      if (selectedDate) {
+        var d = new Date(selectedDate + 'T12:00:00');
+        var dateLabel = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        parts.push('on <strong>' + dateLabel + '</strong>');
       }
+      statusEl.innerHTML = '<span>Showing ' + parts.join(' ') + ' (' + visible + ')</span>';
     }
 
     if (resetBtn) resetBtn.hidden = key === 'all';
+    if (clearDateBtn) clearDateBtn.style.display = selectedDate ? '' : 'none';
     setActiveButtons(activeCategory);
   }
 
@@ -335,6 +346,18 @@ document.addEventListener('DOMContentLoaded', function() {
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
       filterEvents('all');
+    });
+  }
+
+  if (dateFilter) {
+    dateFilter.addEventListener('change', function() {
+      filterEvents(activeCategory);
+    });
+  }
+  if (clearDateBtn) {
+    clearDateBtn.addEventListener('click', function() {
+      if (dateFilter) dateFilter.value = '';
+      filterEvents(activeCategory);
     });
   }
 
