@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
   <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script>(function(){if(!sessionStorage.getItem('eventpulse_user')){window.location.href='signin.html?redirect=admin.html';}})();</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/admin.css">
@@ -68,7 +69,7 @@
   </aside>
 
   <!-- Right Main Content Panel -->
-  <div class="adm-content" id="admContent">
+  <div class="adm-main" id="admContent">
     
     <!-- Top Bar with search, notifications and profiles dropdown -->
     <header class="adm-topbar">
@@ -115,7 +116,7 @@
     </header>
 
     <!-- Main Dynamic Section container -->
-    <main class="adm-page-body">
+    <main class="adm-content">
 
       <!-- Section 1: Dashboard Section (Default) -->
       <section id="adm-sec-dashboard" class="adm-section active">
@@ -191,51 +192,8 @@
                   <th style="text-align:right;">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600;color:var(--on-surface);">Starlight Symphony</td>
-                  <td><span class="tag tag-primary" style="font-size:10px;padding:2px 8px;">Music</span></td>
-                  <td style="font-family:var(--font-mono);font-size:13px;">Aug 14, 2026</td>
-                  <td>Madison Square Garden, NY</td>
-                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Starlight Symphony clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
-                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('Starlight Symphony')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:var(--on-surface);">AI &amp; Machine Learning Expo</td>
-                  <td><span class="tag tag-secondary" style="font-size:10px;padding:2px 8px;">Tech</span></td>
-                  <td style="font-family:var(--font-mono);font-size:13px;">Oct 12, 2026</td>
-                  <td>Silicon Valley Tech Hub</td>
-                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Expo clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
-                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('AI & Machine Learning Expo')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:var(--on-surface);">Enchanted Forest Soir&eacute;e</td>
-                  <td><span class="tag tag-primary" style="background:rgba(255,182,193,0.1);color:#ffb4ab;border-color:rgba(255,182,193,0.2);font-size:10px;padding:2px 8px;">Festival</span></td>
-                  <td style="font-family:var(--font-mono);font-size:13px;">Nov 12, 2026</td>
-                  <td>Asheville Meadow, NC</td>
-                  <td><span class="tag" style="background:rgba(217,119,6,0.1);color:#d97706;border-color:rgba(217,119,6,0.2);font-size:11px;">Draft</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit Soirée clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
-                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('Enchanted Forest Soirée')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:var(--on-surface);">UX Masters Global Summit</td>
-                  <td><span class="tag tag-primary" style="background:rgba(217,119,6,0.1);color:#d97706;border-color:rgba(217,119,6,0.2);font-size:10px;padding:2px 8px;">Workshop</span></td>
-                  <td style="font-family:var(--font-mono);font-size:13px;">Sep 22, 2026</td>
-                  <td>Convention Arena, London</td>
-                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);border-color:rgba(171,214,0,0.2);font-size:11px;">Published</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon" style="padding:4px;" aria-label="Edit event" onclick="triggerToast('Edit UX Summit clicked', 'info')"><span class="material-symbols-outlined" style="font-size:16px;">edit</span></button>
-                    <button class="btn-icon danger" style="padding:4px;" aria-label="Delete event" onclick="openDeleteModal('UX Masters Global Summit')"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>
-                  </td>
-                </tr>
+              <tbody id="admDashboardList">
+                <!-- Dynamic content from admin.js -->
               </tbody>
             </table>
           </div>
@@ -353,7 +311,7 @@
         <!-- CREATE NEW EVENT FORM UI (Glass Card) -->
         <div class="adm-form-card" id="createEventFormPanel" style="margin-top:40px;">
           <h2 class="headline-md" style="font-size:20px;font-weight:700;margin-bottom:24px;">Create New Event</h2>
-          <form onsubmit="event.preventDefault(); triggerAddEvent();">
+          <form>
             <div class="form-grid">
               <div class="form-group" style="grid-column: span 2;">
                 <label class="form-label" for="evtTitle">Event Title *</label>
@@ -502,20 +460,20 @@
         <div class="adm-stats-grid" style="margin-bottom:24px;">
           <div class="adm-stat-card" style="padding:16px 24px;">
             <div>
-              <p class="adm-stat-label" style="font-size:10px;">Total Attendees</p>
-              <h3 class="adm-stat-num" style="font-size:24px;">14,280</h3>
+              <p class="adm-stat-label" style="font-size:10px;">Total Registrations</p>
+              <h3 class="adm-stat-num" id="admTotalRegs" style="font-size:24px;">0</h3>
             </div>
           </div>
           <div class="adm-stat-card" style="padding:16px 24px;">
             <div>
-              <p class="adm-stat-label" style="font-size:10px;">New Registrations</p>
-              <h3 class="adm-stat-num" style="font-size:24px;">+847</h3>
+              <p class="adm-stat-label" style="font-size:10px;">Unique Attendees</p>
+              <h3 class="adm-stat-num" id="admUniqueAttendees" style="font-size:24px;">0</h3>
             </div>
           </div>
           <div class="adm-stat-card" style="padding:16px 24px;">
             <div>
-              <p class="adm-stat-label" style="font-size:10px;">Average Check-In Rate</p>
-              <h3 class="adm-stat-num" style="font-size:24px;">88.4%</h3>
+              <p class="adm-stat-label" style="font-size:10px;">Events with Registrations</p>
+              <h3 class="adm-stat-num" id="admEventsWithRegs" style="font-size:24px;">0</h3>
             </div>
           </div>
         </div>
@@ -534,37 +492,8 @@
                   <th style="text-align:right;">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600;">Sumit Tiwari</td>
-                  <td>sumit@leapx.com</td>
-                  <td>Starlight Symphony</td>
-                  <td>Jul 16, 2026</td>
-                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for Sumit', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Aditi Sharma</td>
-                  <td>aditi.sharma@yahoo.com</td>
-                  <td>AI &amp; Machine Learning Expo</td>
-                  <td>Jul 15, 2026</td>
-                  <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for Aditi', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">John Doe</td>
-                  <td>john.doe@gmail.com</td>
-                  <td>Starlight Symphony</td>
-                  <td>Jul 14, 2026</td>
-                  <td><span class="tag" style="background:rgba(217,119,6,0.1);color:#d97706;font-size:10px;">Pending</span></td>
-                  <td style="text-align:right;">
-                    <button class="btn-icon danger" onclick="triggerToast('Revoked registration for John', 'success')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
-                  </td>
-                </tr>
+              <tbody id="admAttendeesList">
+                <!-- Dynamic content from admin.js -->
               </tbody>
             </table>
           </div>

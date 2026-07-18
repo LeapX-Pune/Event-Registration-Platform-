@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | EventPulse</title>
+  <meta name="description" content="Sign in or create an account on EventPulse.">
+  <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme" style="position:fixed;top:20px;right:20px;z-index:100;">
+    <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
+  </button>
+
+  <main style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+    <div class="glass-panel" style="max-width:440px;width:100%;padding:40px 32px;border-radius:var(--radius-xl);">
+      <div style="text-align:center;margin-bottom:32px;">
+        <div style="width:56px;height:56px;border-radius:var(--radius-full);background:rgba(224,182,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <span class="material-symbols-outlined" style="color:var(--primary);font-size:28px;">person</span>
+        </div>
+        <h1 class="display-lg-mobile" style="font-size:24px;margin-bottom:4px;" id="authTitle">Sign In</h1>
+        <p class="body-md" style="color:var(--on-surface-variant);" id="authSubtitle">Welcome back to EventPulse</p>
+      </div>
+
+      <div id="loginForm">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password">
+          </div>
+          <button type="button" class="btn btn-primary" id="loginBtn" style="width:100%;justify-content:center;padding:14px;">Sign In</button>
+          <p class="body-md" style="text-align:center;color:var(--on-surface-variant);font-size:14px;">
+            Don't have an account? <a href="#" id="showSignup" style="color:var(--primary);font-weight:600;">Sign Up</a>
+          </p>
+        </div>
+      </div>
+
+      <div id="signupForm" style="display:none;">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="signupName" class="form-input" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="signupPassword" class="form-input" placeholder="Min. 6 characters">
+          </div>
+          <button type="button" class="btn btn-primary" id="signupBtn" style="width:100%;justify-content:center;padding:14px;">Create Account</button>
+          <p class="body-md" style="text-align:center;color:var(--on-surface-variant);font-size:14px;">
+            Already have an account? <a href="#" id="showLogin" style="color:var(--primary);font-weight:600;">Sign In</a>
+          </p>
+        </div>
+      </div>
+
+      <div id="profileView" style="display:none;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+            <span class="material-symbols-outlined" style="color:#fff;font-size:36px;">person</span>
+          </div>
+          <h2 style="font-size:20px;margin-bottom:4px;" id="profileName">User</h2>
+          <p class="body-md" style="color:var(--on-surface-variant);" id="profileEmail">user@example.com</p>
+        </div>
+        <button type="button" class="btn btn-outline" id="logoutBtn" style="width:100%;justify-content:center;padding:14px;color:var(--error);border-color:rgba(255,180,171,0.3);">Sign Out</button>
+      </div>
+
+      <div id="authError" style="display:none;margin-top:16px;padding:12px;border-radius:var(--radius-md);background:rgba(255,180,171,0.1);color:var(--error);text-align:center;font-size:14px;"></div>
+    </div>
+  </main>
+
+  <script src="js/utils/theme.js"></script>
+  <script src="js/utils/storage.js"></script>
+  <script src="js/signin.js"></script>
+</body>
+</html>
