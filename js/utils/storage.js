@@ -17,7 +17,8 @@ const Storage = {
   },
 
   getById(id) {
-    return this.load().find(e => e.id === id);
+    const numId = Number(id);
+    return this.load().find(e => Number(e.id) === numId);
   },
 
   add(event) {

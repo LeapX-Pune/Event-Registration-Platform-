@@ -10,7 +10,7 @@
   height: 480px;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at 60% 40%, rgba(157, 78, 221, 0.4) 0%, #10131a 70%);
+  background: radial-gradient(circle at 60% 40%, rgba(157, 78, 221, 0.4) 0%, var(--background) 70%);
   display: flex;
   align-items: flex-end;
 }
@@ -34,7 +34,7 @@
 .ed-banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #10131a 0%, rgba(16, 19, 26, 0.6) 50%, transparent 100%);
+  background: var(--hero-overlay);
   z-index: 2;
 }
 
@@ -91,7 +91,7 @@
 /* ----- Register Card with Glassmorphism ----- */
 /* Registration status container with soft glows */
 .ed-register-card {
-  background: rgba(29, 32, 38, 0.8);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(224, 182, 255, 0.12);
@@ -150,7 +150,7 @@
 .ed-tag {
   display: inline-block;
   padding: 6px 14px;
-  background: rgba(29, 32, 38, 0.6);
+  background: var(--glass-bg);
   border: 1px solid rgba(224, 182, 255, 0.15);
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
@@ -173,7 +173,7 @@
   padding: 8px 16px;
   border-radius: var(--radius);
   border: 1px solid rgba(77, 67, 83, 0.3);
-  background: rgba(25, 28, 34, 0.5);
+  background: var(--surface-container-low);
   color: var(--on-surface);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -207,7 +207,7 @@
 .ed-lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(11, 14, 20, 0.95);
+  background: var(--overlay-bg);
   backdrop-filter: blur(12px);
   z-index: 120;
   display: none;
@@ -283,4 +283,9 @@
     right: 24px;
     bottom: 24px;
   }
+}
+
+
+[data-theme="light"] .ed-hero {
+  background: radial-gradient(circle at 60% 40%, rgba(103, 80, 164, 0.25) 0%, var(--background) 70%);
 }
