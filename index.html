@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EventPulse | Experience the Extraordinary</title>
   <meta name="description" content="Discover and register for the best events near you. Music concerts, tech expos, sports, festivals, workshops and more on EventPulse.">
+  <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,13 +15,10 @@
 </head>
 <body>
 
-  <!-- ===== NAVBAR — sabhi pages pe same navbar order hai ===== -->
-  <!-- Ye navbar sabhi pages pe sticky rahega with proper order -->
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="navbar-left">
         <a href="index.html" class="navbar-brand">EventPulse</a>
-        <!-- Ye desktop nav links hain — proper order -->
         <div class="navbar-links">
           <a href="index.html" class="nav-link active">Home</a>
           <a href="event-details.html" class="nav-link">Events</a>
@@ -30,10 +28,9 @@
         </div>
       </div>
       <div class="navbar-right">
-        <!-- Compact search bar -->
         <div class="navbar-search-compact">
           <span class="material-symbols-outlined">search</span>
-          <input type="text" placeholder="Search events...">
+          <input type="text" placeholder="Search events..." aria-label="Search events">
         </div>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
           <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
@@ -46,9 +43,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Navigation Overlay -->
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <!-- Mobile Navigation Drawer -->
   <div class="mobile-nav-drawer" id="mobileNavDrawer">
     <div class="mobile-nav-header">
       <span class="navbar-brand">EventPulse</span>
@@ -73,196 +68,194 @@
         <span class="material-symbols-outlined">info</span>About
       </a>
     </nav>
-    <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
+    <div style="padding:16px;border-top:1px solid var(--border-subtle);">
       <button class="btn btn-primary" style="width:100%;justify-content:center;">Sign In</button>
     </div>
   </div>
 
-
-
   <main style="min-height:100vh;padding-bottom:80px;">
 
-    <!-- Hero Section - main banner carousel with featured events -->
-    <section class="hero-section hero-gradient">
+    <!-- Hero carousel — no CTA buttons, image-led -->
+    <section class="hero-section hero-gradient" aria-label="Featured events">
       <div class="container" style="position:relative;z-index:1;">
-        <!-- Carousel slides -->
-        <div class="hero-carousel hide-scrollbar">
-          <!-- Slide 1: Music Event -->
-          <div class="hero-slide">
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-              <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80" alt="Concert" onerror="this.style.display='none'" style="object-fit:cover;">
-            <div class="hero-slide-gradient"></div>
-            <div class="hero-slide-content">
-              <span class="hero-tag">MUST ATTEND</span>
-              <h2 class="hero-title">Starlight Symphony</h2>
-              <p class="hero-subtitle">Electronic Reimagined &bull; Aug 14 - 16</p>
+        <div class="hero-carousel-wrap">
+          <div class="hero-carousel" aria-live="polite">
+            <div class="hero-carousel-track">
+              <div class="hero-slide">
+                <div class="hero-slide-placeholder">
+                  <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80" alt="Starlight Symphony concert" loading="eager">
+                <div class="hero-slide-gradient"></div>
+                <div class="hero-slide-content">
+                  <span class="hero-tag">MUST ATTEND</span>
+                  <h2 class="hero-title">Starlight Symphony</h2>
+                  <p class="hero-subtitle">Electronic Reimagined &bull; Aug 14 - 16</p>
+                </div>
+              </div>
+              <div class="hero-slide">
+                <div class="hero-slide-placeholder">
+                  <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1400&q=80" alt="Elite Hoops basketball" loading="lazy">
+                <div class="hero-slide-gradient"></div>
+                <div class="hero-slide-content">
+                  <span class="hero-tag" style="background:rgba(224,182,255,0.22);color:#e0b6ff;border-color:rgba(224,182,255,0.35);">SPORTS</span>
+                  <h2 class="hero-title">Elite Hoops Invitational</h2>
+                  <p class="hero-subtitle">Madison Square Garden &bull; Oct 05</p>
+                </div>
+              </div>
+              <div class="hero-slide">
+                <div class="hero-slide-placeholder">
+                  <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&q=80" alt="Enchanted Forest festival" loading="lazy">
+                <div class="hero-slide-gradient"></div>
+                <div class="hero-slide-content">
+                  <span class="hero-tag">FESTIVAL</span>
+                  <h2 class="hero-title">Enchanted Forest Soir&eacute;e</h2>
+                  <p class="hero-subtitle">Asheville, NC &bull; Nov 12</p>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Slide 2: Sports Event -->
-          <div class="hero-slide">
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-              <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1400&q=80" alt="Sports" onerror="this.style.display='none'" style="object-fit:cover;">
-            <div class="hero-slide-gradient"></div>
-            <div class="hero-slide-content">
-              <span class="hero-tag" style="background:rgba(224,182,255,0.2);color:var(--primary);border-color:rgba(224,182,255,0.3);">SPORTS</span>
-              <h2 class="hero-title">Elite Hoops Invitational</h2>
-              <p class="hero-subtitle">Madison Square Garden &bull; Oct 05</p>
-            </div>
-          </div>
-          <!-- Slide 3: Festival Event -->
-          <div class="hero-slide">
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-              <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);">image</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&q=80" alt="Festival" onerror="this.style.display='none'" style="object-fit:cover;">
-            <div class="hero-slide-gradient"></div>
-            <div class="hero-slide-content">
-              <span class="hero-tag" style="background:rgba(69,240,244,0.2);color:var(--secondary);border-color:rgba(69,240,244,0.3);">FESTIVAL</span>
-              <h2 class="hero-title">Enchanted Forest Soir&eacute;e</h2>
-              <p class="hero-subtitle">Asheville, NC &bull; Nov 12</p>
-            </div>
-          </div>
+          <button type="button" class="hero-nav-btn prev" aria-label="Previous slide"><span class="material-symbols-outlined">chevron_left</span></button>
+          <button type="button" class="hero-nav-btn next" aria-label="Next slide"><span class="material-symbols-outlined">chevron_right</span></button>
         </div>
-        <!-- Carousel navigation buttons -->
-        <button class="hero-nav-btn prev" aria-label="Previous slide"><span class="material-symbols-outlined">chevron_left</span></button>
-        <button class="hero-nav-btn next" aria-label="Next slide"><span class="material-symbols-outlined">chevron_right</span></button>
-        <!-- Carousel dot indicators -->
-        <div id="heroDots" style="display:flex;justify-content:center;gap:8px;margin-top:16px;"></div>
+        <div class="hero-dots" id="heroDots" role="tablist" aria-label="Carousel slides"></div>
       </div>
     </section>
 
-    <!-- Recommended Events section - horizontal scroll cards -->
-    <section class="container" style="padding-top:48px;padding-bottom:40px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+    <!-- Recommended Events -->
+    <section class="container" id="recommendedSection" style="padding-top:48px;padding-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:16px;flex-wrap:wrap;">
         <h2 class="headline-md" style="font-size:24px;font-weight:700;">Recommended Events</h2>
-        <a href="categories.html" style="color:var(--primary);display:flex;align-items:center;gap:4px;font-size:16px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        <a href="categories.html" style="color:var(--primary);display:flex;align-items:center;gap:4px;font-size:16px;transition:opacity 0.2s;">
           See All
           <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward_ios</span>
         </a>
       </div>
-      <!-- Empty State (hidden by default) -->
+
+      <div class="filter-status" id="filterStatus">
+        <span>Showing <strong>all events</strong></span>
+        <button type="button" class="filter-chip" id="resetCategoryFilter" hidden>Show All</button>
+      </div>
+
       <div class="empty-state" id="emptyState" style="display:none;">
         <div class="empty-state-icon">
           <span class="material-symbols-outlined" style="font-size:36px;color:var(--outline);">event_busy</span>
         </div>
         <h3>No events found</h3>
-        <p>We couldn&rsquo;t find any events matching your current search. Try adjusting your criteria.</p>
-        <button class="btn btn-outline" onclick="resetEmpty()">Clear Search</button>
+        <p>We couldn&rsquo;t find any events in this category. Try another category or reset the filter.</p>
+        <button type="button" class="btn btn-outline" onclick="resetEmpty()">Show All Events</button>
       </div>
-      <!-- Event cards horizontal scroll container -->
+
       <div style="display:flex;gap:24px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;" class="hide-scrollbar" id="eventsContainer">
-        <a href="event-details.html?id=1" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt="Workshop" onerror="this.style.display='none'">
-            <div class="event-card-badge">Workshop</div>
-          </div>
-          <h3 class="event-card-title">UX Masters Global Summit</h3>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> London, UK</p>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Sep 22, 2026</p>
-        </a>
-        <a href="event-details.html?id=2" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80" alt="Tech" onerror="this.style.display='none'">
-            <div class="event-card-badge">Conference</div>
-          </div>
-          <h3 class="event-card-title">AI &amp; Machine Learning Expo</h3>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> San Francisco, CA</p>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Oct 12, 2026</p>
-        </a>
-        <a href="event-details.html?id=3" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
-            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80" alt="Festival" onerror="this.style.display='none'">
-            <div class="event-card-badge">Festival</div>
-          </div>
-          <h3 class="event-card-title">Enchanted Forest Soir&eacute;e</h3>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> Asheville, NC</p>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Nov 12, 2026</p>
-        </a>
-        <a href="event-details.html?id=4" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
-            <img src="https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80" alt="Music" onerror="this.style.display='none'">
-            <div class="event-card-badge">Concert</div>
-          </div>
-          <h3 class="event-card-title">Jazz &amp; Blues Night</h3>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> New Orleans, LA</p>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Dec 05, 2026</p>
-        </a>
-        <a href="event-details.html?id=5" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>
-            <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&q=80" alt="Art" onerror="this.style.display='none'">
-            <div class="event-card-badge">Art</div>
-          </div>
-          <h3 class="event-card-title">Modern Art &amp; Design Expo</h3>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> Paris, France</p>
-          <p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> Jan 20, 2027</p>
-        </a>
+        <!-- Recommended event cards rendered from Storage -->
       </div>
     </section>
 
-    <!-- The Best of Live Events - category grid section -->
+    <!-- Category filter grid -->
     <section class="container" style="padding-top:40px;padding-bottom:40px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap;">
         <h2 class="headline-md" style="font-size:24px;font-weight:700;">The Best of Live Events</h2>
-        <a href="categories.html" style="color:var(--primary);display:flex;align-items:center;gap:4px;font-size:16px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        <a href="categories.html" style="color:var(--primary);display:flex;align-items:center;gap:4px;font-size:16px;">
           All Categories
           <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward_ios</span>
         </a>
       </div>
-      <!-- Category cards grid -->
+
+      <div class="filter-bar" role="toolbar" aria-label="Filter by category">
+        <button type="button" class="filter-chip active" data-filter-category="all">All</button>
+        <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
+        <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
+        <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
+        <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
+        <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
+        <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
+        <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
+        <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
+        <button type="button" class="filter-chip" data-filter-category="Food">Food</button>
+        <button type="button" class="filter-chip" data-filter-category="Health">Health</button>
+        <button type="button" class="filter-chip" data-filter-category="Community">Community</button>
+        <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+      </div>
+
       <div class="category-grid">
-        <a href="categories.html" class="category-card" style="background:linear-gradient(135deg,var(--primary),var(--inverse-primary));">
+        <button type="button" class="category-card" data-filter-category="Music" style="background:linear-gradient(135deg,var(--primary),var(--inverse-primary));">
           <div class="category-card-overlay">
             <span class="material-symbols-outlined icon" style="color:#fff;">music_note</span>
-            <span class="label" style="color:#fff;">Music Shows</span>
+            <span class="label" style="color:#fff;">Music</span>
           </div>
-        </a>
-        <a href="categories.html" class="category-card" style="background:linear-gradient(135deg,var(--secondary),var(--secondary-container));">
+        </button>
+        <button type="button" class="category-card" data-filter-category="Technology" style="background:linear-gradient(135deg,#0ea5e9,#0369a1);">
           <div class="category-card-overlay">
-            <span class="material-symbols-outlined icon" style="color:var(--on-secondary-container);">theater_comedy</span>
-            <span class="label" style="color:var(--on-secondary-container);">Comedy</span>
+            <span class="material-symbols-outlined icon" style="color:#fff;">computer</span>
+            <span class="label" style="color:#fff;">Technology</span>
           </div>
-        </a>
-        <a href="categories.html" class="category-card" style="background:linear-gradient(135deg,var(--tertiary),var(--tertiary-container));">
+        </button>
+        <button type="button" class="category-card" data-filter-category="Sports" style="background:linear-gradient(135deg,var(--tertiary),var(--tertiary-container));">
           <div class="category-card-overlay">
             <span class="material-symbols-outlined icon" style="color:var(--on-tertiary-container);">sports_basketball</span>
             <span class="label" style="color:var(--on-tertiary-container);">Sports</span>
           </div>
-        </a>
-        <a href="categories.html" class="category-card" style="background:linear-gradient(135deg,var(--error),var(--error-container));">
+        </button>
+        <button type="button" class="category-card" data-filter-category="Art" style="background:linear-gradient(135deg,#ec4899,#9d174d);">
           <div class="category-card-overlay">
-            <span class="material-symbols-outlined icon" style="color:#fff;">local_activity</span>
-            <span class="label" style="color:#fff;">Amusement Parks</span>
+            <span class="material-symbols-outlined icon" style="color:#fff;">palette</span>
+            <span class="label" style="color:#fff;">Art</span>
           </div>
-        </a>
-        <a href="categories.html" class="category-card lg-block" style="background:linear-gradient(135deg,var(--surface-variant),var(--surface-container-high));">
+        </button>
+        <button type="button" class="category-card" data-filter-category="Workshop" style="background:linear-gradient(135deg,#d97706,#92400e);">
           <div class="category-card-overlay">
-            <span class="material-symbols-outlined icon" style="color:var(--on-surface);">explore</span>
-            <span class="label" style="color:var(--on-surface);">Activities</span>
+            <span class="material-symbols-outlined icon" style="color:#fff;">school</span>
+            <span class="label" style="color:#fff;">Workshop</span>
           </div>
-        </a>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Festival" style="background:linear-gradient(135deg,var(--error),#991b1b);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">celebration</span>
+            <span class="label" style="color:#fff;">Festival</span>
+          </div>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Business" style="background:linear-gradient(135deg,#2563eb,#1e3a8a);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">business_center</span>
+            <span class="label" style="color:#fff;">Business</span>
+          </div>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Education" style="background:linear-gradient(135deg,#059669,#065f46);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">menu_book</span>
+            <span class="label" style="color:#fff;">Education</span>
+          </div>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Food" style="background:linear-gradient(135deg,#ea580c,#9a3412);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">restaurant</span>
+            <span class="label" style="color:#fff;">Food</span>
+          </div>
+        </button>
+        <button type="button" class="category-card lg-block" data-filter-category="Entertainment" style="background:linear-gradient(135deg,#7c3aed,#4c1d95);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">theaters</span>
+            <span class="label" style="color:#fff;">Entertainment</span>
+          </div>
+        </button>
       </div>
     </section>
 
-    <!-- CTA Banner - organizers ke liye sign up CTA -->
-    <section style="background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.2);border-bottom:1px solid rgba(77,67,83,0.2);padding:80px 0;margin-top:40px;position:relative;overflow:hidden;">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(157,78,221,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+    <!-- Organizer CTA -->
+    <section class="cta-band">
+      <div class="cta-band-glow"></div>
       <div class="container" style="position:relative;z-index:1;">
-        <div class="glass-panel" style="border-radius:var(--radius-xl);padding:48px;border:1px solid rgba(224,182,255,0.15);display:flex;flex-direction:column;gap:40px;align-items:center;text-align:center;box-shadow:0 0 40px rgba(157,78,221,0.1),inset 0 1px 0 rgba(255,255,255,0.05);">
+        <div class="glass-panel" style="border-radius:var(--radius-xl);padding:48px;border:1px solid var(--glass-border);display:flex;flex-direction:column;gap:40px;align-items:center;text-align:center;">
           <div>
             <h2 class="display-lg-mobile" style="font-size:36px;margin-bottom:16px;">List your show on EventPulse</h2>
             <p class="body-lg" style="color:var(--on-surface-variant);max-width:540px;">Got an event, activity, or experience? Partner with us and reach millions of entertainment seekers.</p>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
-            <button class="btn btn-primary" style="box-shadow:0 0 20px rgba(157,78,221,0.4);">Contact Today</button>
+            <button type="button" class="btn btn-primary elevated-shadow" data-open-contact>Contact Today</button>
             <a href="about.html" class="btn btn-outline">Know More</a>
           </div>
         </div>
@@ -271,59 +264,43 @@
 
   </main>
 
-  <!-- Footer - website ke links aur copyright -->
-  <footer style="width:100%;background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.2);">
-    <div class="container" style="display:flex;flex-direction:column;gap:24px;padding-top:48px;padding-bottom:48px;">
+  <footer class="site-footer">
+    <div class="container site-footer-inner">
       <div style="display:flex;flex-direction:column;gap:8px;text-align:center;">
         <span class="headline-md" style="font-weight:800;color:var(--primary);">EventPulse</span>
         <p style="color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Connecting people through extraordinary shared experiences since 2024.</p>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+      <div class="site-footer-links">
         <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);" data-open-contact>Contact</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
       </div>
-      <div style="border-top:1px solid rgba(77,67,83,0.1);padding-top:24px;text-align:center;">
+      <div class="site-footer-bottom">
         <p class="label-sm" style="color:var(--on-surface-variant);opacity:0.7;">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Toast Notification -->
-  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:110;background:var(--surface-container-highest);color:var(--on-surface);padding:12px 24px;border-radius:var(--radius-full);border:1px solid rgba(77,67,83,0.2);display:flex;align-items:center;gap:12px;transition:all 0.3s;opacity:0;pointer-events:none;" id="toast">
+  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:110;background:var(--surface-container-highest);color:var(--on-surface);padding:12px 24px;border-radius:var(--radius-full);border:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px;transition:all 0.3s;opacity:0;pointer-events:none;" id="toast">
     <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px;">check_circle</span>
     <span style="font-size:14px;" id="toastMsg">Success!</span>
   </div>
 
-  <!-- Chat Widget - AI assistant ke liye floating button -->
   <div class="chat-widget-root" id="chatWidget">
     <div class="chat-window glass-panel elevated-shadow" id="chatWindow">
-      <!-- Header: uppercase title + clear + close -->
       <div class="chat-header">
         <span class="chat-header-title">PULSE ASSISTANT</span>
         <div class="chat-header-actions">
           <button id="chatClearBtn" title="Clear chat" aria-label="Clear chat" class="chat-header-btn">
             <span class="material-symbols-outlined" style="font-size:16px;">delete_sweep</span>
           </button>
-          <button onclick="toggleChat()" aria-label="Close chat" class="chat-header-btn chat-close-btn">
-            &#10005;
-          </button>
+          <button onclick="toggleChat()" aria-label="Close chat" class="chat-header-btn chat-close-btn">&#10005;</button>
         </div>
       </div>
-
-      <!-- Messages area -->
-      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages">
-        <!-- Messages injected by ChatWidget.init() -->
-      </div>
-
-      <!-- Persistent suggestion chips bar -->
-      <div class="chat-chips-bar" id="chatChipsBar" aria-label="Quick suggestions">
-        <!-- Chips injected by ChatWidget.init() -->
-      </div>
-
-      <!-- Input row -->
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+      <div class="chat-chips-bar" id="chatChipsBar" aria-label="Quick suggestions"></div>
       <div class="chat-input-area">
         <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off" aria-label="Chat message input" maxlength="300">
         <button id="chatSendBtn" aria-label="Send message" class="chat-send-btn">
@@ -331,8 +308,6 @@
         </button>
       </div>
     </div>
-
-    <!-- FAB -->
     <div style="position:relative;align-self:flex-end;">
       <div id="chatTooltip" class="chat-tooltip">Chat Assistant</div>
       <button class="chat-fab" onclick="toggleChat()" aria-label="Open chat assistant">
@@ -342,15 +317,12 @@
     </div>
   </div>
 
-  <!-- Event data (DEFAULT_EVENTS) — must load before chatbot -->
+  <script src="js/utils/theme.js"></script>
   <script src="js/data/events.js"></script>
-  <!-- Storage utility — lets ChatBot read events from localStorage -->
   <script src="js/utils/storage.js"></script>
-  <!-- ChatBot logic — pure response layer, no DOM -->
   <script src="js/utils/chatbot.js"></script>
-  <!-- ChatWidget UI — DOM layer for the chat window -->
   <script src="js/components/chatWidget.js"></script>
-  <!-- Homepage ka main JS file load karo -->
+  <script src="js/components/contactModal.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

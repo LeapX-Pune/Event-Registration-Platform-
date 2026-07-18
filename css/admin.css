@@ -22,7 +22,7 @@
   width: 260px;
   height: 100vh;
   background: var(--surface-container-lowest);
-  border-right: 1px solid rgba(77, 67, 83, 0.2);
+  border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
   z-index: 40;
@@ -178,10 +178,10 @@
   position: sticky;
   top: 0;
   height: 64px;
-  background: rgba(11, 14, 20, 0.95);
+  background: var(--navbar-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -207,7 +207,7 @@
   align-items: center;
   gap: 8px;
   background: var(--surface-container);
-  border: 1px solid rgba(77, 67, 83, 0.3);
+  border: 1px solid var(--border-medium);
   border-radius: var(--radius-full);
   padding: 8px 16px;
 }
@@ -275,7 +275,7 @@
   top: 48px;
   right: 0;
   width: 180px;
-  background: rgba(29, 32, 38, 0.95);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(208, 194, 213, 0.12);
@@ -367,7 +367,7 @@
 }
 
 .adm-stat-card {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -434,7 +434,7 @@
 
 /* ----- Tables & Forms ----- */
 .adm-table-panel {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -448,7 +448,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(77, 67, 83, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .adm-table-wrap {
@@ -457,7 +457,7 @@
 
 /* ----- Form Card grids ----- */
 .adm-form-card {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -489,7 +489,7 @@
 }
 
 .adm-category-card {
-  background: rgba(29, 32, 38, 0.7);
+  background: var(--glass-bg-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -529,7 +529,7 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(11, 14, 20, 0.75);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   z-index: 35;
 }
@@ -555,4 +555,17 @@
   .desktop-only {
     display: none;
   }
+}
+
+
+[data-theme="light"] .adm-sidebar {
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="light"] .adm-stat-card,
+[data-theme="light"] .adm-panel,
+[data-theme="light"] .adm-table-wrap {
+  background: var(--card-bg);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-sm);
 }
