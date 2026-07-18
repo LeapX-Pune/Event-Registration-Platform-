@@ -32,7 +32,8 @@ const Storage = {
 
   update(id, updates) {
     const events = this.load();
-    const idx = events.findIndex(e => e.id === id);
+    const numId = Number(id);
+    const idx = events.findIndex(e => Number(e.id) === numId);
     if (idx !== -1) {
       events[idx] = { ...events[idx], ...updates };
       this.save(events);
@@ -43,7 +44,8 @@ const Storage = {
 
   remove(id) {
     let events = this.load();
-    events = events.filter(e => e.id !== id);
+    const numId = Number(id);
+    events = events.filter(e => Number(e.id) !== numId);
     this.save(events);
   }
 };

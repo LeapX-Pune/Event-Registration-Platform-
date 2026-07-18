@@ -12,13 +12,11 @@ const Homepage = {
         <div class="event-grid" id="eventGrid"></div>
         <div class="no-events" id="noEvents" style="display:none">No events found.</div>
       </main>
-      ${ChatWidget()}
       <div class="toast-container" id="toastContainer"></div>
     `;
 
     this.renderEvents(events);
     this.bindFilters(events);
-    this.bindChat();
 
     return app;
   },
@@ -68,44 +66,4 @@ const Homepage = {
     });
   },
 
-  bindChat() {
-    const input = document.getElementById("chatInput");
-    const sendBtn = document.getElementById("chatSend");
-    const messages = document.getElementById("chatMessages");
-    const toggle = document.getElementById("chatToggle");
-    const widget = document.getElementById("chatWidget");
-
-    toggle.addEventListener("click", () => {
-      const body = widget.querySelector(".chat-messages, .chat-input-area");
-      const hdr = widget.querySelector(".chat-header");
-      const all = widget.querySelectorAll(":scope > :not(.chat-header)");
-      const hidden = all[0]?.style.display === "none";
-      all.forEach(el => el.style.display = hidden ? "" : "none");
-      toggle.textContent = hidden ? "\u00d7" : "\u002b";
-    });
-
-    function addMessage(text, role) {
-      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const div = document.createElement("div");
-      div.className = `msg ${role}`;
-      div.innerHTML = `${Helpers.escapeHtml(text)}<div class="timestamp">${time}</div>`;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function handleSend() {
-      const text = input.value.trim();
-      if (!text) return;
-      addMessage(text, "user");
-      input.value = "";
-
-      setTimeout(() => {
-        const reply = ChatBot.respond(text);
-        addMessage(reply, "bot");
-      }, 400);
-    }
-
-    sendBtn.addEventListener("click", handleSend);
-    input.addEventListener("keydown", e => { if (e.key === "Enter") handleSend(); });
-  }
 };

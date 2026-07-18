@@ -354,6 +354,20 @@ function showToastNotification(message, type) {
 }
 
 function triggerRegistration() {
+  var params = new URLSearchParams(window.location.search);
+  var rawId = params.get('id');
+  var event = getEventById(rawId);
+  if (!event) {
+    showToastNotification('Event not found.', 'error');
+    return;
+  }
+  if (Number(event.attendees || 0) >= Number(event.maxAttendees)) {
+    showToastNotification('This event is fully booked.', 'error');
+    return;
+  }
+  if (typeof Storage !== 'undefined' && Storage.update) {
+    Storage.update(Number(event.id), { attendees: Number(event.attendees || 0) + 1 });
+  }
   showToastNotification('Registration successful! Confirmation has been sent to your email.', 'success');
 }
 

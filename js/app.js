@@ -17,7 +17,7 @@ const App = {
   },
 
   viewDetails(id) {
-    window.location.href = `pages/event-details.html?id=${id}`;
+    window.location.href = `event-details.html?id=${id}`;
   },
 
   registerForEvent(eventId) {

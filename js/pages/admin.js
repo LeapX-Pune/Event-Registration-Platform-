@@ -1,5 +1,5 @@
-// Key used for saving/loading events from Browser LocalStorage
-const LOCAL_STORAGE_KEY = 'events_data';
+// Shared storage key (must match Storage.key in js/utils/storage.js)
+const LOCAL_STORAGE_KEY = 'eventhub_events';
 
 // Initial Mock Data to populate the dashboard if LocalStorage is empty
 const defaultEvents = [
