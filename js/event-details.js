@@ -365,10 +365,7 @@ function triggerRegistration() {
     showToastNotification('This event is fully booked.', 'error');
     return;
   }
-  if (typeof Storage !== 'undefined' && Storage.update) {
-    Storage.update(Number(event.id), { attendees: Number(event.attendees || 0) + 1 });
-  }
-  showToastNotification('Registration successful! Confirmation has been sent to your email.', 'success');
+  window.location.href = 'registration.html?id=' + Number(event.id);
 }
 
 function contactOrganizer() {

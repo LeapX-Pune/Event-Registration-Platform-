@@ -361,3 +361,66 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     }
   });
 });
+
+/* ----- Search Bar ----- */
+(function initSearch() {
+  var searchInput = document.querySelector('.navbar-search-compact input');
+  if (!searchInput) return;
+
+  var searchTimer;
+  var isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+
+  if (isHomepage || window.location.pathname.endsWith('/')) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function () {
+        var query = searchInput.value.trim().toLowerCase();
+        var cards = document.querySelectorAll('#eventsContainer .event-card');
+        var empty = document.getElementById('emptyState');
+        var container = document.getElementById('eventsContainer');
+        var visible = 0;
+
+        cards.forEach(function (card) {
+          var title = (card.querySelector('.event-card-title') || card).textContent.toLowerCase();
+          var match = !query || title.includes(query);
+          card.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+
+        if (empty) empty.style.display = visible === 0 ? 'flex' : 'none';
+        if (container && visible === 0) container.style.display = 'none';
+        if (container && visible > 0) container.style.display = 'flex';
+      }, 300);
+    });
+  } else {
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var query = searchInput.value.trim();
+        window.location.href = 'index.html' + (query ? '?search=' + encodeURIComponent(query) : '');
+      }
+    });
+  }
+})();
+
+/* ----- Navbar Auth State ----- */
+(function initNavbarAuth() {
+  var navSignIn = document.getElementById('navSignIn');
+  if (!navSignIn) return;
+
+  function updateNavbar() {
+    var session = sessionStorage.getItem('eventpulse_user');
+    if (session) {
+      try {
+        var user = JSON.parse(session);
+        navSignIn.textContent = user.name || user.email;
+        navSignIn.onclick = function () { window.location.href = 'signin.html'; };
+        return;
+      } catch(e) {}
+    }
+    navSignIn.textContent = 'Sign In';
+    navSignIn.onclick = function () { window.location.href = 'signin.html'; };
+  }
+
+  updateNavbar();
+  window.addEventListener('storage', updateNavbar);
+})();

@@ -1,5 +1,7 @@
 const Storage = {
   key: "eventhub_events",
+  regKey: "eventhub_registrations",
+  userKey: "eventhub_users",
 
   init() {
     if (!localStorage.getItem(this.key)) {
@@ -47,5 +49,44 @@ const Storage = {
     const numId = Number(id);
     events = events.filter(e => Number(e.id) !== numId);
     this.save(events);
+  },
+
+  // ---- Registrations ----
+  getRegistrations() {
+    const data = localStorage.getItem(this.regKey);
+    return data ? JSON.parse(data) : [];
+  },
+
+  addRegistration(reg) {
+    const regs = this.getRegistrations();
+    reg.id = Date.now() + Math.random();
+    reg.createdAt = new Date().toISOString();
+    regs.push(reg);
+    localStorage.setItem(this.regKey, JSON.stringify(regs));
+    return reg;
+  },
+
+  getRegistrationsForEvent(eventId) {
+    return this.getRegistrations().filter(r => Number(r.eventId) === Number(eventId));
+  },
+
+  // ---- Users / Auth ----
+  getUsers() {
+    const data = localStorage.getItem(this.userKey);
+    return data ? JSON.parse(data) : [];
+  },
+
+  addUser(user) {
+    const users = this.getUsers();
+    if (users.find(u => u.email === user.email)) return null;
+    user.id = Date.now();
+    users.push(user);
+    localStorage.setItem(this.userKey, JSON.stringify(users));
+    return user;
+  },
+
+  authenticate(email, password) {
+    const users = this.getUsers();
+    return users.find(u => u.email === email && u.password === password) || null;
   }
 };

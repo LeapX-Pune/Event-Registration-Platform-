@@ -5,33 +5,28 @@
 /* ----- Admin Authentication & Initialization ----- */
 var editingEventId = null;
 
-function checkAdminAuth() {
-  let adminUser = sessionStorage.getItem('admin_user');
-  while (!adminUser || adminUser !== 'rehan') {
-    let name = prompt("Enter Admin Username:");
-    if (name === null) {
-      // User cancelled, redirect to home page
-      window.location.href = 'index.html';
-      return;
-    }
-    if (name.trim() === 'rehan') {
-      sessionStorage.setItem('admin_user', 'rehan');
-      adminUser = 'rehan';
-    } else {
-      alert("Unauthorized username. Only 'rehan' can access the admin panel.");
-    }
+function getAdminUser() {
+  var session = sessionStorage.getItem('eventpulse_user');
+  if (session) {
+    try { return JSON.parse(session); } catch(e) {}
   }
-  
-  // Set user profile info
-  const nameEls = document.querySelectorAll('.adm-user-name');
-  nameEls.forEach(el => { el.textContent = 'rehan'; });
+  return null;
+}
+
+function checkAdminAuth() {
+  var user = getAdminUser();
+  if (!user) {
+    window.location.href = 'signin.html?redirect=admin.html';
+    return;
+  }
+  var nameEls = document.querySelectorAll('.adm-user-name');
+  nameEls.forEach(function(el) { el.textContent = user.name || user.email; });
 }
 
 function admLogout(event) {
   if (event) event.preventDefault();
-  sessionStorage.removeItem('admin_user');
-  // Refresh to trigger the authentication prompt
-  window.location.reload();
+  sessionStorage.removeItem('eventpulse_user');
+  window.location.href = 'signin.html';
 }
 
 /* ----- Sidebar Toggle (Mobile) ----- */
@@ -201,7 +196,7 @@ function admRenderEvents() {
   const events = Storage.load();
 
   // 1. Render Dashboard Table
-  const dashboardList = document.querySelector('#adm-sec-dashboard tbody');
+  const dashboardList = document.getElementById('admDashboardList');
   if (dashboardList) {
     dashboardList.innerHTML = '';
     events.slice().reverse().forEach(event => {
@@ -258,6 +253,47 @@ function admRenderEvents() {
 
   // 3. Stats update
   updateDashboardStats(events);
+
+  // 4. Render Attendees / Registrations
+  admRenderRegistrations();
+}
+
+function admRenderRegistrations() {
+  const regs = (typeof Storage !== 'undefined' && Storage.getRegistrations) ? Storage.getRegistrations() : [];
+  const list = document.getElementById('admAttendeesList');
+  if (!list) return;
+
+  list.innerHTML = '';
+  if (!regs.length) {
+    list.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--on-surface-variant);padding:32px;">No registrations yet.</td></tr>';
+  } else {
+    regs.slice().reverse().forEach(function(reg) {
+      const tr = document.createElement('tr');
+      const dateStr = reg.createdAt ? new Date(reg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
+      tr.innerHTML = `
+        <td style="font-weight:600;">${Helpers.escapeHtml(reg.name)}</td>
+        <td>${Helpers.escapeHtml(reg.email)}</td>
+        <td>${Helpers.escapeHtml(reg.eventTitle || 'Unknown Event')}</td>
+        <td>${dateStr}</td>
+        <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
+        <td style="text-align:right;">
+          <button class="btn-icon danger" onclick="triggerToast('Registration removed','info')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
+        </td>
+      `;
+      list.appendChild(tr);
+    });
+  }
+
+  const totalEl = document.getElementById('admTotalRegs');
+  if (totalEl) totalEl.textContent = regs.length;
+
+  const uniqueAttendees = new Set(regs.map(function(r) { return r.email; })).size;
+  const uniqueEl = document.getElementById('admUniqueAttendees');
+  if (uniqueEl) uniqueEl.textContent = uniqueAttendees;
+
+  const eventsWithRegs = new Set(regs.map(function(r) { return r.eventId; })).size;
+  const eventsEl = document.getElementById('admEventsWithRegs');
+  if (eventsEl) eventsEl.textContent = eventsWithRegs;
 }
 
 /* ----- Add & Edit Event Flow ----- */
