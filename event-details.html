@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starlight Symphony | EventPulse</title>
+  <meta name="description" content="Starlight Symphony event details on EventPulse. Experience electronic music reimagined at Madison Square Garden.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/event-details.css">
+</head>
+<body>
+
+  <!-- Ye navbar section hai jo homepage se common hai -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <a href="index.html" class="navbar-brand">EventPulse</a>
+        <div class="navbar-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="event-details.html" class="nav-link active">Events</a>
+          <a href="categories.html" class="nav-link">Categories</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+          <a href="about.html" class="nav-link">About</a>
+        </div>
+      </div>
+      <div class="navbar-right">
+        <div class="navbar-search-compact">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" placeholder="Search events...">
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
+        </button>
+        <button class="btn btn-primary elevated-shadow">Sign In</button>
+        <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Overlay aur Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <span class="navbar-brand">EventPulse</span>
+      <button class="btn-icon" onclick="closeMobileNav()" style="border-radius:50%;" aria-label="Close menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">home</span>Home
+      </a>
+      <a href="categories.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">category</span>Categories
+      </a>
+      <a href="event-details.html" class="mobile-nav-link active">
+        <span class="material-symbols-outlined">event</span>Events
+      </a>
+      <a href="about.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">info</span>About
+      </a>
+      <a href="admin.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+    </nav>
+    <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
+      <button class="btn btn-primary w-full" style="justify-content:center;">Sign In</button>
+    </div>
+  </div>
+
+  <main style="min-height:100vh;padding-bottom:80px;">
+    <section class="container page-shell">
+      <a href="index.html" class="ed-back-link" style="display:inline-flex;align-items:center;gap:8px;color:var(--on-surface-variant);margin-bottom:20px;transition:color 0.2s;">
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+        <span class="body-md">Back to Events</span>
+      </a>
+      <div id="eventDetailRoot"></div>
+    </section>
+  </main>
+
+  <!-- Footer section common -->
+  <footer style="width:100%;background:var(--surface-container-lowest);border-top:1px solid rgba(77,67,83,0.2);">
+    <div class="container" style="display:flex;flex-direction:column;gap:24px;padding-top:48px;padding-bottom:48px;">
+      <div style="display:flex;flex-direction:column;gap:8px;text-align:center;">
+        <span class="headline-md" style="font-weight:800;color:var(--primary);">EventPulse</span>
+        <p style="color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Connecting people through extraordinary shared experiences since 2024.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+        <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
+      </div>
+      <div style="border-top:1px solid rgba(77,67,83,0.1);padding-top:24px;text-align:center;">
+        <p class="label-sm" style="color:var(--on-surface-variant);opacity:0.7;">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Gallery Modal -->
+  <div class="ed-lightbox" id="edLightbox">
+    <button class="ed-lightbox-close" onclick="closeLightbox()" aria-label="Close image popup">&times;</button>
+    <img src="" alt="Expanded View" id="edLightboxImg">
+  </div>
+
+  <!-- Toast Toast message display for feedback -->
+  <div class="ed-toast" id="edToast">
+    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px;" id="edToastIcon">check_circle</span>
+    <span style="font-size:14px;" id="edToastMsg">Toast message here</span>
+  </div>
+
+  <script src="js/event-details.js"></script>
+</body>
+</html>
