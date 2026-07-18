@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/categories.css">
@@ -99,7 +100,7 @@
       
       <div class="cat-grid">
         <!-- Card 1: Music -->
-        <div class="cat-card music reveal" style="background:linear-gradient(135deg, #9d4edd 0%, #7b2d8b 100%);">
+        <div class="cat-card music reveal" data-category="Music" style="background:linear-gradient(135deg, #9d4edd 0%, #7b2d8b 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">music_note</span>
             <div>
@@ -114,7 +115,7 @@
         </div>
 
         <!-- Card 2: Tech -->
-        <div class="cat-card tech reveal" style="background:linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);">
+        <div class="cat-card tech reveal" data-category="Technology" style="background:linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">computer</span>
             <div>
@@ -129,7 +130,7 @@
         </div>
 
         <!-- Card 3: Sports -->
-        <div class="cat-card sports reveal" style="background:linear-gradient(135deg, #16a34a 0%, #166534 100%);">
+        <div class="cat-card sports reveal" data-category="Sports" style="background:linear-gradient(135deg, #16a34a 0%, #166534 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">sports_basketball</span>
             <div>
@@ -144,7 +145,7 @@
         </div>
 
         <!-- Card 4: Workshops -->
-        <div class="cat-card workshops reveal" style="background:linear-gradient(135deg, #d97706 0%, #92400e 100%);">
+        <div class="cat-card workshops reveal" data-category="Workshop" style="background:linear-gradient(135deg, #d97706 0%, #92400e 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">school</span>
             <div>
@@ -159,7 +160,7 @@
         </div>
 
         <!-- Card 5: Festivals -->
-        <div class="cat-card festivals reveal" style="background:linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">
+        <div class="cat-card festivals reveal" data-category="Festival" style="background:linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">celebration</span>
             <div>
@@ -174,7 +175,7 @@
         </div>
 
         <!-- Card 6: Business -->
-        <div class="cat-card business reveal" style="background:linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);">
+        <div class="cat-card business reveal" data-category="Business" style="background:linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">business_center</span>
             <div>
@@ -189,7 +190,7 @@
         </div>
 
         <!-- Card 7: Education -->
-        <div class="cat-card education reveal" style="background:linear-gradient(135deg, #059669 0%, #065f46 100%);">
+        <div class="cat-card education reveal" data-category="Education" style="background:linear-gradient(135deg, #059669 0%, #065f46 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">menu_book</span>
             <div>
@@ -204,7 +205,7 @@
         </div>
 
         <!-- Card 8: Entertainment -->
-        <div class="cat-card entertainment reveal" style="background:linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);">
+        <div class="cat-card entertainment reveal" data-category="Entertainment" style="background:linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);">
           <div class="cat-card-overlay">
             <span class="material-symbols-outlined cat-card-icon">theaters</span>
             <div>
@@ -221,91 +222,43 @@
       </div>
     </section>
 
-    <!-- Featured Events Sections: Horizontal slider -->
-    <section class="container" style="padding-bottom:60px;">
-      <h2 class="headline-md" style="font-size:24px;font-weight:700;margin-bottom:28px;">Featured Events</h2>
-      <div style="display:flex;gap:24px;overflow-x:auto;padding-bottom:12px;" class="hide-scrollbar">
-        <!-- Card 1 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt="UX Global Summit">
-            <div class="event-card-badge">Workshop</div>
-          </div>
-          <h3 class="event-card-title">UX Masters Global Summit</h3>
-          <p class="event-card-meta">London, UK</p>
-          <p class="event-card-meta">Sep 22, 2026</p>
-        </a>
-
-        <!-- Card 2 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80" alt="Tech Expo">
-            <div class="event-card-badge">Conference</div>
-          </div>
-          <h3 class="event-card-title">AI &amp; Machine Learning Expo</h3>
-          <p class="event-card-meta">San Francisco, CA</p>
-          <p class="event-card-meta">Oct 12, 2026</p>
-        </a>
-
-        <!-- Card 3 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80" alt="Enchanted Forest">
-            <div class="event-card-badge">Festival</div>
-          </div>
-          <h3 class="event-card-title">Enchanted Forest Soir&eacute;e</h3>
-          <p class="event-card-meta">Asheville, NC</p>
-          <p class="event-card-meta">Nov 12, 2026</p>
-        </a>
-
-        <!-- Card 4 -->
-        <a href="event-details.html" class="event-card" style="text-decoration:none;">
-          <div class="event-card-image">
-            <img src="https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80" alt="Jazz Music">
-            <div class="event-card-badge">Concert</div>
-          </div>
-          <h3 class="event-card-title">Jazz &amp; Blues Night</h3>
-          <p class="event-card-meta">New Orleans, LA</p>
-          <p class="event-card-meta">Dec 05, 2026</p>
-        </a>
+    <!-- Featured Events -->
+    <section class="container" id="catFeaturedSection" style="padding-bottom:60px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;">
+        <h2 class="headline-md" style="font-size:24px;font-weight:700;">Featured Events</h2>
+        <button type="button" class="filter-chip" id="catResetFilter" hidden>Show All</button>
+      </div>
+      <div class="filter-bar" id="catFilterBar" role="toolbar" aria-label="Filter categories">
+        <button type="button" class="filter-chip active" data-filter-category="all">All</button>
+        <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
+        <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
+        <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
+        <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
+        <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
+        <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
+        <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
+        <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
+        <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+      </div>
+      <div class="filter-status" id="catFilterStatus"><span>Showing <strong>all categories</strong></span></div>
+      <div class="empty-state" id="catEmptyState" style="display:none;">
+        <div class="empty-state-icon">
+          <span class="material-symbols-outlined" style="font-size:36px;color:var(--outline);">event_busy</span>
+        </div>
+        <h3>No events in this category</h3>
+        <p>Try another category or reset to browse everything.</p>
+        <button type="button" class="btn btn-outline" onclick="document.getElementById('catResetFilter').click()">Show All</button>
+      </div>
+      <div style="display:flex;gap:24px;overflow-x:auto;padding-bottom:12px;" class="hide-scrollbar" id="catEventsContainer">
+        <!-- Event cards rendered dynamically from Storage / DEFAULT_EVENTS -->
       </div>
     </section>
 
     <!-- Trending Events Section: Ranked row list -->
     <section class="container" style="padding-bottom:60px;">
       <h2 class="headline-md" style="font-size:24px;font-weight:700;margin-bottom:28px;">Trending Events</h2>
-      <div class="cat-trending-list">
-        
-        <!-- Row 1 -->
-        <div class="cat-trending-row">
-          <div class="cat-rank">01</div>
-          <div style="flex:1;">
-            <h3 class="body-lg" style="font-weight:700;margin-bottom:4px;"><a href="event-details.html" style="text-decoration:none;">Starlight Symphony</a></h3>
-            <p class="body-md" style="color:var(--on-surface-variant);font-size:14px;">Madison Square Garden, New York • Aug 14</p>
-          </div>
-          <span class="tag tag-primary">Music</span>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="cat-trending-row">
-          <div class="cat-rank">02</div>
-          <div style="flex:1;">
-            <h3 class="body-lg" style="font-weight:700;margin-bottom:4px;"><a href="event-details.html" style="text-decoration:none;">AI &amp; Machine Learning Expo</a></h3>
-            <p class="body-md" style="color:var(--on-surface-variant);font-size:14px;">Tech Hub, Silicon Valley • Oct 12</p>
-          </div>
-          <span class="tag tag-secondary">Tech</span>
-        </div>
-
-        <!-- Row 3 -->
-        <div class="cat-trending-row">
-          <div class="cat-rank">03</div>
-          <div style="flex:1;">
-            <h3 class="body-lg" style="font-weight:700;margin-bottom:4px;"><a href="event-details.html" style="text-decoration:none;">UX Masters Global Summit</a></h3>
-            <p class="body-md" style="color:var(--on-surface-variant);font-size:14px;">Convention Arena, London • Sep 22</p>
-          </div>
-          <span class="tag tag-tertiary">Workshop</span>
-        </div>
-
+      <div class="cat-trending-list" id="catTrendingList">
+        <!-- Trending rows rendered dynamically -->
       </div>
     </section>
 
@@ -318,7 +271,7 @@
             Subscribe to our newsletter to receive real-time notifications about the best events, concerts, and workshops in your city.
           </p>
           <form class="cat-email-row" onsubmit="event.preventDefault(); triggerSubscribe();">
-            <input type="email" placeholder="Enter your email address" class="form-input" style="flex:1;background:rgba(29,32,38,0.7);padding:14px 20px;border-radius:var(--radius-lg);margin-bottom:0;" required>
+            <input type="email" placeholder="Enter your email address" class="form-input" style="flex:1;padding:14px 20px;border-radius:var(--radius-lg);margin-bottom:0;" required>
             <button type="submit" class="btn btn-primary" style="padding:14px 28px;border-radius:var(--radius-lg);">Subscribe</button>
           </form>
         </div>
@@ -336,6 +289,7 @@
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
         <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
+        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);" data-open-contact>Contact</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
@@ -353,6 +307,10 @@
     <span style="font-size:14px;" id="catToastMsg">Successfully Subscribed!</span>
   </div>
 
+  <script src="js/data/events.js"></script>
+  <script src="js/utils/storage.js"></script>
+  <script src="js/utils/theme.js"></script>
+  <script src="js/components/contactModal.js"></script>
   <script src="js/categories.js"></script>
 </body>
 </html>

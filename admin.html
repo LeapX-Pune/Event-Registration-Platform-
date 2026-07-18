@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/admin.css">
@@ -59,7 +60,7 @@
             <p class="adm-user-email">admin@eventpulse.io</p>
           </div>
         </div>
-        <a href="index.html" class="adm-nav-item adm-logout" style="margin: 8px 0 0 0;">
+        <a href="#" onclick="admLogout(event)" class="adm-nav-item adm-logout" style="margin: 8px 0 0 0;">
           <span class="material-symbols-outlined">logout</span><span>Logout</span>
         </a>
       </div>
@@ -107,7 +108,7 @@
             <a href="#" class="adm-dropdown-item" onclick="admGoTo('settings')"><span class="material-symbols-outlined">person</span>Profile</a>
             <a href="#" class="adm-dropdown-item" onclick="admGoTo('settings')"><span class="material-symbols-outlined">settings</span>Settings</a>
             <div style="height:1px;background:rgba(77,67,83,0.2);margin:4px 0;"></div>
-            <a href="index.html" class="adm-dropdown-item danger"><span class="material-symbols-outlined">logout</span>Logout</a>
+            <a href="#" onclick="admLogout(event)" class="adm-dropdown-item danger"><span class="material-symbols-outlined">logout</span>Logout</a>
           </div>
         </div>
       </div>
@@ -698,6 +699,9 @@
     <span style="font-size:14px;" id="admToastMsg">Action completed successfully.</span>
   </div>
 
+  <script src="js/data/events.js"></script>
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/utils/storage.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

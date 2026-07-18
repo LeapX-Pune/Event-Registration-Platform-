@@ -134,3 +134,16 @@ th {
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
+
+[data-theme="light"] .adm-sidebar {
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="light"] .adm-stat-card,
+[data-theme="light"] .adm-panel,
+[data-theme="light"] .adm-table-wrap {
+  background: var(--card-bg);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}

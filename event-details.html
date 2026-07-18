@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Starlight Symphony | EventPulse</title>
-  <meta name="description" content="Starlight Symphony event details on EventPulse. Experience electronic music reimagined at Madison Square Garden.">
+  <title>Event Details | EventPulse</title>
+  <meta name="description" content="View event details and register on EventPulse.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
+  <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/event-details.css">
@@ -117,6 +118,10 @@
     <span style="font-size:14px;" id="edToastMsg">Toast message here</span>
   </div>
 
+  <script src="js/data/events.js"></script>
+  <script src="js/utils/storage.js"></script>
+  <script src="js/utils/theme.js"></script>
+  <script src="js/components/contactModal.js"></script>
   <script src="js/event-details.js"></script>
 </body>
 </html>
