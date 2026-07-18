@@ -88,5 +88,63 @@ const Storage = {
   authenticate(email, password) {
     const users = this.getUsers();
     return users.find(u => u.email === email && u.password === password) || null;
+  },
+
+  // ---- Categories ----
+  catKey: "eventhub_categories",
+
+  getCategories() {
+    const data = localStorage.getItem(this.catKey);
+    if (data) return JSON.parse(data);
+    const defaults = [
+      { id: 1, name: "Music", icon: "music_note", color: "#9d4edd", eventCount: 0 },
+      { id: 2, name: "Technology", icon: "computer", color: "#0ea5e9", eventCount: 0 },
+      { id: 3, name: "Sports", icon: "sports_basketball", color: "#16a34a", eventCount: 0 },
+      { id: 4, name: "Art", icon: "palette", color: "#ec4899", eventCount: 0 },
+      { id: 5, name: "Workshop", icon: "school", color: "#d97706", eventCount: 0 },
+      { id: 6, name: "Festival", icon: "celebration", color: "#dc2626", eventCount: 0 },
+      { id: 7, name: "Business", icon: "business_center", color: "#2563eb", eventCount: 0 },
+      { id: 8, name: "Education", icon: "menu_book", color: "#059669", eventCount: 0 },
+      { id: 9, name: "Entertainment", icon: "theaters", color: "#7c3aed", eventCount: 0 },
+      { id: 10, name: "Food", icon: "restaurant", color: "#ea580c", eventCount: 0 },
+      { id: 11, name: "Health", icon: "favorite", color: "#0d9488", eventCount: 0 },
+      { id: 12, name: "Community", icon: "groups", color: "#e11d48", eventCount: 0 }
+    ];
+    this.saveCategories(defaults);
+    return defaults;
+  },
+
+  saveCategories(cats) {
+    const events = this.load();
+    cats.forEach(c => {
+      c.eventCount = events.filter(e => (e.category || '').toLowerCase() === c.name.toLowerCase()).length;
+    });
+    localStorage.setItem(this.catKey, JSON.stringify(cats));
+  },
+
+  addCategory(cat) {
+    const cats = this.getCategories();
+    cat.id = Date.now();
+    cat.eventCount = 0;
+    cats.push(cat);
+    this.saveCategories(cats);
+    return cat;
+  },
+
+  updateCategory(id, updates) {
+    const cats = this.getCategories();
+    const idx = cats.findIndex(c => Number(c.id) === Number(id));
+    if (idx !== -1) {
+      cats[idx] = { ...cats[idx], ...updates };
+      this.saveCategories(cats);
+      return cats[idx];
+    }
+    return null;
+  },
+
+  removeCategory(id) {
+    let cats = this.getCategories();
+    cats = cats.filter(c => Number(c.id) !== Number(id));
+    this.saveCategories(cats);
   }
 };

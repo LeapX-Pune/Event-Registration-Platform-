@@ -403,26 +403,417 @@ function handleFormSubmit(event, isDraft) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* ============================================================
+   Admin: Categories CRUD
+   ============================================================ */
+var admEditingCategoryId = null;
+
+function admRenderCategories() {
+  var grid = document.getElementById('admCategoryGrid');
+  if (!grid) return;
+  var cats = (typeof Storage !== 'undefined' && Storage.getCategories) ? Storage.getCategories() : [];
+  
+  grid.innerHTML = cats.map(function(cat) {
+    var icon = cat.icon || 'category';
+    var color = cat.color || '#9d4edd';
+    return (
+      '<div class="adm-category-card" data-cat-id="' + cat.id + '">' +
+        '<div style="display:flex;align-items:center;gap:16px;">' +
+          '<div style="width:48px;height:48px;background:rgba(224,182,255,0.12);color:' + color + ';border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">' +
+            '<span class="material-symbols-outlined">' + icon + '</span>' +
+          '</div>' +
+          '<div>' +
+            '<h3 style="font-weight:700;font-size:18px;">' + Helpers.escapeHtml(cat.name) + '</h3>' +
+            '<p style="font-size:12px;color:var(--outline);font-family:var(--font-mono);">' + (cat.eventCount || 0) + ' Active Events</p>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;margin-top:20px;border-top:1px solid rgba(77,67,83,0.2);padding-top:16px;">' +
+          '<button class="btn btn-outline w-full" style="padding:6px;font-size:11px;justify-content:center;" onclick="admEditCategory(' + cat.id + ')">Edit</button>' +
+          '<button class="btn btn-icon danger" onclick="admDeleteCategory(' + cat.id + ', \'' + Helpers.escapeHtml(cat.name.replace(/'/g, "\\'")) + '\')" aria-label="Delete Category"><span class="material-symbols-outlined">delete</span></button>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+function admOpenCategoryModal() {
+  admEditingCategoryId = null;
+  document.getElementById('admCategoryModalTitle').textContent = 'Add Category';
+  document.getElementById('catName').value = '';
+  document.getElementById('catIcon').value = 'category';
+  document.getElementById('catColor').value = '#9d4edd';
+  document.getElementById('admCategoryModal').classList.add('active');
+}
+
+function admCloseCategoryModal() {
+  document.getElementById('admCategoryModal').classList.remove('active');
+  admEditingCategoryId = null;
+}
+
+function admEditCategory(id) {
+  var cats = Storage.getCategories();
+  var cat = cats.find(function(c) { return Number(c.id) === Number(id); });
+  if (!cat) return;
+  admEditingCategoryId = cat.id;
+  document.getElementById('admCategoryModalTitle').textContent = 'Edit Category: ' + cat.name;
+  document.getElementById('catName').value = cat.name;
+  document.getElementById('catIcon').value = cat.icon || 'category';
+  document.getElementById('catColor').value = cat.color || '#9d4edd';
+  document.getElementById('admCategoryModal').classList.add('active');
+}
+
+function admSaveCategory() {
+  var name = document.getElementById('catName').value.trim();
+  var icon = document.getElementById('catIcon').value.trim() || 'category';
+  var color = document.getElementById('catColor').value.trim() || '#9d4edd';
+  if (!name) {
+    triggerToast('Please enter a category name.', 'error');
+    return;
+  }
+  if (admEditingCategoryId !== null) {
+    Storage.updateCategory(admEditingCategoryId, { name: name, icon: icon, color: color });
+    triggerToast('Category updated!', 'success');
+  } else {
+    Storage.addCategory({ name: name, icon: icon, color: color });
+    triggerToast('Category added!', 'success');
+  }
+  admCloseCategoryModal();
+  admRenderCategories();
+}
+
+function admDeleteCategory(id, name) {
+  if (!confirm('Delete category "' + name + '"? Events in this category will not be deleted.')) return;
+  Storage.removeCategory(id);
+  triggerToast('Category "' + name + '" deleted.', 'success');
+  admRenderCategories();
+}
+
+/* ============================================================
+   Admin: Analytics Charts (Canvas-based)
+   ============================================================ */
+function admRenderCharts() {
+  var events = Storage.load();
+  if (!events || !events.length) return;
+  
+  // Bar chart: registrations per category
+  var barCanvas = document.getElementById('admBarChart');
+  if (barCanvas) {
+    var ctx = barCanvas.getContext('2d');
+    var w = barCanvas.width;
+    var h = barCanvas.height;
+    ctx.clearRect(0, 0, w, h);
+    
+    var catMap = {};
+    events.forEach(function(e) {
+      var cat = e.category || 'Other';
+      catMap[cat] = (catMap[cat] || 0) + (e.attendees || 0);
+    });
+    var labels = Object.keys(catMap);
+    var values = Object.values(catMap);
+    if (!labels.length) return;
+    
+    var maxVal = Math.max.apply(null, values);
+    var padding = { top: 20, bottom: 40, left: 40, right: 20 };
+    var chartW = w - padding.left - padding.right;
+    var chartH = h - padding.top - padding.bottom;
+    var barW = Math.min(40, chartW / labels.length - 8);
+    
+    ctx.clearRect(0, 0, w, h);
+    
+    // Title
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--on-surface').trim() || '#e0e0e0';
+    ctx.font = '12px Sora, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Registrations by Category', w / 2, 14);
+    
+    var colors = ['#9d4edd', '#0ea5e9', '#16a34a', '#ec4899', '#d97706', '#dc2626', '#2563eb', '#059669', '#7c3aed', '#ea580c', '#0d9488', '#e11d48'];
+    
+    labels.forEach(function(label, i) {
+      var x = padding.left + (chartW / labels.length) * i + (chartW / labels.length - barW) / 2;
+      var valH = (values[i] / maxVal) * chartH;
+      var y = padding.top + chartH - valH;
+      
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillRect(x, y, barW, valH);
+      
+      // Label
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--on-surface-variant').trim() || '#a0a0a0';
+      ctx.font = '9px Sora, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(label.substring(0, 6), x + barW / 2, h - padding.bottom + 14);
+      
+      // Value
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--on-surface').trim() || '#e0e0e0';
+      ctx.font = 'bold 10px JetBrains Mono, monospace';
+      ctx.fillText(String(values[i]), x + barW / 2, y - 4);
+    });
+  }
+  
+  // Pie chart: event distribution by category
+  var pieCanvas = document.getElementById('admPieChart');
+  if (pieCanvas) {
+    var ctx2 = pieCanvas.getContext('2d');
+    var pw = pieCanvas.width;
+    var ph = pieCanvas.height;
+    ctx2.clearRect(0, 0, pw, ph);
+    
+    var catCount = {};
+    events.forEach(function(e) {
+      var cat = e.category || 'Other';
+      catCount[cat] = (catCount[cat] || 0) + 1;
+    });
+    var pieLabels = Object.keys(catCount);
+    var pieValues = Object.values(catCount);
+    var total = pieValues.reduce(function(a, b) { return a + b; }, 0);
+    if (!total) return;
+    
+    var cx = pw / 2;
+    var cy = ph / 2 - 10;
+    var radius = Math.min(cx, cy) - 20;
+    var startAngle = -Math.PI / 2;
+    
+    ctx2.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--on-surface').trim() || '#e0e0e0';
+    ctx2.font = '12px Sora, sans-serif';
+    ctx2.textAlign = 'center';
+    ctx2.fillText('Events by Category', pw / 2, 14);
+    
+    pieValues.forEach(function(val, i) {
+      var sliceAngle = (val / total) * 2 * Math.PI;
+      ctx2.beginPath();
+      ctx2.moveTo(cx, cy);
+      ctx2.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
+      ctx2.closePath();
+      ctx2.fillStyle = colors[i % colors.length];
+      ctx2.fill();
+      
+      var midAngle = startAngle + sliceAngle / 2;
+      var lx = cx + (radius * 0.6) * Math.cos(midAngle);
+      var ly = cy + (radius * 0.6) * Math.sin(midAngle);
+      ctx2.fillStyle = '#fff';
+      ctx2.font = 'bold 10px JetBrains Mono, monospace';
+      ctx2.textAlign = 'center';
+      if (val / total > 0.05) {
+        ctx2.fillText(String(val), lx, ly + 3);
+      }
+      
+      startAngle += sliceAngle;
+    });
+    
+    // Legend
+    var legendY = ph - 20;
+    var legendX = 20;
+    pieLabels.forEach(function(label, i) {
+      ctx2.fillStyle = colors[i % colors.length];
+      ctx2.fillRect(legendX, legendY - 6, 8, 8);
+      ctx2.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--on-surface-variant').trim() || '#a0a0a0';
+      ctx2.font = '9px Sora, sans-serif';
+      ctx2.textAlign = 'left';
+      ctx2.fillText(label.substring(0, 12), legendX + 12, legendY + 1);
+      legendX += ctx2.measureText(label.substring(0, 12)).width + 24;
+      if (legendX > pw - 40) { legendX = 20; legendY += 16; }
+    });
+  }
+}
+
+/* ============================================================
+   Admin: Settings Persistence
+   ============================================================ */
+function admLoadSettings() {
+  var saved = localStorage.getItem('eventhub_admin_settings');
+  if (saved) {
+    try {
+      var s = JSON.parse(saved);
+      var nameEl = document.getElementById('adminName');
+      var emailEl = document.getElementById('adminEmail');
+      var passEl = document.getElementById('adminPass');
+      if (nameEl) nameEl.value = s.displayName || 'Admin User';
+      if (emailEl) emailEl.value = s.email || 'admin@eventpulse.io';
+      if (passEl) passEl.value = s.password || '';
+      var toggles = document.querySelectorAll('#adm-sec-settings input[type="checkbox"]');
+      if (toggles[0]) toggles[0].checked = s.realtimeSearch !== false;
+      if (toggles[1]) toggles[1].checked = s.notifEmails !== false;
+    } catch(e) {}
+  }
+}
+
+function admSaveSettings() {
+  var nameEl = document.getElementById('adminName');
+  var emailEl = document.getElementById('adminEmail');
+  var passEl = document.getElementById('adminPass');
+  var toggles = document.querySelectorAll('#adm-sec-settings input[type="checkbox"]');
+  
+  var settings = {
+    displayName: nameEl ? nameEl.value : 'Admin User',
+    email: emailEl ? emailEl.value : 'admin@eventpulse.io',
+    password: passEl ? passEl.value : '',
+    realtimeSearch: toggles[0] ? toggles[0].checked : true,
+    notifEmails: toggles[1] ? toggles[1].checked : true
+  };
+  
+  localStorage.setItem('eventhub_admin_settings', JSON.stringify(settings));
+  triggerToast('Admin settings successfully updated!', 'success');
+}
+
+/* ============================================================
+   Admin: Attendee Removal (Real)
+   ============================================================ */
+function admRemoveRegistration(regId) {
+  if (!confirm('Remove this registration?')) return;
+  var regs = Storage.getRegistrations();
+  var reg = regs.find(function(r) { return Number(r.id) === Number(regId); });
+  if (reg) {
+    var event = Storage.getById(reg.eventId);
+    if (event) {
+      Storage.update(reg.eventId, { attendees: Math.max(0, (event.attendees || 0) - 1) });
+    }
+  }
+  regs = regs.filter(function(r) { return Number(r.id) !== Number(regId); });
+  localStorage.setItem(Storage.regKey, JSON.stringify(regs));
+  triggerToast('Registration removed', 'info');
+  admRenderRegistrations();
+  admRenderEvents();
+}
+
+/* Override the registration removal button */
+function admRenderRegistrations() {
+  var regs = (typeof Storage !== 'undefined' && Storage.getRegistrations) ? Storage.getRegistrations() : [];
+  var list = document.getElementById('admAttendeesList');
+  if (!list) return;
+
+  list.innerHTML = '';
+  if (!regs.length) {
+    list.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--on-surface-variant);padding:32px;">No registrations yet.</td></tr>';
+  } else {
+    regs.slice().reverse().forEach(function(reg) {
+      var tr = document.createElement('tr');
+      var dateStr = reg.createdAt ? new Date(reg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
+      tr.innerHTML = [
+        '<td style="font-weight:600;">' + Helpers.escapeHtml(reg.name) + '</td>',
+        '<td>' + Helpers.escapeHtml(reg.email) + '</td>',
+        '<td>' + Helpers.escapeHtml(reg.eventTitle || 'Unknown Event') + '</td>',
+        '<td>' + dateStr + '</td>',
+        '<td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>',
+        '<td style="text-align:right;">',
+          '<button class="btn-icon danger" onclick="admRemoveRegistration(' + reg.id + ')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>',
+        '</td>'
+      ].join('');
+      list.appendChild(tr);
+    });
+  }
+
+  var totalEl = document.getElementById('admTotalRegs');
+  if (totalEl) totalEl.textContent = regs.length;
+
+  var uniqueAttendees = new Set(regs.map(function(r) { return r.email; })).size;
+  var uniqueEl = document.getElementById('admUniqueAttendees');
+  if (uniqueEl) uniqueEl.textContent = uniqueAttendees;
+
+  var eventsWithRegs = new Set(regs.map(function(r) { return r.eventId; })).size;
+  var eventsEl = document.getElementById('admEventsWithRegs');
+  if (eventsEl) eventsEl.textContent = eventsWithRegs;
+}
+
+/* ============================================================
+   Admin: Download Report (CSV) / Export List
+   ============================================================ */
+function admDownloadReport() {
+  var events = Storage.load();
+  if (!events || !events.length) {
+    triggerToast('No events data to export.', 'info');
+    return;
+  }
+  var rows = [['Title','Category','Date','Time','Venue','Attendees','MaxAttendees','Status']];
+  events.forEach(function(e) {
+    rows.push([
+      '"' + (e.title || '').replace(/"/g, '""') + '"',
+      '"' + (e.category || '').replace(/"/g, '""') + '"',
+      e.date || '',
+      e.time || '',
+      '"' + (e.venue || e.location || '').replace(/"/g, '""') + '"',
+      e.attendees || 0,
+      e.maxAttendees || 0,
+      e.isDraft ? 'Draft' : 'Published'
+    ]);
+  });
+  var csv = rows.map(function(r) { return r.join(','); }).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'eventpulse_events_report_' + new Date().toISOString().split('T')[0] + '.csv';
+  link.click();
+  URL.revokeObjectURL(link.href);
+  triggerToast('Report downloaded as CSV', 'success');
+}
+
+function admExportAttendees() {
+  var regs = Storage.getRegistrations();
+  if (!regs || !regs.length) {
+    triggerToast('No registrations to export.', 'info');
+    return;
+  }
+  var rows = [['Name','Email','Event','Date','Phone','Company']];
+  regs.forEach(function(r) {
+    rows.push([
+      '"' + (r.name || '').replace(/"/g, '""') + '"',
+      '"' + (r.email || '').replace(/"/g, '""') + '"',
+      '"' + (r.eventTitle || '').replace(/"/g, '""') + '"',
+      r.createdAt ? new Date(r.createdAt).toISOString().split('T')[0] : '',
+      '"' + (r.phone || '').replace(/"/g, '""') + '"',
+      '"' + (r.company || '').replace(/"/g, '""') + '"'
+    ]);
+  });
+  var csv = rows.map(function(r) { return r.join(','); }).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'eventpulse_attendees_' + new Date().toISOString().split('T')[0] + '.csv';
+  link.click();
+  URL.revokeObjectURL(link.href);
+  triggerToast('Attendees list exported to CSV', 'success');
+}
+
 // Bind checkAdminAuth on load
 document.addEventListener('DOMContentLoaded', function() {
   checkAdminAuth();
   admRenderEvents();
+  admRenderCategories();
+  admLoadSettings();
 
   // Bind form submit triggers
-  const form = document.querySelector('#createEventFormPanel form');
+  var form = document.querySelector('#createEventFormPanel form');
   if (form) {
     form.addEventListener('submit', function(e) {
       handleFormSubmit(e, false);
     });
     
-    // Bind Draft button
-    const draftBtn = document.querySelector('#createEventFormPanel button[onclick*="Draft"]');
-    if (draftBtn) {
-      // Remove original inline action
+    // Bind Draft button - fixed robust selector
+    var draftBtn = document.querySelector('#createEventFormPanel .btn-outline');
+    if (draftBtn && draftBtn.textContent.trim().indexOf('Draft') !== -1) {
       draftBtn.removeAttribute('onclick');
       draftBtn.addEventListener('click', function(e) {
         handleFormSubmit(null, true);
       });
     }
+  }
+  
+  // Analytics charts: render after section becomes visible
+  var analyticsObserver = new MutationObserver(function() {
+    var sec = document.getElementById('adm-sec-analytics');
+    if (sec && sec.style.display !== 'none') {
+      setTimeout(admRenderCharts, 100);
+    }
+  });
+  var analyticsSec = document.getElementById('adm-sec-analytics');
+  if (analyticsSec) {
+    analyticsObserver.observe(analyticsSec, { attributes: true, attributeFilter: ['style'] });
+  }
+  
+  // Bind settings form
+  var settingsForm = document.querySelector('#adm-sec-settings form');
+  if (settingsForm) {
+    settingsForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      admSaveSettings();
+    });
   }
 });

@@ -407,6 +407,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
   var navSignIn = document.getElementById('navSignIn');
   if (!navSignIn) return;
 
+  var myEventsLink = document.createElement('a');
+  myEventsLink.href = 'my-events.html';
+  myEventsLink.className = 'nav-link';
+  myEventsLink.textContent = 'My Events';
+  var navLinks = document.querySelector('.navbar-links');
+  if (navLinks) navLinks.appendChild(myEventsLink);
+
+  var mobileMyEvents = document.getElementById('mobileMyEvents');
+
   function updateNavbar() {
     var session = sessionStorage.getItem('eventpulse_user');
     if (session) {
@@ -414,11 +423,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         var user = JSON.parse(session);
         navSignIn.textContent = user.name || user.email;
         navSignIn.onclick = function () { window.location.href = 'signin.html'; };
+        if (myEventsLink) myEventsLink.style.display = '';
+        if (mobileMyEvents) mobileMyEvents.style.display = '';
         return;
       } catch(e) {}
     }
     navSignIn.textContent = 'Sign In';
     navSignIn.onclick = function () { window.location.href = 'signin.html'; };
+    if (myEventsLink) myEventsLink.style.display = 'none';
+    if (mobileMyEvents) mobileMyEvents.style.display = 'none';
   }
 
   updateNavbar();

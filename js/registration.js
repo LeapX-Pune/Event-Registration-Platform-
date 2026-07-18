@@ -93,5 +93,10 @@
     }, 3000);
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", function() {
+    init();
+    var regMyEvents = document.getElementById('regMyEventsLink');
+    var session = sessionStorage.getItem('eventpulse_user');
+    if (regMyEvents && session) regMyEvents.style.display = '';
+  });
 })();

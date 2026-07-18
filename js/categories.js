@@ -55,7 +55,19 @@ function showToast(message) {
 }
 
 function triggerSubscribe() {
+  var input = document.querySelector('.cat-email-row input[type="email"]');
+  var email = input ? input.value.trim() : '';
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('Please enter a valid email address.');
+    return;
+  }
+  var subs = JSON.parse(localStorage.getItem('eventhub_subscribers') || '[]');
+  if (subs.indexOf(email) === -1) {
+    subs.push(email);
+    localStorage.setItem('eventhub_subscribers', JSON.stringify(subs));
+  }
   showToast('Thank you for subscribing! Check your inbox for updates.');
+  if (input) input.value = '';
 }
 
 var CAT_FALLBACK_IMAGES = {
@@ -65,6 +77,12 @@ var CAT_FALLBACK_IMAGES = {
   Sports: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80',
   Festival: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80',
   Workshop: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80',
+  Business: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80',
+  Education: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80',
+  Entertainment: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80',
+  Food: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80',
+  Health: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80',
+  Community: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80',
   default: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80'
 };
 
@@ -261,4 +279,8 @@ function updateCategoryCounts(events) {
   var fromQuery = params.get('category');
   if (fromQuery) filterBy(fromQuery);
   else filterBy('all');
+
+  var catMyEvents = document.getElementById('catMyEventsLink');
+  var session = sessionStorage.getItem('eventpulse_user');
+  if (catMyEvents && session) catMyEvents.style.display = '';
 })();
