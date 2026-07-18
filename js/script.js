@@ -224,77 +224,59 @@ if (typeof Storage !== 'undefined' && Storage.init) {
   Storage.init();
 }
 
-/* ----- Dynamic Recommended Events (from Storage) ----- */
-(function renderRecommendedEvents() {
+function renderHomepageEvents() {
   var container = document.getElementById('eventsContainer');
   if (!container) return;
-
-  var events = [];
-  if (typeof Storage !== 'undefined' && Storage.load) {
-    Storage.init();
-    events = Storage.load() || [];
-  } else if (typeof DEFAULT_EVENTS !== 'undefined') {
-    events = DEFAULT_EVENTS.slice();
+  
+  if (typeof Storage === 'undefined') return;
+  var events = Storage.load();
+  
+  if (!events || events.length === 0) {
+    var emptyState = document.getElementById('emptyState');
+    if (emptyState) emptyState.style.display = 'block';
+    container.style.display = 'none';
+    return;
   }
-
-  if (!events.length) return;
-
-  var FALLBACK = {
-    Technology: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80',
-    Music: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80',
-    Art: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&q=80',
-    Sports: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80',
-    Festival: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80',
-    Workshop: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80',
-    default: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80'
-  };
-
-  function esc(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  function fmtDate(dateStr) {
-    if (!dateStr) return 'TBA';
-    var d = new Date(dateStr + (String(dateStr).indexOf('T') === -1 ? 'T12:00:00' : ''));
-    if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
-
-  function imgFor(ev) {
-    var img = (ev.image || '').trim();
-    if (img) return img.replace(/w=\d+/, 'w=400');
-    return FALLBACK[ev.category] || FALLBACK.default;
-  }
-
-  // Prefer a mix across categories for the home strip
-  var featured = events.slice().sort(function (a, b) {
-    return Number(b.attendees || 0) - Number(a.attendees || 0);
-  });
-
-  container.innerHTML = featured.map(function (ev) {
-    var id = Number(ev.id);
-    var title = esc(ev.title);
-    var cat = esc(ev.category || 'Event');
-    return (
-      '<a href="event-details.html?id=' + id + '" class="event-card" data-category="' + cat + '" data-event-id="' + id + '" style="text-decoration:none;">' +
-        '<div class="event-card-image">' +
-          '<span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>' +
-          '<img src="' + imgFor(ev) + '" alt="' + title + '" loading="lazy">' +
-          '<div class="event-card-badge">' + cat + '</div>' +
-        '</div>' +
-        '<h3 class="event-card-title">' + title + '</h3>' +
-        '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> ' + esc(ev.location || 'TBA') + '</p>' +
-        '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> ' + esc(fmtDate(ev.date)) + '</p>' +
-      '</a>'
-    );
+  
+  var emptyState = document.getElementById('emptyState');
+  if (emptyState) emptyState.style.display = 'none';
+  container.style.display = 'flex';
+  
+  container.innerHTML = events.map(function(event) {
+    var link = 'event-details.html?id=' + event.id;
+    var imgUrl = event.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80';
+    var displayCat = event.category || 'General';
+    var title = event.title || 'Untitled Event';
+    var loc = event.venue || event.location || 'Online';
+    
+    var dateStr = event.date;
+    try {
+      var d = new Date(event.date);
+      if (!isNaN(d.getTime())) {
+        dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    } catch(e) {}
+    
+    return '<a href="' + link + '" class="event-card" style="text-decoration:none;">' +
+             '<div class="event-card-image">' +
+               '<span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>' +
+               '<img src="' + imgUrl + '" alt="' + displayCat + '" onerror="this.style.display=\'none\'">' +
+               '<div class="event-card-badge">' + displayCat + '</div>' +
+             '</div>' +
+             '<h3 class="event-card-title">' + title + '</h3>' +
+             '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> ' + loc + '</p>' +
+             '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> ' + dateStr + '</p>' +
+           '</a>';
   }).join('');
-})();
+}
 
-/* ----- Category Filtering ----- */
-(function initCategoryFilter() {
-  var cards = document.querySelectorAll('#eventsContainer .event-card[data-category]');
-  var categoryBtns = document.querySelectorAll('[data-filter-category]');
+document.addEventListener('DOMContentLoaded', function() {
+  renderHomepageEvents();
+});
+
+/* ----- Empty State Reset ----- */
+/* Search empty state reset karta hai */
+function resetEmpty() {
   var empty = document.getElementById('emptyState');
   var container = document.getElementById('eventsContainer');
   var statusEl = document.getElementById('filterStatus');
