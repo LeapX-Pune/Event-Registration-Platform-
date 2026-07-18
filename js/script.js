@@ -142,6 +142,56 @@ if (typeof Storage !== 'undefined' && Storage.init) {
   Storage.init();
 }
 
+function renderHomepageEvents() {
+  var container = document.getElementById('eventsContainer');
+  if (!container) return;
+  
+  if (typeof Storage === 'undefined') return;
+  var events = Storage.load();
+  
+  if (!events || events.length === 0) {
+    var emptyState = document.getElementById('emptyState');
+    if (emptyState) emptyState.style.display = 'block';
+    container.style.display = 'none';
+    return;
+  }
+  
+  var emptyState = document.getElementById('emptyState');
+  if (emptyState) emptyState.style.display = 'none';
+  container.style.display = 'flex';
+  
+  container.innerHTML = events.map(function(event) {
+    var link = 'event-details.html?id=' + event.id;
+    var imgUrl = event.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80';
+    var displayCat = event.category || 'General';
+    var title = event.title || 'Untitled Event';
+    var loc = event.venue || event.location || 'Online';
+    
+    var dateStr = event.date;
+    try {
+      var d = new Date(event.date);
+      if (!isNaN(d.getTime())) {
+        dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    } catch(e) {}
+    
+    return '<a href="' + link + '" class="event-card" style="text-decoration:none;">' +
+             '<div class="event-card-image">' +
+               '<span class="material-symbols-outlined" style="font-size:60px;color:var(--outline-variant);position:absolute;z-index:0;">image</span>' +
+               '<img src="' + imgUrl + '" alt="' + displayCat + '" onerror="this.style.display=\'none\'">' +
+               '<div class="event-card-badge">' + displayCat + '</div>' +
+             '</div>' +
+             '<h3 class="event-card-title">' + title + '</h3>' +
+             '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">location_on</span> ' + loc + '</p>' +
+             '<p class="event-card-meta"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">calendar_today</span> ' + dateStr + '</p>' +
+           '</a>';
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderHomepageEvents();
+});
+
 /* ----- Empty State Reset ----- */
 /* Search empty state reset karta hai */
 function resetEmpty() {
