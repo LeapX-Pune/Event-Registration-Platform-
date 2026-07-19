@@ -79,18 +79,28 @@ const Storage = {
     try { return JSON.parse(data); } catch(e) { return []; }
   },
 
-  addUser(user) {
+  async hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  },
+
+  async addUser(user) {
     const users = this.getUsers();
     if (users.find(u => u.email === user.email)) return null;
     user.id = Date.now();
+    user.password = await this.hashPassword(user.password);
     users.push(user);
     localStorage.setItem(this.userKey, JSON.stringify(users));
     return user;
   },
 
-  authenticate(email, password) {
+  async authenticate(email, password) {
     const users = this.getUsers();
-    return users.find(u => u.email === email && u.password === password) || null;
+    const hash = await this.hashPassword(password);
+    return users.find(u => u.email === email && u.password === hash) || null;
   },
 
   // ---- Categories ----

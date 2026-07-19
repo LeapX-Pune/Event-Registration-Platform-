@@ -76,7 +76,7 @@
     return p.get("redirect") || "index.html";
   }
 
-  document.getElementById("loginBtn").addEventListener("click", function() {
+  document.getElementById("loginBtn").addEventListener("click", async function() {
     hideError();
     var email = document.getElementById("loginEmail").value.trim();
     var password = document.getElementById("loginPassword").value;
@@ -84,7 +84,7 @@
       showError("Please fill in all fields.");
       return;
     }
-    var user = Storage.authenticate(email, password);
+    var user = await Storage.authenticate(email, password);
     if (!user) {
       showError("Invalid email or password. Please try again or sign up.");
       return;
@@ -93,7 +93,7 @@
     window.location.href = getRedirect();
   });
 
-  document.getElementById("signupBtn").addEventListener("click", function() {
+  document.getElementById("signupBtn").addEventListener("click", async function() {
     hideError();
     var name = document.getElementById("signupName").value.trim();
     var email = document.getElementById("signupEmail").value.trim();
@@ -106,7 +106,7 @@
       showError("Password must be at least 6 characters.");
       return;
     }
-    var user = Storage.addUser({ name: name, email: email, password: password });
+    var user = await Storage.addUser({ name: name, email: email, password: password });
     if (!user) {
       showError("An account with this email already exists.");
       return;

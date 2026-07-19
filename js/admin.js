@@ -100,35 +100,8 @@ function admGoTo(sectionId, element) {
 }
 
 /* ----- Toast Notification Popups ----- */
-var toastTimer = null;
 function triggerToast(message, type) {
-  var toast = document.getElementById('admToast');
-  var toastMsg = document.getElementById('admToastMsg');
-  var toastIcon = document.getElementById('admToastIcon');
-  if (!toast || !toastMsg) return;
-
-  toastMsg.textContent = message;
-
-  if (type === 'error') {
-    toastIcon.textContent = 'error';
-    toastIcon.style.color = 'var(--error)';
-    toast.style.borderColor = 'rgba(255, 180, 171, 0.3)';
-  } else if (type === 'info') {
-    toastIcon.textContent = 'info';
-    toastIcon.style.color = 'var(--secondary)';
-    toast.style.borderColor = 'rgba(69, 240, 244, 0.3)';
-  } else {
-    toastIcon.textContent = 'check_circle';
-    toastIcon.style.color = 'var(--tertiary)';
-    toast.style.borderColor = 'rgba(224, 182, 255, 0.2)';
-  }
-
-  toast.classList.add('active');
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() {
-    toast.classList.remove('active');
-  }, 3000);
+  if (typeof showToast === 'function') showToast(message, type);
 }
 
 /* ----- Modal delete event flow ----- */

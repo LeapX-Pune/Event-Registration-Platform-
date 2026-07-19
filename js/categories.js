@@ -21,17 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-var toastTimer = null;
-function showToast(message) {
-  var toast = document.getElementById('catToast');
-  var msgEl = document.getElementById('catToastMsg');
-  if (!toast || !msgEl) return;
-  msgEl.textContent = message;
-  toast.classList.add('active');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function () { toast.classList.remove('active'); }, 2800);
-}
-
 function triggerSubscribe() {
   var input = document.querySelector('.cat-email-row input[type="email"]');
   var email = input ? input.value.trim() : '';

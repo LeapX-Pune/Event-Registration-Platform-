@@ -311,39 +311,18 @@ if (lightbox) {
   });
 }
 
-var toastTimer = null;
-function showToastNotification(message, type) {
-  var toast = document.getElementById('edToast');
-  var toastMsg = document.getElementById('edToastMsg');
-  var toastIcon = document.getElementById('edToastIcon');
-  if (!toast || !toastMsg) return;
 
-  toastMsg.textContent = message;
-  if (type === 'error') {
-    toastIcon.textContent = 'error';
-    toastIcon.style.color = 'var(--error)';
-  } else {
-    toastIcon.textContent = 'check_circle';
-    toastIcon.style.color = 'var(--tertiary)';
-  }
-
-  toast.classList.add('active');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function () {
-    toast.classList.remove('active');
-  }, 3500);
-}
 
 function triggerRegistration() {
   var params = new URLSearchParams(window.location.search);
   var rawId = params.get('id');
   var event = getEventById(rawId);
   if (!event) {
-    showToastNotification('Event not found.', 'error');
+    showToast('Event not found.', 'error');
     return;
   }
   if (Number(event.attendees || 0) >= Number(event.maxAttendees)) {
-    showToastNotification('This event is fully booked.', 'error');
+    showToast('This event is fully booked.', 'error');
     return;
   }
   window.location.href = 'registration.html?id=' + Number(event.id);
@@ -351,7 +330,7 @@ function triggerRegistration() {
 
 function contactOrganizer() {
   if (typeof openContactModal === 'function') openContactModal();
-  else showToastNotification('Contact form is unavailable on this page.', 'info');
+  else showToast('Contact form is unavailable on this page.', 'info');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
