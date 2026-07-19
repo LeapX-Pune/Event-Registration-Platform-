@@ -28,6 +28,7 @@
           <a href="categories.html" class="nav-link">Categories</a>
           <a href="admin.html" class="nav-link">Admin</a>
           <a href="about.html" class="nav-link active">About</a>
+          <a href="my-events.html" class="nav-link my-events-link" style="display:none;">My Events</a>
         </div>
       </div>
       <div class="navbar-right">
@@ -38,7 +39,7 @@
         <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
           <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
         </button>
-        <button class="btn btn-primary elevated-shadow">Sign In</button>
+        <button class="btn btn-primary elevated-shadow" id="navSignIn">Sign In</button>
         <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
           <span class="material-symbols-outlined">menu</span>
         </button>
@@ -70,6 +71,9 @@
       </a>
       <a href="admin.html" class="mobile-nav-link">
         <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+      <a href="my-events.html" class="mobile-nav-link" id="mobileMyEvents" style="display:none;">
+        <span class="material-symbols-outlined">event</span>My Events
       </a>
     </nav>
     <div style="padding:16px;border-top:1px solid rgba(77,67,83,0.2);">
@@ -326,6 +330,7 @@
   </div>
 
   <script src="js/utils/theme.js"></script>
+  <script src="js/utils/authNav.js"></script>
   <script src="js/utils/mobileNav.js"></script>
   <script src="js/components/contactModal.js"></script>
   <script src="js/about.js"></script>

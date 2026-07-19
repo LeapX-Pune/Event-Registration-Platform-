@@ -1,11 +1,4 @@
-/* =====================================================
-   EventPulse - Event Data
-   Ye file saare mock events ka data store karti hai.
-   Storage utility in events ko localStorage mein load karti hai.
-   ===================================================== */
-
 const DEFAULT_EVENTS = [
-  /* ---------- Technology ---------- */
   {
     id: 1,
     title: "Frontend Bootcamp",
@@ -19,7 +12,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 50,
     price: "Free",
     description: "Hands-on frontend workshop covering modern frameworks and tools.",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80"
   },
   {
     id: 2,
@@ -34,7 +27,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 500,
     price: "$149",
     description: "Explore the latest AI breakthroughs, live demos, and expert panels.",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80"
   },
   {
     id: 3,
@@ -49,7 +42,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 40,
     price: "$20",
     description: "Intro to machine learning and AI fundamentals with hands-on exercises.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80"
   },
   {
     id: 4,
@@ -64,7 +57,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 300,
     price: "Free",
     description: "48-hour hackathon — build, pitch, and win big. All skill levels welcome.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80"
   },
   {
     id: 5,
@@ -79,10 +72,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 400,
     price: "$89",
     description: "Industry leaders discuss the future of cloud infrastructure and DevOps.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
   },
 
-  /* ---------- Music ---------- */
   {
     id: 6,
     title: "Jazz Night",
@@ -126,7 +118,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 150,
     price: "$45",
     description: "A soulful night of blues and jazz classics performed by touring legends.",
-    image: "https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80"
   },
   {
     id: 9,
@@ -141,16 +133,15 @@ const DEFAULT_EVENTS = [
     maxAttendees: 200,
     price: "Free",
     description: "Outdoor music festival featuring multiple bands across two stages.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80"
   },
 
-  /* ---------- Art ---------- */
   {
     id: 10,
     title: "Art & Design Expo",
     category: "Art",
     tags: ["art", "design", "expo", "gallery"],
-    date: "2026-06-25",
+    date: "2026-08-25",
     time: "11:00 AM",
     location: "City Gallery, Chicago IL",
     venue: "City Gallery",
@@ -173,7 +164,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 30,
     price: "Free",
     description: "Guided photography walk through scenic riverside routes with expert tips.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80"
   },
   {
     id: 12,
@@ -188,10 +179,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 400,
     price: "$30",
     description: "International showcase of modern art, digital design, and interactive installations.",
-    image: "https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1531913764164-f85c38e03e08?w=400&q=80"
   },
 
-  /* ---------- Sports ---------- */
   {
     id: 13,
     title: "Elite Hoops Invitational",
@@ -220,7 +210,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 3000,
     price: "$40",
     description: "Annual city marathon — 5K, 10K, and full marathon routes for all fitness levels.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80"
   },
   {
     id: 15,
@@ -235,10 +225,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 60,
     price: "$55",
     description: "Weekend yoga retreat featuring guided sessions, meditation, and wellness workshops.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80"
   },
 
-  /* ---------- Festival ---------- */
   {
     id: 16,
     title: "Enchanted Forest Soirée",
@@ -267,10 +256,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 1000,
     price: "$65",
     description: "Celebrate the longest day with live music, food trucks, and sunset views.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&q=80"
   },
 
-  /* ---------- Workshop ---------- */
   {
     id: 18,
     title: "UX Masters Global Summit",
@@ -299,7 +287,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 80,
     price: "$35",
     description: "Build confidence and master the art of public speaking with expert coaches.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&q=80"
   },
   {
     id: 20,
@@ -314,10 +302,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 35,
     price: "$25",
     description: "A weekend workshop for aspiring writers — fiction, poetry, and narrative non-fiction.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=80"
   },
 
-  /* ---------- Business ---------- */
   {
     id: 21,
     title: "Startup Networking Mixer",
@@ -346,10 +333,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 800,
     price: "$199",
     description: "Industry leaders share strategies on growth, innovation, and market disruption.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&q=80"
   },
 
-  /* ---------- Education ---------- */
   {
     id: 23,
     title: "STEM Education Fair",
@@ -378,10 +364,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 50,
     price: "$15",
     description: "Immersion-based language workshop covering Spanish, French, and Mandarin basics.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80"
   },
 
-  /* ---------- Entertainment ---------- */
   {
     id: 25,
     title: "Comedy Night Special",
@@ -410,10 +395,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 500,
     price: "Free",
     description: "Outdoor screening of classic films with food trucks, lawn games, and family fun.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80"
   },
 
-  /* ---------- Food ---------- */
   {
     id: 27,
     title: "International Food Festival",
@@ -442,10 +426,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 60,
     price: "$120",
     description: "Exclusive farm-to-table dining experience featuring seasonal organic ingredients.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80"
   },
 
-  /* ---------- Health ---------- */
   {
     id: 29,
     title: "Wellness & Mindfulness Retreat",
@@ -459,7 +442,7 @@ const DEFAULT_EVENTS = [
     maxAttendees: 40,
     price: "$85",
     description: "A weekend of guided meditation, yoga, and holistic wellness workshops in scenic Sedona.",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&q=80"
   },
   {
     id: 30,
@@ -474,10 +457,9 @@ const DEFAULT_EVENTS = [
     maxAttendees: 2000,
     price: "Free",
     description: "Annual walk to raise awareness for mental health resources and support networks.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80"
   },
 
-  /* ---------- Community ---------- */
   {
     id: 31,
     title: "Community Clean-Up Drive",
@@ -506,6 +488,6 @@ const DEFAULT_EVENTS = [
     maxAttendees: 400,
     price: "Free",
     description: "Live music, games, food stalls, and activities for the whole neighborhood to enjoy.",
-    image: ""
+    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&q=80"
   }
 ];
