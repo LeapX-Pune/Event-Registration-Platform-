@@ -68,6 +68,9 @@
       <a href="about.html" class="mobile-nav-link">
         <span class="material-symbols-outlined">info</span>About
       </a>
+      <a href="my-events.html" class="mobile-nav-link" id="mobileMyEvents" style="display:none;">
+        <span class="material-symbols-outlined">event</span>My Events
+      </a>
     </nav>
     <div style="padding:16px;border-top:1px solid var(--border-subtle);">
       <button class="btn btn-primary" style="width:100%;justify-content:center;">Sign In</button>
@@ -166,20 +169,27 @@
         </a>
       </div>
 
-      <div class="filter-bar" role="toolbar" aria-label="Filter by category">
-        <button type="button" class="filter-chip active" data-filter-category="all">All</button>
-        <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
-        <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
-        <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
-        <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
-        <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
-        <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
-        <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
-        <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
-        <button type="button" class="filter-chip" data-filter-category="Food">Food</button>
-        <button type="button" class="filter-chip" data-filter-category="Health">Health</button>
-        <button type="button" class="filter-chip" data-filter-category="Community">Community</button>
-        <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;align-items:center;">
+        <div class="filter-bar" role="toolbar" aria-label="Filter by category">
+          <button type="button" class="filter-chip active" data-filter-category="all">All</button>
+          <button type="button" class="filter-chip" data-filter-category="Technology">Technology</button>
+          <button type="button" class="filter-chip" data-filter-category="Music">Music</button>
+          <button type="button" class="filter-chip" data-filter-category="Sports">Sports</button>
+          <button type="button" class="filter-chip" data-filter-category="Art">Art</button>
+          <button type="button" class="filter-chip" data-filter-category="Workshop">Workshop</button>
+          <button type="button" class="filter-chip" data-filter-category="Festival">Festival</button>
+          <button type="button" class="filter-chip" data-filter-category="Business">Business</button>
+          <button type="button" class="filter-chip" data-filter-category="Education">Education</button>
+          <button type="button" class="filter-chip" data-filter-category="Food">Food</button>
+          <button type="button" class="filter-chip" data-filter-category="Health">Health</button>
+          <button type="button" class="filter-chip" data-filter-category="Community">Community</button>
+          <button type="button" class="filter-chip" data-filter-category="Entertainment">Entertainment</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label class="label-sm" style="color:var(--outline);white-space:nowrap;" for="dateFilter">Filter by date:</label>
+          <input type="date" id="dateFilter" class="form-input" style="padding:6px 12px;font-size:13px;margin-bottom:0;max-width:160px;">
+          <button type="button" class="btn btn-outline" id="clearDateFilter" style="padding:6px 12px;font-size:11px;display:none;">Clear</button>
+        </div>
       </div>
 
       <div class="category-grid">
@@ -237,10 +247,22 @@
             <span class="label" style="color:#fff;">Food</span>
           </div>
         </button>
-        <button type="button" class="category-card lg-block" data-filter-category="Entertainment" style="background:linear-gradient(135deg,#7c3aed,#4c1d95);">
+        <button type="button" class="category-card" data-filter-category="Entertainment" style="background:linear-gradient(135deg,#7c3aed,#4c1d95);">
           <div class="category-card-overlay">
             <span class="material-symbols-outlined icon" style="color:#fff;">theaters</span>
             <span class="label" style="color:#fff;">Entertainment</span>
+          </div>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Health" style="background:linear-gradient(135deg,#0d9488,#115e59);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">favorite</span>
+            <span class="label" style="color:#fff;">Health</span>
+          </div>
+        </button>
+        <button type="button" class="category-card" data-filter-category="Community" style="background:linear-gradient(135deg,#e11d48,#9f1239);">
+          <div class="category-card-overlay">
+            <span class="material-symbols-outlined icon" style="color:#fff;">groups</span>
+            <span class="label" style="color:#fff;">Community</span>
           </div>
         </button>
       </div>
@@ -274,9 +296,10 @@
       <div class="site-footer-links">
         <a href="about.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">About</a>
         <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);" data-open-contact>Contact</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
-        <a href="#" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
+        <a href="privacy.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">Privacy Policy</a>
+        <a href="terms.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">Terms of Service</a>
+        <a href="help.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">Help Center</a>
+        <a href="partner.html" class="label-sm footer-link" style="color:var(--on-surface-variant);">Partner Program</a>
       </div>
       <div class="site-footer-bottom">
         <p class="label-sm" style="color:var(--on-surface-variant);opacity:0.7;">&copy; 2024 EventPulse Ecosystem. All rights reserved.</p>

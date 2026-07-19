@@ -6,7 +6,7 @@ function applyTheme(theme) {
   var next = theme === 'light' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('eventpulse_theme', next);
-  var icons = document.querySelectorAll('#themeIcon, #themeIconReg, #themeIconAdmin, #themeIconED');
+  var icons = document.querySelectorAll('#themeIcon');
   icons.forEach(function (icon) {
     icon.textContent = next === 'dark' ? 'dark_mode' : 'light_mode';
   });

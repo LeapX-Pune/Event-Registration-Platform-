@@ -4,28 +4,6 @@
 
 /* Theme: js/utils/theme.js */
 
-var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-var mobileNavOverlay = document.getElementById('mobileNavOverlay');
-var mobileNavDrawer = document.getElementById('mobileNavDrawer');
-
-if (mobileMenuBtn) {
-  mobileMenuBtn.addEventListener('click', function () {
-    mobileNavDrawer.classList.add('open');
-    mobileNavOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
-}
-
-if (mobileNavOverlay) {
-  mobileNavOverlay.addEventListener('click', closeMobileNav);
-}
-
-function closeMobileNav() {
-  if (mobileNavDrawer) mobileNavDrawer.classList.remove('open');
-  if (mobileNavOverlay) mobileNavOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
 var FALLBACK_IMAGES = {
   Technology: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=80',
   Music: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80',
@@ -36,6 +14,9 @@ var FALLBACK_IMAGES = {
   Business: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&q=80',
   Education: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1400&q=80',
   Entertainment: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1400&q=80',
+  Food: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1400&q=80',
+  Health: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1400&q=80',
+  Community: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1400&q=80',
   default: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&q=80'
 };
 
@@ -373,4 +354,9 @@ function contactOrganizer() {
   else showToastNotification('Contact form is unavailable on this page.', 'info');
 }
 
-document.addEventListener('DOMContentLoaded', renderEventDetails);
+document.addEventListener('DOMContentLoaded', function() {
+  renderEventDetails();
+  var edMyEvents = document.getElementById('edMyEventsLink');
+  var session = sessionStorage.getItem('eventpulse_user');
+  if (edMyEvents && session) edMyEvents.style.display = '';
+});

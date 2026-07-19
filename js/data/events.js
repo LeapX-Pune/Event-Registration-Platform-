@@ -315,5 +315,197 @@ const DEFAULT_EVENTS = [
     price: "$25",
     description: "A weekend workshop for aspiring writers — fiction, poetry, and narrative non-fiction.",
     image: ""
+  },
+
+  /* ---------- Business ---------- */
+  {
+    id: 21,
+    title: "Startup Networking Mixer",
+    category: "Business",
+    tags: ["business", "networking", "startup", "career"],
+    date: "2026-08-20",
+    time: "6:00 PM",
+    location: "San Francisco, CA",
+    venue: "WeWork SOMA",
+    attendees: 80,
+    maxAttendees: 150,
+    price: "$20",
+    description: "Connect with founders, investors, and innovators at the Bay Area's premier startup networking event.",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80"
+  },
+  {
+    id: 22,
+    title: "Annual Business Summit",
+    category: "Business",
+    tags: ["business", "summit", "conference", "leadership"],
+    date: "2026-11-05",
+    time: "9:00 AM",
+    location: "New York, NY",
+    venue: "Jacob Javits Center",
+    attendees: 450,
+    maxAttendees: 800,
+    price: "$199",
+    description: "Industry leaders share strategies on growth, innovation, and market disruption.",
+    image: ""
+  },
+
+  /* ---------- Education ---------- */
+  {
+    id: 23,
+    title: "STEM Education Fair",
+    category: "Education",
+    tags: ["education", "stem", "fair", "kids"],
+    date: "2026-09-10",
+    time: "10:00 AM",
+    location: "Boston, MA",
+    venue: "Hynes Convention Center",
+    attendees: 200,
+    maxAttendees: 400,
+    price: "Free",
+    description: "Interactive exhibits and workshops showcasing STEM opportunities for students of all ages.",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80"
+  },
+  {
+    id: 24,
+    title: "Language Learning Workshop",
+    category: "Education",
+    tags: ["education", "language", "workshop", "skills"],
+    date: "2026-10-15",
+    time: "2:00 PM",
+    location: "Chicago, IL",
+    venue: "Harold Washington Library",
+    attendees: 35,
+    maxAttendees: 50,
+    price: "$15",
+    description: "Immersion-based language workshop covering Spanish, French, and Mandarin basics.",
+    image: ""
+  },
+
+  /* ---------- Entertainment ---------- */
+  {
+    id: 25,
+    title: "Comedy Night Special",
+    category: "Entertainment",
+    tags: ["entertainment", "comedy", "live", "standup"],
+    date: "2026-08-30",
+    time: "8:00 PM",
+    location: "Los Angeles, CA",
+    venue: "The Comedy Store",
+    attendees: 180,
+    maxAttendees: 250,
+    price: "$35",
+    description: "An evening of stand-up comedy featuring top headliners and rising stars.",
+    image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400&q=80"
+  },
+  {
+    id: 26,
+    title: "Movie Under the Stars",
+    category: "Entertainment",
+    tags: ["entertainment", "movie", "outdoor", "family"],
+    date: "2026-07-26",
+    time: "8:30 PM",
+    location: "Austin, TX",
+    venue: "Zilker Park",
+    attendees: 300,
+    maxAttendees: 500,
+    price: "Free",
+    description: "Outdoor screening of classic films with food trucks, lawn games, and family fun.",
+    image: ""
+  },
+
+  /* ---------- Food ---------- */
+  {
+    id: 27,
+    title: "International Food Festival",
+    category: "Food",
+    tags: ["food", "festival", "cuisine", "outdoor"],
+    date: "2026-09-05",
+    time: "11:00 AM",
+    location: "Portland, OR",
+    venue: "Tom McCall Waterfront Park",
+    attendees: 600,
+    maxAttendees: 1000,
+    price: "Free",
+    description: "Taste dishes from 30+ countries with live cooking demos and cultural performances.",
+    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80"
+  },
+  {
+    id: 28,
+    title: "Farm-to-Table Dinner",
+    category: "Food",
+    tags: ["food", "dinner", "organic", "farm"],
+    date: "2026-10-20",
+    time: "7:00 PM",
+    location: "Napa Valley, CA",
+    venue: "Long Meadow Ranch",
+    attendees: 40,
+    maxAttendees: 60,
+    price: "$120",
+    description: "Exclusive farm-to-table dining experience featuring seasonal organic ingredients.",
+    image: ""
+  },
+
+  /* ---------- Health ---------- */
+  {
+    id: 29,
+    title: "Wellness & Mindfulness Retreat",
+    category: "Health",
+    tags: ["health", "wellness", "meditation", "retreat"],
+    date: "2026-08-22",
+    time: "8:00 AM",
+    location: "Sedona, AZ",
+    venue: "Sedona Wellness Center",
+    attendees: 25,
+    maxAttendees: 40,
+    price: "$85",
+    description: "A weekend of guided meditation, yoga, and holistic wellness workshops in scenic Sedona.",
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80"
+  },
+  {
+    id: 30,
+    title: "Mental Health Awareness Walk",
+    category: "Health",
+    tags: ["health", "mental health", "walk", "community"],
+    date: "2026-10-10",
+    time: "7:00 AM",
+    location: "Washington, DC",
+    venue: "National Mall",
+    attendees: 500,
+    maxAttendees: 2000,
+    price: "Free",
+    description: "Annual walk to raise awareness for mental health resources and support networks.",
+    image: ""
+  },
+
+  /* ---------- Community ---------- */
+  {
+    id: 31,
+    title: "Community Clean-Up Drive",
+    category: "Community",
+    tags: ["community", "volunteer", "cleanup", "environment"],
+    date: "2026-09-12",
+    time: "8:00 AM",
+    location: "Seattle, WA",
+    venue: "Volunteer Park",
+    attendees: 120,
+    maxAttendees: 200,
+    price: "Free",
+    description: "Join neighbors for a morning of park cleanup, tree planting, and community bonding.",
+    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80"
+  },
+  {
+    id: 32,
+    title: "Neighborhood Block Party",
+    category: "Community",
+    tags: ["community", "party", "social", "family"],
+    date: "2026-08-01",
+    time: "3:00 PM",
+    location: "Brooklyn, NY",
+    venue: "Prospect Park",
+    attendees: 250,
+    maxAttendees: 400,
+    price: "Free",
+    description: "Live music, games, food stalls, and activities for the whole neighborhood to enjoy.",
+    image: ""
   }
 ];
