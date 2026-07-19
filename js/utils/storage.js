@@ -11,7 +11,8 @@ const Storage = {
 
   load() {
     const data = localStorage.getItem(this.key);
-    return data ? JSON.parse(data) : DEFAULT_EVENTS;
+    if (!data) return DEFAULT_EVENTS;
+    try { return JSON.parse(data); } catch(e) { return DEFAULT_EVENTS; }
   },
 
   save(events) {
@@ -54,7 +55,8 @@ const Storage = {
   // ---- Registrations ----
   getRegistrations() {
     const data = localStorage.getItem(this.regKey);
-    return data ? JSON.parse(data) : [];
+    if (!data) return [];
+    try { return JSON.parse(data); } catch(e) { return []; }
   },
 
   addRegistration(reg) {
@@ -73,7 +75,8 @@ const Storage = {
   // ---- Users / Auth ----
   getUsers() {
     const data = localStorage.getItem(this.userKey);
-    return data ? JSON.parse(data) : [];
+    if (!data) return [];
+    try { return JSON.parse(data); } catch(e) { return []; }
   },
 
   addUser(user) {
@@ -95,7 +98,7 @@ const Storage = {
 
   getCategories() {
     const data = localStorage.getItem(this.catKey);
-    if (data) return JSON.parse(data);
+    if (data) { try { return JSON.parse(data); } catch(e) {} }
     const defaults = [
       { id: 1, name: "Music", icon: "music_note", color: "#9d4edd", eventCount: 0 },
       { id: 2, name: "Technology", icon: "computer", color: "#0ea5e9", eventCount: 0 },

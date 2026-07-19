@@ -6,7 +6,15 @@ const Helpers = {
   },
 
   formatTime(timeStr) {
-    return timeStr;
+    if (!timeStr) return '';
+    var parts = timeStr.split(':');
+    if (parts.length < 2) return timeStr;
+    var h = parseInt(parts[0], 10);
+    var m = parts[1];
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    if (h === 0) h = 12;
+    else if (h > 12) h -= 12;
+    return h + ':' + m + ' ' + ampm;
   },
 
   placeholderImage() {

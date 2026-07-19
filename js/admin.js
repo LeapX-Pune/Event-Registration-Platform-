@@ -258,44 +258,6 @@ function admRenderEvents() {
   admRenderRegistrations();
 }
 
-function admRenderRegistrations() {
-  const regs = (typeof Storage !== 'undefined' && Storage.getRegistrations) ? Storage.getRegistrations() : [];
-  const list = document.getElementById('admAttendeesList');
-  if (!list) return;
-
-  list.innerHTML = '';
-  if (!regs.length) {
-    list.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--on-surface-variant);padding:32px;">No registrations yet.</td></tr>';
-  } else {
-    regs.slice().reverse().forEach(function(reg) {
-      const tr = document.createElement('tr');
-      const dateStr = reg.createdAt ? new Date(reg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
-      tr.innerHTML = `
-        <td style="font-weight:600;">${Helpers.escapeHtml(reg.name)}</td>
-        <td>${Helpers.escapeHtml(reg.email)}</td>
-        <td>${Helpers.escapeHtml(reg.eventTitle || 'Unknown Event')}</td>
-        <td>${dateStr}</td>
-        <td><span class="tag tag-tertiary" style="background:rgba(171,214,0,0.1);color:var(--tertiary);font-size:10px;">Confirmed</span></td>
-        <td style="text-align:right;">
-          <button class="btn-icon danger" onclick="triggerToast('Registration removed','info')"><span class="material-symbols-outlined" style="font-size:16px;">close</span></button>
-        </td>
-      `;
-      list.appendChild(tr);
-    });
-  }
-
-  const totalEl = document.getElementById('admTotalRegs');
-  if (totalEl) totalEl.textContent = regs.length;
-
-  const uniqueAttendees = new Set(regs.map(function(r) { return r.email; })).size;
-  const uniqueEl = document.getElementById('admUniqueAttendees');
-  if (uniqueEl) uniqueEl.textContent = uniqueAttendees;
-
-  const eventsWithRegs = new Set(regs.map(function(r) { return r.eventId; })).size;
-  const eventsEl = document.getElementById('admEventsWithRegs');
-  if (eventsEl) eventsEl.textContent = eventsWithRegs;
-}
-
 /* ----- Add & Edit Event Flow ----- */
 function admEditEvent(id) {
   const event = Storage.getById(id);
@@ -674,7 +636,6 @@ function admRemoveRegistration(regId) {
   admRenderEvents();
 }
 
-/* Override the registration removal button */
 function admRenderRegistrations() {
   var regs = (typeof Storage !== 'undefined' && Storage.getRegistrations) ? Storage.getRegistrations() : [];
   var list = document.getElementById('admAttendeesList');

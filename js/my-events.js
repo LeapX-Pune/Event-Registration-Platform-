@@ -10,6 +10,7 @@
     var subtitle = document.getElementById('myEventsSubtitle');
     if (!container) return;
 
+    if (typeof Storage !== 'undefined' && Storage.init) Storage.init();
     var regs = Storage.getRegistrations();
     var myRegs = regs.filter(function(r) { return r.email === user.email; });
 

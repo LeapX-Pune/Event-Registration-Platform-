@@ -4,28 +4,6 @@
 
 /* Theme: js/utils/theme.js */
 
-var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-var mobileNavOverlay = document.getElementById('mobileNavOverlay');
-var mobileNavDrawer = document.getElementById('mobileNavDrawer');
-
-if (mobileMenuBtn) {
-  mobileMenuBtn.addEventListener('click', function () {
-    mobileNavDrawer.classList.add('open');
-    mobileNavOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
-}
-
-if (mobileNavOverlay) {
-  mobileNavOverlay.addEventListener('click', closeMobileNav);
-}
-
-function closeMobileNav() {
-  if (mobileNavDrawer) mobileNavDrawer.classList.remove('open');
-  if (mobileNavOverlay) mobileNavOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
 var FALLBACK_IMAGES = {
   Technology: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=80',
   Music: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80',
