@@ -1,7 +1,8 @@
-function Navbar(activePage = "home") {
-  const links = [
-    { label: "Home", href: "index.html", id: "home" },
-    { label: "Admin", href: "pages/admin.html", id: "admin" }
+function Navbar(activePage) {
+  var root = window.location.pathname.includes("/pages/") ? "../" : "";
+  var links = [
+    { label: "Home", href: root + "index.html", id: "home" },
+    { label: "Admin", href: root + "pages/admin.html", id: "admin" }
   ];
 
   return `

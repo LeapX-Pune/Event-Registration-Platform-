@@ -18,6 +18,15 @@ function AdminForm(event) {
         <option value="Technology" ${e.category === "Technology" ? "selected" : ""}>Technology</option>
         <option value="Music" ${e.category === "Music" ? "selected" : ""}>Music</option>
         <option value="Art" ${e.category === "Art" ? "selected" : ""}>Art</option>
+        <option value="Sports" ${e.category === "Sports" ? "selected" : ""}>Sports</option>
+        <option value="Workshop" ${e.category === "Workshop" ? "selected" : ""}>Workshop</option>
+        <option value="Festival" ${e.category === "Festival" ? "selected" : ""}>Festival</option>
+        <option value="Business" ${e.category === "Business" ? "selected" : ""}>Business</option>
+        <option value="Education" ${e.category === "Education" ? "selected" : ""}>Education</option>
+        <option value="Entertainment" ${e.category === "Entertainment" ? "selected" : ""}>Entertainment</option>
+        <option value="Food" ${e.category === "Food" ? "selected" : ""}>Food</option>
+        <option value="Health" ${e.category === "Health" ? "selected" : ""}>Health</option>
+        <option value="Community" ${e.category === "Community" ? "selected" : ""}>Community</option>
       </select>
 
       <label>Date</label>

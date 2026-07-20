@@ -66,6 +66,8 @@ const Admin = {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form));
+      data.maxAttendees = Number(data.maxAttendees);
+      delete data.id;
 
       const errors = Validator.validateEvent(data);
       document.querySelectorAll(".form-error").forEach(el => el.textContent = "");

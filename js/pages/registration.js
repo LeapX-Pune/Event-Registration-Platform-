@@ -20,7 +20,7 @@ const Registration = {
           <input type="email" id="regEmail" required>
           <button class="btn btn-primary mt-1" id="submitRegistration">Confirm Registration</button>
         </div>
-        <a href="index.html" style="color:#4361ee;display:inline-block;margin-top:1rem">&larr; Back</a>
+        <a href="../index.html" style="color:#4361ee;display:inline-block;margin-top:1rem">&larr; Back</a>
       </main>
       <div class="toast-container" id="toastContainer"></div>
     `;
@@ -32,8 +32,15 @@ const Registration = {
         Toast("Please fill in all fields.", "error");
         return;
       }
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Toast("Please enter a valid email address.", "error");
+        return;
+      }
       App.registerForEvent(event.id, name, email);
       Toast(`Welcome, ${name}! You're registered for "${event.title}".`);
+      document.getElementById("submitRegistration").disabled = true;
+      setTimeout(function() { window.location.href = "../index.html"; }, 2000);
     });
   }
 };

@@ -75,12 +75,11 @@ const Homepage = {
     const toggle = document.getElementById("chatToggle");
     const widget = document.getElementById("chatWidget");
 
-    toggle.addEventListener("click", () => {
-      const body = widget.querySelector(".chat-messages, .chat-input-area");
-      const hdr = widget.querySelector(".chat-header");
-      const all = widget.querySelectorAll(":scope > :not(.chat-header)");
-      const hidden = all[0]?.style.display === "none";
-      all.forEach(el => el.style.display = hidden ? "" : "none");
+    toggle.addEventListener("click", function() {
+      var body = widget.querySelector(".chat-messages, .chat-input-area");
+      var all = widget.querySelectorAll(":scope > :not(.chat-header)");
+      var hidden = all[0] && getComputedStyle(all[0]).display === "none";
+      all.forEach(function(el) { el.style.display = hidden ? "" : "none"; });
       toggle.textContent = hidden ? "\u00d7" : "\u002b";
     });
 
