@@ -32,7 +32,7 @@ const Registration = {
         Toast("Please fill in all fields.", "error");
         return;
       }
-      App.registerForEvent(event.id);
+      App.registerForEvent(event.id, name, email);
       Toast(`Welcome, ${name}! You're registered for "${event.title}".`);
     });
   }

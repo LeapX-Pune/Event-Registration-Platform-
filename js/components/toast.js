@@ -1,6 +1,11 @@
 function Toast(message, type = "success") {
-  const container = document.getElementById("toastContainer");
-  if (!container) return;
+  let container = document.getElementById("toastContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "toast-container";
+    container.id = "toastContainer";
+    document.body.appendChild(container);
+  }
 
   const el = document.createElement("div");
   el.className = `toast ${type}`;

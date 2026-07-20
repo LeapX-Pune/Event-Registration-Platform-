@@ -20,17 +20,24 @@ const App = {
     window.location.href = `pages/event-details.html?id=${id}`;
   },
 
-  registerForEvent(eventId) {
+  registerForEvent(eventId, name, email) {
     const event = Storage.getById(eventId);
     if (!event) return;
 
-    if (event.attendees >= event.maxAttendees) {
+    const freshEvent = Storage.getById(eventId);
+    if (Number(freshEvent.attendees || 0) >= Number(freshEvent.maxAttendees)) {
       Toast("This event is fully booked.", "error");
       return;
     }
 
-    Storage.update(eventId, { attendees: event.attendees + 1 });
-    Toast("You're registered! 🎉");
+    Storage.addRegistration({
+      eventId: event.id,
+      eventTitle: event.title,
+      name: name,
+      email: email
+    });
+
+    Storage.update(eventId, { attendees: Number(freshEvent.attendees || 0) + 1 });
   }
 };
 
