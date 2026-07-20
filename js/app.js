@@ -17,14 +17,23 @@ const App = {
   },
 
   viewDetails(id) {
-    window.location.href = `pages/event-details.html?id=${id}`;
+    var root = window.location.pathname.includes("/pages/") ? "../" : "";
+    window.location.href = root + `pages/event-details.html?id=${id}`;
   },
 
   registerForEvent(eventId, name, email) {
-    const event = Storage.getById(eventId);
+    var event = Storage.getById(eventId);
     if (!event) return;
 
-    const freshEvent = Storage.getById(eventId);
+    var existing = Storage.getRegistrations().find(
+      function(r) { return Number(r.eventId) === Number(eventId) && r.email === email; }
+    );
+    if (existing) {
+      Toast("You're already registered for this event!", "error");
+      return;
+    }
+
+    var freshEvent = Storage.getById(eventId);
     if (Number(freshEvent.attendees || 0) >= Number(freshEvent.maxAttendees)) {
       Toast("This event is fully booked.", "error");
       return;

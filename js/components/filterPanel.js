@@ -1,4 +1,4 @@
-function FilterPanel(categories, onFilter) {
+function FilterPanel(categories) {
   return `
     <div class="filter-panel">
       <select id="categoryFilter">

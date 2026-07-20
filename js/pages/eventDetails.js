@@ -17,7 +17,7 @@ const EventDetails = {
     app.innerHTML = `
       ${Navbar()}
       <main class="container" style="margin-top:2rem">
-        <a href="index.html" style="color:#4361ee">&larr; Back to Events</a>
+        <a href="../index.html" style="color:#4361ee">&larr; Back to Events</a>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem">
           <img src="${imgSrc}" alt="${Helpers.escapeHtml(event.title)}" style="width:100%;border-radius:12px;object-fit:cover;max-height:360px"
                onerror="this.src='${Helpers.placeholderImage()}'">
@@ -38,7 +38,7 @@ const EventDetails = {
     `;
 
     document.getElementById("registerBtn")?.addEventListener("click", () => {
-      App.registerForEvent(event.id);
+      window.location.href = `registration.html?id=${event.id}`;
     });
   }
 };
