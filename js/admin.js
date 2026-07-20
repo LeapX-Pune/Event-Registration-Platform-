@@ -15,18 +15,41 @@ function getAdminUser() {
 
 function checkAdminAuth() {
   var user = getAdminUser();
-  if (!user) {
+  if (!user || (user.role !== 'admin' && user.email !== 'admin')) {
     window.location.href = 'signin.html?redirect=admin.html';
     return;
   }
+  
+  // Update name
   var nameEls = document.querySelectorAll('.adm-user-name');
   nameEls.forEach(function(el) { el.textContent = user.name || user.email; });
+  
+  var topbarName = document.getElementById('admTopbarName');
+  if (topbarName) {
+    topbarName.textContent = user.name || "Admin";
+  }
+
+  // Update avatars
+  var defaultAvatarHtml = '<span class="material-symbols-outlined">person</span>';
+  var topbarAvatarHtml = user.name ? user.name.charAt(0).toUpperCase() : 'A';
+  
+  var topbarAvatar = document.getElementById('admTopbarAvatar');
+  var sidebarAvatar = document.getElementById('admSidebarAvatar');
+  
+  if (user.photo) {
+    var imgHtml = '<img src="' + user.photo + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+    if (topbarAvatar) topbarAvatar.innerHTML = imgHtml;
+    if (sidebarAvatar) sidebarAvatar.innerHTML = imgHtml;
+  } else {
+    if (topbarAvatar) topbarAvatar.innerHTML = topbarAvatarHtml;
+    if (sidebarAvatar) sidebarAvatar.innerHTML = defaultAvatarHtml;
+  }
 }
 
 function admLogout(event) {
   if (event) event.preventDefault();
   sessionStorage.removeItem('eventpulse_user');
-  window.location.href = 'signin.html';
+  window.location.href = 'index.html';
 }
 
 /* ----- Sidebar Toggle (Mobile) ----- */
@@ -581,16 +604,30 @@ function admRenderCharts() {
    Admin: Settings Persistence
    ============================================================ */
 function admLoadSettings() {
+  var user = getAdminUser();
+  if (!user) return;
+  
+  var nameEl = document.getElementById('adminName');
+  var emailEl = document.getElementById('adminEmail');
+  var passEl = document.getElementById('adminPass');
+  var photoPreview = document.getElementById('settingsAdminPhotoPreview');
+  
+  if (nameEl) nameEl.value = user.name || '';
+  if (emailEl) emailEl.value = user.email || 'admin';
+  if (passEl) passEl.value = user.password || 'admin123';
+  
+  if (photoPreview) {
+    if (user.photo) {
+      photoPreview.innerHTML = '<img src="' + user.photo + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+    } else {
+      photoPreview.innerHTML = '<span class="material-symbols-outlined" style="color:var(--primary);font-size:36px;">person</span>';
+    }
+  }
+
   var saved = localStorage.getItem('eventhub_admin_settings');
   if (saved) {
     try {
       var s = JSON.parse(saved);
-      var nameEl = document.getElementById('adminName');
-      var emailEl = document.getElementById('adminEmail');
-      var passEl = document.getElementById('adminPass');
-      if (nameEl) nameEl.value = s.displayName || 'Admin User';
-      if (emailEl) emailEl.value = s.email || 'admin@eventpulse.io';
-      if (passEl) passEl.value = s.password || '';
       var toggles = document.querySelectorAll('#adm-sec-settings input[type="checkbox"]');
       if (toggles[0]) toggles[0].checked = s.realtimeSearch !== false;
       if (toggles[1]) toggles[1].checked = s.notifEmails !== false;
@@ -599,21 +636,65 @@ function admLoadSettings() {
 }
 
 function admSaveSettings() {
+  var user = getAdminUser();
+  if (!user) return;
+  
   var nameEl = document.getElementById('adminName');
-  var emailEl = document.getElementById('adminEmail');
   var passEl = document.getElementById('adminPass');
+  var photoInput = document.getElementById('settingsAdminPhoto');
   var toggles = document.querySelectorAll('#adm-sec-settings input[type="checkbox"]');
   
-  var settings = {
-    displayName: nameEl ? nameEl.value : 'Admin User',
-    email: emailEl ? emailEl.value : 'admin@eventpulse.io',
-    password: passEl ? passEl.value : '',
-    realtimeSearch: toggles[0] ? toggles[0].checked : true,
-    notifEmails: toggles[1] ? toggles[1].checked : true
+  var newName = nameEl ? nameEl.value.trim() : user.name;
+  var newPass = passEl ? passEl.value : user.password;
+  
+  if (!newName) {
+    triggerToast('Display Name cannot be empty', 'error');
+    return;
+  }
+  
+  if (newPass !== 'admin123') {
+    triggerToast('Admin Password must be "admin123" only!', 'error');
+    return;
+  }
+  
+  var saveAndApply = function(photoBase64) {
+    var updatedPhoto = photoBase64 || user.photo;
+    
+    // Update user object
+    user.name = newName;
+    user.photo = updatedPhoto;
+    user.password = newPass;
+    
+    // Save to users list in localStorage
+    if (window.Storage) {
+      Storage.addUser(user); // Will overwrite/update the admin user
+    }
+    
+    // Save to active session
+    sessionStorage.setItem('eventpulse_user', JSON.stringify(user));
+    
+    // Update settings preferences
+    var settings = {
+      realtimeSearch: toggles[0] ? toggles[0].checked : true,
+      notifEmails: toggles[1] ? toggles[1].checked : true
+    };
+    localStorage.setItem('eventhub_admin_settings', JSON.stringify(settings));
+    
+    // Refresh header / sidebar details
+    checkAdminAuth();
+    admLoadSettings();
+    triggerToast('Admin settings successfully updated!', 'success');
   };
   
-  localStorage.setItem('eventhub_admin_settings', JSON.stringify(settings));
-  triggerToast('Admin settings successfully updated!', 'success');
+  if (photoInput && photoInput.files && photoInput.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      saveAndApply(e.target.result);
+    };
+    reader.readAsDataURL(photoInput.files[0]);
+  } else {
+    saveAndApply(null);
+  }
 }
 
 /* ============================================================

@@ -32,8 +32,8 @@
       <div id="loginForm">
         <div style="display:flex;flex-direction:column;gap:20px;">
           <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" id="loginEmail" class="form-input" placeholder="you@example.com">
+            <label class="form-label" id="loginEmailLabel">Email</label>
+            <input type="text" id="loginEmail" class="form-input" placeholder="you@example.com">
           </div>
           <div class="form-group">
             <label class="form-label">Password</label>
@@ -48,18 +48,49 @@
 
       <div id="signupForm" style="display:none;">
         <div style="display:flex;flex-direction:column;gap:20px;">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" id="signupName" class="form-input" placeholder="John Doe">
+          <div class="form-group" id="signupRoleGroup">
+            <label class="form-label">Register As</label>
+            <select id="signupRole" class="form-input" style="background:var(--surface-container-low);color:var(--on-surface);cursor:pointer;">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="partner">Partner</option>
+            </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com">
+
+          <div id="standardSignupFields" style="display:flex;flex-direction:column;gap:20px;">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="signupName" class="form-input" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" id="signupPassword" class="form-input" placeholder="Min. 6 characters">
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <input type="password" id="signupPassword" class="form-input" placeholder="Min. 6 characters">
+
+          <div id="adminSignupFields" style="display:none;flex-direction:column;gap:20px;">
+            <div class="form-group">
+              <label class="form-label">Admin User</label>
+              <input type="text" id="adminSignupUser" class="form-input" placeholder="e.g. SuperAdmin">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Admin ID</label>
+              <input type="text" id="adminSignupId" class="form-input" placeholder="Must be 'admin'">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Admin Password</label>
+              <input type="password" id="adminSignupPassword" class="form-input" placeholder="Must be 'admin123'">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Admin Photo (Optional)</label>
+              <input type="file" id="adminSignupPhoto" class="form-input" accept="image/*" style="padding:8px 12px;height:auto;">
+            </div>
           </div>
+
           <button type="button" class="btn btn-primary" id="signupBtn" style="width:100%;justify-content:center;padding:14px;">Create Account</button>
           <p class="body-md" style="text-align:center;color:var(--on-surface-variant);font-size:14px;">
             Already have an account? <a href="#" id="showLogin" style="color:var(--primary);font-weight:600;">Sign In</a>
