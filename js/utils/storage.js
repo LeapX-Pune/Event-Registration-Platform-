@@ -79,7 +79,15 @@ const Storage = {
     try { return JSON.parse(data); } catch(e) { return []; }
   },
 
-  addUser(user) {
+  async hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  },
+
+  async addUser(user) {
     const users = this.getUsers();
     const existingIdx = users.findIndex(u => u.email === user.email);
     if (existingIdx !== -1) {
@@ -93,14 +101,16 @@ const Storage = {
       return null;
     }
     user.id = Date.now();
+    user.password = await this.hashPassword(user.password);
     users.push(user);
     localStorage.setItem(this.userKey, JSON.stringify(users));
     return user;
   },
 
-  authenticate(email, password) {
+  async authenticate(email, password) {
     const users = this.getUsers();
-    return users.find(u => u.email === email && u.password === password) || null;
+    const hash = await this.hashPassword(password);
+    return users.find(u => u.email === email && u.password === hash) || null;
   },
 
   // ---- Categories ----
@@ -426,7 +436,7 @@ const Storage = {
       };
 
       // Sign In Action
-      document.getElementById("admPopupLoginBtn").onclick = function() {
+      document.getElementById("admPopupLoginBtn").onclick = async function() {
         hideError();
         var id = document.getElementById("admPopupLoginId").value.trim();
         var pass = document.getElementById("admPopupLoginPass").value;
@@ -440,7 +450,7 @@ const Storage = {
         if (id === "admin" && pass === "admin123") {
           var adminExists = Storage.getUsers().find(u => u.email === "admin");
           if (!adminExists) {
-            Storage.addUser({
+            await Storage.addUser({
               name: "Admin User",
               email: "admin",
               password: "admin123",
@@ -450,7 +460,7 @@ const Storage = {
           }
         }
 
-        var user = Storage.authenticate(id, pass);
+        var user = await Storage.authenticate(id, pass);
         if (!user || user.role !== "admin") {
           showError("Invalid Admin ID or Password.");
           return;
@@ -461,7 +471,7 @@ const Storage = {
       };
 
       // Sign Up Action
-      document.getElementById("admPopupSignupBtn").onclick = function() {
+      document.getElementById("admPopupSignupBtn").onclick = async function() {
         hideError();
         var role = popupRoleSelect ? popupRoleSelect.value : "admin";
 
@@ -484,8 +494,8 @@ const Storage = {
             return;
           }
 
-          var proceedRegisterPopup = function(photoBase64) {
-            var user = Storage.addUser({
+          var proceedRegisterPopup = async function(photoBase64) {
+            var user = await Storage.addUser({
               name: userVal,
               email: "admin",
               password: "admin123",
@@ -502,12 +512,12 @@ const Storage = {
 
           if (photoInput && photoInput.files && photoInput.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e) {
-              proceedRegisterPopup(e.target.result);
+            reader.onload = async function(e) {
+              await proceedRegisterPopup(e.target.result);
             };
             reader.readAsDataURL(photoInput.files[0]);
           } else {
-            proceedRegisterPopup(null);
+            await proceedRegisterPopup(null);
           }
         } else {
           // User / Partner signup
@@ -523,7 +533,7 @@ const Storage = {
             showError("Password must be at least 6 characters.");
             return;
           }
-          var user = Storage.addUser({ name: name, email: email, password: password, role: role });
+          var user = await Storage.addUser({ name: name, email: email, password: password, role: role });
           if (!user) {
             showError("An account with this email already exists.");
             return;

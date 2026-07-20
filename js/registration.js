@@ -44,7 +44,13 @@
       return;
     }
 
-    if (Number(currentEvent.attendees || 0) >= Number(currentEvent.maxAttendees)) {
+    var freshEvent = Storage.getById(currentEvent.id);
+    if (!freshEvent) {
+      showToast("Event no longer exists.", "error");
+      return;
+    }
+
+    if (Number(freshEvent.attendees || 0) >= Number(freshEvent.maxAttendees)) {
       showToast("This event is fully booked.", "error");
       return;
     }
@@ -58,31 +64,12 @@
       company: company
     });
 
-    Storage.update(currentEvent.id, { attendees: Number(currentEvent.attendees || 0) + 1 });
-    currentEvent.attendees++;
+    Storage.update(currentEvent.id, { attendees: Number(freshEvent.attendees || 0) + 1 });
+    currentEvent.attendees = Number(freshEvent.attendees || 0) + 1;
 
     document.getElementById("confirmDetails").textContent = name + " \u2022 " + email + " \u2022 " + phone;
     document.getElementById("confirmModal").classList.add("active");
     document.body.style.overflow = "hidden";
-  }
-
-  function showToast(message, type) {
-    var container = document.getElementById("toastContainer");
-    if (!container) {
-      container = document.createElement("div");
-      container.className = "toast-container";
-      container.id = "toastContainer";
-      document.body.appendChild(container);
-    }
-    var el = document.createElement("div");
-    el.className = "toast " + (type || "success");
-    el.textContent = message;
-    container.appendChild(el);
-    setTimeout(function() {
-      el.style.opacity = "0";
-      el.style.transition = "opacity 0.3s";
-      setTimeout(function() { el.remove(); }, 300);
-    }, 3000);
   }
 
   document.addEventListener("DOMContentLoaded", init);

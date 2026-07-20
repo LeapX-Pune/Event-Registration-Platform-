@@ -102,7 +102,7 @@
     return p.get("redirect") || "index.html";
   }
 
-  document.getElementById("loginBtn").addEventListener("click", function() {
+  document.getElementById("loginBtn").addEventListener("click", async function() {
     hideError();
     var email = document.getElementById("loginEmail").value.trim();
     var password = document.getElementById("loginPassword").value;
@@ -110,12 +110,10 @@
       showError("Please fill in all fields.");
       return;
     }
-
-    // Auto-create default admin if logging in with admin credentials and not registered
     if (email === "admin" && password === "admin123") {
       var adminExists = Storage.getUsers().find(u => u.email === "admin");
       if (!adminExists) {
-        Storage.addUser({
+        await Storage.addUser({
           name: "Admin User",
           email: "admin",
           password: "admin123",
@@ -125,7 +123,7 @@
       }
     }
 
-    var user = Storage.authenticate(email, password);
+    var user = await Storage.authenticate(email, password);
     if (!user) {
       showError("Invalid email or password. Please try again or sign up.");
       return;
@@ -134,7 +132,7 @@
     window.location.href = getRedirect();
   });
 
-  document.getElementById("signupBtn").addEventListener("click", function() {
+  document.getElementById("signupBtn").addEventListener("click", async function() {
     hideError();
     var role = signupRole ? signupRole.value : "user";
 
@@ -196,7 +194,7 @@
       showError("Password must be at least 6 characters.");
       return;
     }
-    var user = Storage.addUser({ name: name, email: email, password: password, role: role });
+    var user = await Storage.addUser({ name: name, email: email, password: password, role: role });
     if (!user) {
       showError("An account with this email already exists.");
       return;

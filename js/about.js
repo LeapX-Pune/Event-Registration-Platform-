@@ -4,21 +4,6 @@
 
 /* Theme: js/utils/theme.js | Contact: js/components/contactModal.js */
 
-var toastTimer = null;
-function showToast(message) {
-  var toast = document.getElementById('aboutToast');
-  var msgEl = document.getElementById('aboutToastMsg');
-  if (!toast || !msgEl) return;
-
-  msgEl.textContent = message;
-  toast.classList.add('active');
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() {
-    toast.classList.remove('active');
-  }, 3500);
-}
-
 /* Contact modal opened via data-open-contact / openContactModal() */
 document.addEventListener('DOMContentLoaded', function() {
   var revealElements = document.querySelectorAll('.reveal');
