@@ -335,7 +335,4 @@ function contactOrganizer() {
 
 document.addEventListener('DOMContentLoaded', function() {
   renderEventDetails();
-  var edMyEvents = document.getElementById('edMyEventsLink');
-  var session = sessionStorage.getItem('eventpulse_user');
-  if (edMyEvents && session) edMyEvents.style.display = '';
 });

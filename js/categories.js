@@ -246,8 +246,4 @@ function updateCategoryCounts(events) {
   var fromQuery = params.get('category');
   if (fromQuery) filterBy(fromQuery);
   else filterBy('all');
-
-  var catMyEvents = document.getElementById('catMyEventsLink');
-  var session = sessionStorage.getItem('eventpulse_user');
-  if (catMyEvents && session) catMyEvents.style.display = '';
 })();

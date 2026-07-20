@@ -21,8 +21,13 @@
     loginForm.style.display = "block";
     signupForm.style.display = "none";
     profileView.style.display = "none";
-    authTitle.textContent = "Sign In";
-    authSubtitle.textContent = "Welcome back to EventPulse";
+    if (getRedirect() === "admin.html") {
+      authTitle.textContent = "Admin Sign In";
+      authSubtitle.textContent = "Welcome back, Administrator";
+    } else {
+      authTitle.textContent = "Sign In";
+      authSubtitle.textContent = "Welcome back to EventPulse";
+    }
   }
 
   function showSignup() {
@@ -30,8 +35,13 @@
     loginForm.style.display = "none";
     signupForm.style.display = "block";
     profileView.style.display = "none";
-    authTitle.textContent = "Create Account";
-    authSubtitle.textContent = "Join EventPulse today";
+    if (getRedirect() === "admin.html") {
+      authTitle.textContent = "Admin Sign Up";
+      authSubtitle.textContent = "Register Admin Account";
+    } else {
+      authTitle.textContent = "Create Account";
+      authSubtitle.textContent = "Join EventPulse today";
+    }
   }
 
   function showProfile(user) {
@@ -61,6 +71,22 @@
     return null;
   }
 
+  var signupRole = document.getElementById("signupRole");
+  var standardFields = document.getElementById("standardSignupFields");
+  var adminFields = document.getElementById("adminSignupFields");
+
+  if (signupRole) {
+    signupRole.addEventListener("change", function() {
+      if (signupRole.value === "admin") {
+        standardFields.style.display = "none";
+        adminFields.style.display = "flex";
+      } else {
+        standardFields.style.display = "flex";
+        adminFields.style.display = "none";
+      }
+    });
+  }
+
   document.getElementById("showSignup").addEventListener("click", function(e) {
     e.preventDefault();
     showSignup();
@@ -84,6 +110,19 @@
       showError("Please fill in all fields.");
       return;
     }
+    if (email === "admin" && password === "admin123") {
+      var adminExists = Storage.getUsers().find(u => u.email === "admin");
+      if (!adminExists) {
+        await Storage.addUser({
+          name: "Admin User",
+          email: "admin",
+          password: "admin123",
+          role: "admin",
+          photo: null
+        });
+      }
+    }
+
     var user = await Storage.authenticate(email, password);
     if (!user) {
       showError("Invalid email or password. Please try again or sign up.");
@@ -95,6 +134,55 @@
 
   document.getElementById("signupBtn").addEventListener("click", async function() {
     hideError();
+    var role = signupRole ? signupRole.value : "user";
+
+    if (role === "admin") {
+      var adminUser = document.getElementById("adminSignupUser").value.trim();
+      var adminId = document.getElementById("adminSignupId").value.trim();
+      var adminPassword = document.getElementById("adminSignupPassword").value;
+      var photoInput = document.getElementById("adminSignupPhoto");
+
+      if (!adminUser || !adminId || !adminPassword) {
+        showError("Please fill in all Admin fields.");
+        return;
+      }
+      if (adminId !== "admin") {
+        showError("Admin ID must be 'admin' only.");
+        return;
+      }
+      if (adminPassword !== "admin123") {
+        showError("Admin Password must be 'admin123' only.");
+        return;
+      }
+
+      var proceedRegister = function(photoBase64) {
+        var user = Storage.addUser({
+          name: adminUser,
+          email: "admin",
+          password: "admin123",
+          role: "admin",
+          photo: photoBase64 || null
+        });
+        if (!user) {
+          showError("An account with this email already exists.");
+          return;
+        }
+        sessionStorage.setItem("eventpulse_user", JSON.stringify(user));
+        window.location.href = getRedirect();
+      };
+
+      if (photoInput && photoInput.files && photoInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          proceedRegister(e.target.result);
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+      } else {
+        proceedRegister(null);
+      }
+      return;
+    }
+
     var name = document.getElementById("signupName").value.trim();
     var email = document.getElementById("signupEmail").value.trim();
     var password = document.getElementById("signupPassword").value;
@@ -106,7 +194,7 @@
       showError("Password must be at least 6 characters.");
       return;
     }
-    var user = await Storage.addUser({ name: name, email: email, password: password });
+    var user = await Storage.addUser({ name: name, email: email, password: password, role: role });
     if (!user) {
       showError("An account with this email already exists.");
       return;
@@ -114,6 +202,38 @@
     sessionStorage.setItem("eventpulse_user", JSON.stringify(user));
     window.location.href = getRedirect();
   });
+
+  function initAdminView() {
+    var redirect = getRedirect();
+    if (redirect === "admin.html") {
+      var emailLabel = document.getElementById("loginEmailLabel");
+      var emailInput = document.getElementById("loginEmail");
+      if (emailLabel) emailLabel.textContent = "Admin ID";
+      if (emailInput) {
+        emailInput.placeholder = "Enter Admin ID";
+        if (emailInput.value === "") {
+          emailInput.value = "";
+        }
+      }
+      if (signupRole) {
+        signupRole.value = "admin";
+      }
+      var signupRoleGroup = document.getElementById("signupRoleGroup");
+      if (signupRoleGroup) signupRoleGroup.style.display = "none";
+      if (standardFields) standardFields.style.display = "none";
+      if (adminFields) adminFields.style.display = "flex";
+    } else {
+      // Normal signup: remove Admin role from option list
+      if (signupRole) {
+        for (var i = 0; i < signupRole.options.length; i++) {
+          if (signupRole.options[i].value === "admin") {
+            signupRole.remove(i);
+            break;
+          }
+        }
+      }
+    }
+  }
 
   document.getElementById("logoutBtn").addEventListener("click", function() {
     sessionStorage.removeItem("eventpulse_user");
@@ -123,7 +243,10 @@
     if (navSignIn) navSignIn.textContent = "Sign In";
   });
 
-  document.addEventListener("DOMContentLoaded", checkSession);
+  document.addEventListener("DOMContentLoaded", function() {
+    initAdminView();
+    checkSession();
+  });
 
   window.getCurrentUser = function() {
     var session = sessionStorage.getItem("eventpulse_user");

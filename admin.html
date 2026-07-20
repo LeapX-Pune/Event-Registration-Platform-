@@ -10,7 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet">
   <script>(function(){var t=localStorage.getItem('eventpulse_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
-  <script>(function(){if(!sessionStorage.getItem('eventpulse_user')){window.location.href='signin.html?redirect=admin.html';}})();</script>
+  <script>(function(){
+    var session = sessionStorage.getItem('eventpulse_user');
+    var isAdmin = false;
+    if (session) {
+      try {
+        var user = JSON.parse(session);
+        if (user.role === 'admin' || user.email === 'admin') {
+          isAdmin = true;
+        }
+      } catch(e){}
+    }
+    if(!isAdmin){window.location.href='signin.html?redirect=admin.html';}
+  })();</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/admin.css">
@@ -53,12 +65,12 @@
       <!-- Sidebar footer user profile and logout -->
       <div class="adm-sidebar-footer">
         <div class="adm-user-row">
-          <div class="adm-avatar">
+          <div class="adm-avatar" id="admSidebarAvatar" style="overflow:hidden;display:flex;align-items:center;justify-content:center;">
             <span class="material-symbols-outlined">person</span>
           </div>
           <div>
-            <p class="adm-user-name">Admin User</p>
-            <p class="adm-user-email">admin@eventpulse.io</p>
+            <p class="adm-user-name" id="admSidebarName">Admin User</p>
+            <p class="adm-user-email" id="admSidebarEmail">admin@eventpulse.io</p>
           </div>
         </div>
         <a href="#" onclick="admLogout(event)" class="adm-nav-item adm-logout" style="margin: 8px 0 0 0;">
@@ -100,8 +112,8 @@
 
         <div class="adm-profile-wrap" id="admProfileWrap">
           <button class="adm-profile-btn" onclick="admToggleProfile()">
-            <div class="adm-avatar" style="width:28px;height:28px;font-size:14px;">A</div>
-            <span style="font-size:13px;font-weight:600;color:var(--on-surface);" class="desktop-only">Admin</span>
+            <div class="adm-avatar" id="admTopbarAvatar" style="width:28px;height:28px;font-size:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;">A</div>
+            <span id="admTopbarName" style="font-size:13px;font-weight:600;color:var(--on-surface);" class="desktop-only">Admin</span>
             <span class="material-symbols-outlined" style="font-size:16px;" id="admProfileChevron">expand_more</span>
           </button>
           <!-- Profile Dropdown overlay -->
@@ -465,14 +477,23 @@
 
         <div class="glass-card" style="padding:32px;border-radius:var(--radius-xl);max-width:640px;">
           <h2 class="headline-md" style="font-size:20px;margin-bottom:24px;">Admin Profile</h2>
-          <form>
+          <form id="adminSettingsForm">
+            <div class="form-group" style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+              <div id="settingsAdminPhotoPreview" style="width:72px;height:72px;border-radius:50%;background:rgba(224,182,255,0.1);display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--primary);flex-shrink:0;">
+                <span class="material-symbols-outlined" style="color:var(--primary);font-size:36px;">person</span>
+              </div>
+              <div style="flex:1;">
+                <label class="form-label" style="margin-bottom:4px;">Admin Profile Photo</label>
+                <input type="file" id="settingsAdminPhoto" class="form-input" accept="image/*" style="padding:6px 12px;height:auto;font-size:13px;">
+              </div>
+            </div>
             <div class="form-group">
               <label class="form-label" for="adminName">Display Name</label>
               <input type="text" id="adminName" class="form-input" value="Admin User">
             </div>
             <div class="form-group">
-              <label class="form-label" for="adminEmail">Email Address</label>
-              <input type="email" id="adminEmail" class="form-input" value="admin@eventpulse.io">
+              <label class="form-label" for="adminEmail">Email Address (Admin ID)</label>
+              <input type="email" id="adminEmail" class="form-input" value="admin" disabled style="opacity:0.7;cursor:not-allowed;">
             </div>
             <div class="form-group">
               <label class="form-label" for="adminPass">Update Password</label>
