@@ -343,6 +343,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  document.querySelectorAll('.category-card[data-filter-category]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      filterEvents(btn.getAttribute('data-filter-category') || 'all');
+      var section = document.getElementById('recommendedSection');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
       filterEvents('all');
