@@ -26,7 +26,7 @@
           <a href="categories.html" class="nav-link">Categories</a>
           <a href="admin.html" class="nav-link">Admin</a>
           <a href="about.html" class="nav-link">About</a>
-          <a href="my-events.html" class="nav-link" id="regMyEventsLink" style="display:none;">My Events</a>
+          <a href="my-events.html" class="nav-link my-events-link" style="display:none;">My Events</a>
         </div>
       </div>
       <div class="navbar-right">
@@ -34,9 +34,45 @@
           <span class="material-symbols-outlined" style="font-size:18px;" id="themeIcon">dark_mode</span>
         </button>
         <button class="btn btn-primary elevated-shadow" id="navSignIn">Sign In</button>
+        <button class="btn-icon" id="mobileMenuBtn" style="border-radius:50%;" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
       </div>
     </div>
   </nav>
+
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+      <span class="navbar-brand">EventPulse</span>
+      <button class="btn-icon" onclick="closeMobileNav()" style="border-radius:50%;" aria-label="Close menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">home</span>Home
+      </a>
+      <a href="event-details.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">event</span>Events
+      </a>
+      <a href="categories.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">category</span>Categories
+      </a>
+      <a href="admin.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span>Admin
+      </a>
+      <a href="about.html" class="mobile-nav-link">
+        <span class="material-symbols-outlined">info</span>About
+      </a>
+      <a href="my-events.html" class="mobile-nav-link" id="mobileMyEvents" style="display:none;">
+        <span class="material-symbols-outlined">event</span>My Events
+      </a>
+    </nav>
+    <div style="padding:16px;border-top:1px solid var(--border-subtle);">
+      <button class="btn btn-primary" style="width:100%;justify-content:center;">Sign In</button>
+    </div>
+  </div>
 
   <main style="min-height:100vh;padding:60px 0 80px;">
     <div class="container">
@@ -143,6 +179,8 @@
   <script src="js/data/events.js"></script>
   <script src="js/utils/storage.js"></script>
   <script src="js/utils/helpers.js"></script>
+  <script src="js/utils/authNav.js"></script>
+  <script src="js/utils/mobileNav.js"></script>
   <script src="js/registration.js"></script>
 </body>
 </html>

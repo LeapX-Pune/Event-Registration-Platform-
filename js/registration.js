@@ -26,14 +26,6 @@
       } catch(e) {}
     }
 
-    var navSignIn = document.getElementById("navSignIn");
-    if (navSignIn && session) {
-      try {
-        var user = JSON.parse(session);
-        navSignIn.textContent = user.name || user.email;
-        navSignIn.onclick = function() { window.location.href = "signin.html"; };
-      } catch(e) {}
-    }
   }
 
   function handleRegistration() {
@@ -93,12 +85,7 @@
     }, 3000);
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    init();
-    var regMyEvents = document.getElementById('regMyEventsLink');
-    var session = sessionStorage.getItem('eventpulse_user');
-    if (regMyEvents && session) regMyEvents.style.display = '';
-  });
+  document.addEventListener("DOMContentLoaded", init);
 })();
 
 function closeConfirmModal(e) {
