@@ -9,7 +9,7 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 50,
     description: "Hands-on frontend workshop covering modern frameworks and tools.",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80"
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 100,
     description: "An evening of live jazz performances by local artists.",
-    image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80"
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 80,
     description: "Showcasing emerging artists and modern design trends.",
-    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&q=80"
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 40,
     description: "Intro to machine learning and AI fundamentals.",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1531746790095-e5cb1571ea1f?w=400&q=80"
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 200,
     description: "Outdoor music festival featuring multiple bands.",
-    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&q=80"
   },
   {
     id: 6,
@@ -69,6 +69,6 @@ const DEFAULT_EVENTS = [
     attendees: 0,
     maxAttendees: 30,
     description: "Guided photography walk through scenic routes.",
-    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&q=80"
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80"
   }
 ];
