@@ -1,8 +1,8 @@
-(function() {
+(function () {
   function updateNavbar() {
     var session = sessionStorage.getItem('eventpulse_user');
     var navSignIn = document.getElementById('navSignIn');
-    var myEventsLinks = document.querySelectorAll('.my-events-link');
+    var myEventsLinks = document.querySelectorAll('.my-events-link, #regMyEventsLink, #catMyEventsLink, #edMyEventsLink, [href="my-events.html"].nav-link');
     var mobileMyEvents = document.getElementById('mobileMyEvents');
 
     if (session) {
@@ -12,17 +12,17 @@
           navSignIn.textContent = user.name || user.email;
           navSignIn.onclick = function () { window.location.href = 'signin.html'; };
         }
-        myEventsLinks.forEach(function(el) { el.style.display = ''; });
+        myEventsLinks.forEach(function (el) { el.style.display = ''; });
         if (mobileMyEvents) mobileMyEvents.style.display = '';
         return;
-      } catch(e) {}
+      } catch (e) {}
     }
 
     if (navSignIn) {
       navSignIn.textContent = 'Sign In';
       navSignIn.onclick = function () { window.location.href = 'signin.html'; };
     }
-    myEventsLinks.forEach(function(el) { el.style.display = 'none'; });
+    myEventsLinks.forEach(function (el) { el.style.display = 'none'; });
     if (mobileMyEvents) mobileMyEvents.style.display = 'none';
   }
 

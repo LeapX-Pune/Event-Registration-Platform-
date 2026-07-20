@@ -74,3 +74,20 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
+function closeConfirmModal(e) {
+  if (e) e.stopPropagation();
+  var modal = document.getElementById("confirmModal");
+  if (modal) modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    var modal = document.getElementById("confirmModal");
+    if (modal && modal.classList.contains("active")) {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  }
+});

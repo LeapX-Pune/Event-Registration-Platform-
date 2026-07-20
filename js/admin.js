@@ -682,8 +682,8 @@ function admRemoveRegistration(regId) {
     if (event) {
       Storage.update(reg.eventId, { attendees: Math.max(0, (event.attendees || 0) - 1) });
     }
+    regs = regs.filter(function(r) { return Number(r.id) !== Number(regId); });
   }
-  regs = regs.filter(function(r) { return Number(r.id) !== Number(regId); });
   localStorage.setItem(Storage.regKey, JSON.stringify(regs));
   triggerToast('Registration removed', 'info');
   admRenderRegistrations();
